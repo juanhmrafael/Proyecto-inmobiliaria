@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
 
+app_name = 'inmuebles'
 urlpatterns = [
-    path('', views.inmuebles, name='inmuebles'),
+    path('', views.inmuebles, name='home'),
     path('en-paises/', views.get_paises, name='get_paises'),
     path('en-paises/<str:paises_seleccionados>',
          views.get_estados, name='get_estados'),

@@ -73,16 +73,13 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="{% block active_inicio %} {% endblock %}" href="/">Inicio</a></li>
-                    <li><a class="{% block active_nosotros %} {% endblock %}" href="/nosotros">Acerca de Nosotros</a>
-                    </li>
-                    <li><a class="{% block active_servicios %} {% endblock %}" href="/servicios">Servicios</a></li>
-                    <li><a class="{% block active_agentes %} {% endblock %}" href="/agentes">Nuestros Agentes</a></li>
-                    <li><a class="{% block active_inmuebles %} {% endblock %}" href="/inmuebles">Buscar inmueble</a>
-                    </li>
-                    <li><a class="{% block active_contacto %} {% endblock %}" href="/contacto">Contacto</a></li>
-                    <li><a class="{% block active_acceder %} {% endblock %}" href="/acceso">Acceder o Registrarse</a>
-                    </li>
+                    <li><a class="{% block active_inicio %} {% endblock %}" href="{% url 'inicio:home' %}">Inicio</a></li>
+                    <li><a class="{% block active_nosotros %} {% endblock %}" href="{% url 'nosotros:home' %}">Acerca de Nosotros</a></li>
+                    <li><a class="{% block active_servicios %} {% endblock %}" href="{% url 'servicios:home' %}">Servicios</a></li>
+                    <li><a class="{% block active_agentes %} {% endblock %}" href="{% url 'agentes:home' %}">Nuestros Agentes</a></li>
+                    <li><a class="{% block active_inmuebles %} {% endblock %}" href="{% url 'inmuebles:home' %}">Buscar inmueble</a></li>
+                    <li><a class="{% block active_contacto %} {% endblock %}" href="{% url 'contacto:home' %}">Contacto</a></li>
+                    <li><a class="{% block active_acceder %} {% endblock %}" href="{% url 'acceso:home' %}">Acceder o Registrarse</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -119,24 +116,24 @@
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4>Enlaces Útiles</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/">INICIO</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/nosotros">ACERCA DE NOSOTROS</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/servicios">SERVICIOS</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/agentes">NUESTROS AGENTES</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">BUSCAR INMUEBLE</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/contacto">CONTACTO</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'inicio:home' %}">Inicio</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'nosotros:home' %}">Acerca de Nosotros</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'servicios:home' %}">Servicios</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'agentes:home' %}">Nuestros Agentes</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'inmuebles:home' %}">Buscar inmueble</a></li>
+                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'contacto:home' %}">Contacto</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Inmuebles por destino</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">VIVIENDAS</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">LOCALES COMERCIALES</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">OFICINAS</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">INDUSTRIAS</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">INSTITUCIONES</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="/inmuebles">TERRENOS</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">VIVIENDAS</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">LOCALES COMERCIALES</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">OFICINAS</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">INDUSTRIAS</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">INSTITUCIONES</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{% url 'inmuebles:home' %}">TERRENOS</a></li>
                         </ul>
                     </div>
 

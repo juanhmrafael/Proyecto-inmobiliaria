@@ -4,11 +4,11 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('inicio.urls')),
-    path('contacto/', include('contacto.urls')),
-    path('acceso/', include('acceso.urls')),
-    path('nosotros/', include('nosotros.urls')),
-    path('servicios/', include('servicios.urls')),
-    path('agentes/', include('agentes.urls')),
-    path('inmuebles/', include('inmuebles.urls')),
+    path('', include('inicio.urls', namespace='inicio')),
+    path('contacto/', include('contacto.urls', namespace='contacto')),
+    path('acceso/', include('acceso.urls', namespace='acceso')),
+    path('nosotros/', include('nosotros.urls', namespace='nosotros')),
+    path('servicios/', include('servicios.urls', namespace='servicios')),
+    path('agentes/', include('agentes.urls', namespace='agentes')),
+    path('inmuebles/', include('inmuebles.urls', namespace='inmuebles')),
 ]
