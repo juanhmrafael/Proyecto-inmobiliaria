@@ -1,0 +1,125 @@
+/*--------------------------------------------------------------
+# Acerca de Nosotros
+--------------------------------------------------------------*/
+.acerca-nosotros .content {
+  padding: 30px 0;
+}
+
+.acerca-nosotros .content h3 {
+  font-weight: 700;
+  font-size: 34px;
+}
+
+.acerca-nosotros .content p {
+  margin-bottom: 0;
+}
+
+.acerca-nosotros .content .icon-box {
+  margin-top: 25px;
+}
+
+.acerca-nosotros .content .icon-box h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px 0 10px 60px;
+}
+
+.acerca-nosotros .content .icon-box i {
+  font-size: 48px;
+  float: left;
+  color: #3886c1;
+}
+
+.acerca-nosotros .content .icon-box p {
+  font-size: 15px;
+  color: #90847f;
+  margin-left: 60px;
+}
+
+.acerca-nosotros .image {
+  background: url("../img/about.jpg") center center no-repeat;
+  background-size: cover;
+  min-height: 400px;
+}
+
+@media (max-width: 991px) {
+  .acerca-nosotros .image {
+    text-align: center;
+  }
+
+  .acerca-nosotros .image img {
+    max-width: 80%;
+  }
+}
+
+@media (max-width: 667px) {
+  .acerca-nosotros .image img {
+    max-width: 100%;
+  }
+}
+
+.acerca-nosotros h3 {
+  color: #008cba;
+  margin-bottom: 40px;
+  font-weight: bold;
+}
+
+.acerca-nosotros .accordion-item {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.acerca-nosotros .accordion-button {
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.acerca-nosotros .accordion-button:hover {
+  background-color: #f3f4f6;
+}
+
+.acerca-nosotros .accordion-button.collapsed {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  /* Añade una línea para separar los items */
+}
+
+.acerca-nosotros .accordion-body {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+}
+
+.acerca-nosotros .accordion-body.show {
+  display: block;
+}
+
+.acerca-nosotros .separator {
+  border-top: 2px solid #008cba;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 50%;
+}
+
+.acerca-nosotros .separator-vertical {
+  border: 1px solid #008cba;
+  border-radius: 50%;
+  /* Ajusta el color del separador */
+  height: 200px;
+  /* Ajusta la altura del separador */
+
+}
+
+@media (max-width: 992px) {
+  .acerca-nosotros .separator-vertical {
+      display: none;
+  }
+}

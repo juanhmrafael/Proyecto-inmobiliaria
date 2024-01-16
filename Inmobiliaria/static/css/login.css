@@ -1,0 +1,158 @@
+.warning {
+	padding: 20px;
+	background-color: #FF6B35;
+	color: white;
+	margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+	color: black;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+	background: #3886c1;
+	position: relative;
+	overflow: hidden;
+	flex-direction: column; /* Alinea los elementos en columna */
+}
+
+.main {
+	width: 350px;
+	height: 450px;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+	transition: height 0.5s ease;
+	/* Agrega una transición suave en la altura */
+}
+
+.main.small {
+	height: 700px;
+	overflow: hidden;
+}
+
+#chk {
+	display: none;
+}
+
+.login {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+label {
+	color: #fff;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 60px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+
+input {
+	width: 60%;
+	height: 20px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 12px;
+	border: none;
+	outline: none;
+	border-radius: 10px;
+	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+	/* Sombra suave */
+}
+
+input:focus {
+	outline: none;
+	box-shadow: 0px 0px 8px #1A659E;
+	/* Sombra con tono cósmico */
+}
+
+.login input:focus {
+	outline: none;
+	box-shadow: 0px 0px 8px #68B3D1;
+	/* Sombra con tono cósmico */
+}
+
+button {
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #68B3D1;
+	transition: background 0.3s ease, transform 0.2s ease;
+	/* Animaciones */
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	/* Sombra suave */
+
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 20px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+button:hover {
+	color: #68B3D1;
+	background: #fff;
+	/* Gradiente rojo al pasar el cursor */
+	transform: scale(1.05);
+	/* Aumentar ligeramente el tamaño */
+	box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+	/* Sombra más pronunciada */
+}
+
+.signup {
+	height: 620px;
+	background: #f5f5f5;
+	border-radius: 70% / 10%;
+	transform: translateY(-180px);
+	transition: .8s ease-in-out;
+}
+
+.signup label {
+	color: #3886c1;
+	transform: scale(.6);
+}
+
+#chk:checked~.signup {
+	transform: translateY(-700px);
+}
+
+#chk:checked~.signup label {
+	transform: scale(1);
+}
+
+#chk:checked~.login label {
+	transform: scale(.6);
+}

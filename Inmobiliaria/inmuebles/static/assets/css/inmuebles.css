@@ -1,0 +1,339 @@
+@media (min-width: 992px) and (max-width: 1290px){
+    .col-lg-9{
+        width: 65%;
+    }
+
+    .col-lg-3{
+        width: 35%;
+    }
+}
+.btn-primary {
+    color: #fff;
+    background-color: #3886c1;
+    border-color: #3886c1;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #28affd;
+    border-color: #28affd;
+}
+
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
+    color: #fff;
+    background-color: #28affd;
+    border-color: #28affd;
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(38, 65, 101, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(38, 65, 101, 0.5);
+}
+
+.btn-check:checked+.btn-primary,
+.btn-check:active+.btn-primary,
+.btn-primary:active,
+.btn-primary.active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #28affd;
+    border-color: #001838;
+}
+
+.btn-check:checked+.btn-primary:focus,
+.btn-check:active+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+    -webkit-box-shadow: 0 0 0 0.25rem rgba(38, 65, 101, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(38, 65, 101, 0.5);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+    color: #fff;
+    background-color: #3886c1;
+    border-color: #3886c1;
+}
+
+.inmuebles .row .btn-selec {
+    background-color: #3886c1;
+    color: #fff;
+}
+
+.inmuebles #paises, #estados, #municipios {
+    padding: 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.inmuebles .row .form-check {
+    padding: 5px;
+}
+
+.inmuebles .row .form-check-input {
+    border-radius: 50%;
+}
+
+.inmuebles .row .form-check-input:checked {
+    background-color: #3886c1;
+    border-color: #3886c1;
+
+}
+
+/*--------------------------------------------------------------
+# inmuebles
+--------------------------------------------------------------*/
+.inmuebles #inmuebles-flters {
+    padding: 0;
+    margin: 0 auto 50px auto;
+    list-style: none;
+    text-align: center;
+}
+
+.inmuebles #inmuebles-flters li {
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 20px 10px 20px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #43484d;
+    transition: all 0.3s;
+    border-radius: 50px;
+}
+
+.inmuebles #inmuebles-flters li:hover,
+.inmuebles #inmuebles-flters li.filter-active {
+    color: #fff;
+    background: #3886c1;
+}
+
+.inmuebles #inmuebles-flters li:last-child {
+    margin-right: 0;
+}
+
+.inmuebles .inmuebles-item {
+    margin-bottom: 30px;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info {
+    opacity: 0;
+    position: absolute;
+    left: 30px;
+    right: 30px;
+    bottom: 0;
+    z-index: 3;
+    transition: all ease-in-out 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info h4 {
+    font-size: 18px;
+    color: #fff;
+    font-weight: 600;
+    color: #20252b;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info p {
+    color: #4c5565;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info .preview-link,
+.inmuebles .inmuebles-item .inmuebles-info .details-link {
+    position: absolute;
+    right: 40px;
+    font-size: 24px;
+    top: calc(50% - 18px);
+    color: #364148;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info .preview-link:hover,
+.inmuebles .inmuebles-item .inmuebles-info .details-link:hover {
+    color: #3886c1;
+}
+
+.inmuebles .inmuebles-item .inmuebles-info .details-link {
+    right: 10px;
+}
+
+.inmuebles .inmuebles-item .inmuebles-links {
+    opacity: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 3;
+    position: absolute;
+    transition: all ease-in-out 0.3s;
+}
+
+.inmuebles .inmuebles-item .inmuebles-links a {
+    color: #fff;
+    margin: 0 2px;
+    font-size: 28px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.inmuebles .inmuebles-item .inmuebles-links a:hover {
+    color: #28affd;
+}
+
+.inmuebles .inmuebles-item:hover .inmuebles-info {
+    opacity: 1;
+    bottom: 20px;
+}
+
+
+/*--------------------------------------------------------------
+# inmuebles
+--------------------------------------------------------------*/
+.inmuebles {
+    padding: 40px 0px 0px 0;
+}
+
+.inmuebles .inmuebles-pagination {
+    color: #4c5865;
+}
+
+.inmuebles .inmuebles-pagination ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.inmuebles .inmuebles-pagination li {
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.inmuebles .inmuebles-pagination li a {
+    color: #20262b;
+    padding: 7px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inmuebles .inmuebles-pagination li.active,
+.inmuebles .inmuebles-pagination li:hover {
+    background: #3886c1;
+}
+
+.inmuebles .inmuebles-pagination li.active a,
+.inmuebles .inmuebles-pagination li:hover a {
+    color: #fff;
+}
+
+.inmuebles .sidebar {
+    padding: 30px;
+    margin: 0 20px 60px 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.inmuebles .sidebar .sidebar-title {
+    font-size: 25px;
+    font-weight: 700;
+    padding: 0 0 0 0;
+    margin: 0 0 15px 0;
+    color: #20262b;
+    position: relative;
+}
+
+.inmuebles .sidebar .sidebar-item {
+    margin-bottom: 30px;
+}
+
+.inmuebles .sidebar .row {
+    margin-bottom: 15px;
+    row-gap: 5px;
+}
+
+.inmuebles .sidebar .btn-check:checked+.btn {
+    background-color: #3886c1;
+    color: #fff;
+}
+
+.inmuebles .sidebar .btn-outline-primary {
+    --bs-btn-border-color: #3886c1;
+    color: #3886c1;
+}
+
+.inmuebles .sidebar .search-form form button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    padding: 0 15px;
+    margin: 0px;
+    background: #3886c1;
+    color: #fff;
+    transition: 0.3s;
+    border-radius: 0 4px 4px 0;
+    line-height: 0;
+}
+
+.inmuebles .sidebar .search-form form button:hover {
+    background: #28affd;
+}
+
+.property-item.mb-30 {
+    margin-bottom: 30px;
+}
+
+.property-item .img {
+    position: relative;
+    z-index: 1;
+}
+
+.property-item .property-content {
+    background: #fff;
+    padding: 30px;
+    font-size: 13px;
+    position: relative;
+    width: 100%;
+    margin-top: -100px;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.05);
+    z-index: 2;
+}
+
+.property-item .property-content .price,
+.property-item .property-content .city {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.property-item .property-content .price {
+    color: #35a448;
+}
+
+.property-item .property-content .price span {
+    position: relative;
+    padding-bottom: 4px;
+    display: inline-block;
+}
+
+.property-item .property-content .price span:after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: #35a448;
+}
+
+.property-item .property-content .specs {
+    font-size: 18px;
+}
+
+.property-item .property-content .specs .caption {
+    font-size: 13px;
+}

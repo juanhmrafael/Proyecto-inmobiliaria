@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block active_nosotros %}active{% endblock %}
+
+{% load static %}
+
+{% block css %}
+<link href="{% static 'assets/css/estilo-nosotros.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Acerca de Nosotros</h2>
+            <ol>
+                <li><a href="/">Inicio</a></li>
+                <li>Acerca de Nosotros</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
+
+<section id="acerca-nosotros" class="acerca-nosotros">
+    <div class="container">
+
+        <div class="row no-gutters">
+            <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start"
+                data-aos="fade-right"></div>
+            <div class="col-xl-7 ps-0 ps-lg-5 pe-lg-1 d-flex align-items-stretch">
+                <div class="content d-flex flex-column justify-content-center">
+                    <h3 data-aos="fade-up" class="text-center">¡Bienvenidos a la Revolución Inmobiliaria en Venezuela
+                        con Destino Punta!</h3>
+                    <p data-aos="fade-up" style="text-align: justify;">
+                        En Destino Punta, somos la brújula que guía los sueños de hogar en Venezuela. Con más de dos
+                        décadas liderando el mercado inmobiliario nacional, hemos transformado la forma en que se
+                        construyen historias de vida a través de los hogares.
+                    </p>
+
+                    <div class="row">
+                        <div class="col-md-12 icon-box" data-aos="fade-up">
+                            <i class='bx bxl-microsoft-teams'></i>
+                            <h4>Nuestro Legado</h4>
+                            <p style="text-align: justify;">Nacimos en la esencia del cambio, trayendo a Venezuela una
+                                marca inmobiliaria local e
+                                innovadora. Durante más de 21 años, hemos marcado pauta en el mercado nacional,
+                                conectando corazones con hogares que respiran sueños y realizaciones.</p>
+                        </div>
+                        <div class="col-md-12 icon-box" data-aos="fade-up" data-aos-delay="100">
+                            <i class='bx bxl-redux'></i>
+                            <h4>El Poder de la Red Destino Punta</h4>
+                            <p style="text-align: justify;">Somos mucho más que una empresa; somos una red cohesionada
+                                que fusiona lo local con lo
+                                global. Gracias al respaldo y estructura de Destino Punta, hemos revolucionado la
+                                experiencia inmobiliaria en Venezuela. Nuestra red independiente pero unida, ofrece una
+                                atención personalizada y profesional que supera las expectativas de nuestros clientes.
+                            </p>
+                        </div>
+                        <div class="col-md-12 icon-box" data-aos="fade-up" data-aos-delay="200">
+                            <i class='bx bxs-book-open'></i>
+                            <h4>Una Historia, Mil Sueños</h4>
+                            <p style="text-align: justify;">Desde nuestros inicios en Venezuela en el 2000, hemos sido
+                                artífices de innumerables
+                                historias de éxito, convirtiendo sueños en hogares. Con más de 90 oficinas
+                                estratégicamente ubicadas en todo el país, hemos impactado vidas y comunidades, llevando
+                                la excelencia en el servicio a cada rincón de Venezuela.</p>
+                        </div>
+                        <div class="col-md-12 icon-box" data-aos="fade-up" data-aos-delay="300">
+                            <i class='bx bxs-detail'></i>
+                            <h4>Nuestro Propósito</h4>
+                            <p style="text-align: justify;">En Destino Punta, nuestro propósito es claro: transformar la
+                                experiencia inmobiliaria.
+                                Trabajamos incansablemente para apoyar a nuestros colaboradores en el éxito de sus
+                                negocios y clientes, expandiendo así nuestra marca y dejando una huella perdurable en la
+                                historia del país.</p>
+                        </div>
+                    </div>
+
+
+                </div><!-- End .content-->
+            </div>
+        </div>
+    </div>
+
+    <!-- Separador -->
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-10 text-center">
+            <hr class="separator"> <!-- Aplica la clase separadora -->
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="content d-flex flex-column justify-content-center">
+
+                <h3 data-aos="fade-up" class="text-center">Valores que nos Distinguen</h3>
+
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="accordion" id="valoresAcordeon">
+                            <!-- Valor 1 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                                        Pasión por el Rendimiento
+                                    </button>
+                                </h2>
+                                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1"
+                                    data-bs-parent="#valoresAcordeon">
+                                    <div class="accordion-body">
+                                        Nos movemos con pasión y determinación hacia la excelencia en cada interacción y
+                                        transacción.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Valor 2 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                        Resultados Medibles
+                                    </button>
+                                </h2>
+                                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2"
+                                    data-bs-parent="#valoresAcordeon">
+                                    <div class="accordion-body">
+                                        Nos comprometemos con resultados tangibles, medibles y exitosos, tanto para
+                                        nuestros
+                                        clientes como para nuestra red de colaboradores.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Valor 3 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                        Comunicación Transparente
+                                    </button>
+                                </h2>
+                                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3"
+                                    data-bs-parent="#valoresAcordeon">
+                                    <div class="accordion-body">
+                                        La comunicación es nuestra fortaleza; nos esforzamos por ser claros,
+                                        transparentes y
+                                        accesibles en cada paso del proceso.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col">
+            <p class="text-center">En Destino Punta, creamos un viaje inolvidable hacia la realización de los sueños
+                inmobiliarios en Venezuela. ¡Bienvenidos a una nueva era de oportunidades y hogares donde los sueños se
+                hacen realidad!</p>
+        </div>
+
+    </div>
+
+
+    <!-- Separador -->
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-10 text-center">
+            <hr class="separator"> <!-- Aplica la clase separadora -->
+        </div>
+    </div>
+    <div class="container">
+
+        <!-- Misión y Visión -->
+        <div class="row">
+            <div class="col-md-12 ps-0 ps-3 pe-3 align-items-stretch d-lg-flex ">
+                <div class="col-lg-5 col-12"> <!-- Esta columna ocupará todo el ancho en pantallas pequeñas -->
+                    <h3 data-aos="fade-up" class="text-center">Misión</h3>
+                    <p data-aos="fade-up" style="text-align: justify;">
+                        En Destino Punta, nuestra misión es trascender la búsqueda de propiedades para convertirla en la
+                        creación de hogares llenos de historias. Nos comprometemos a ser el catalizador que transforma
+                        tus
+                        sueños inmobiliarios en la realidad de un hogar cálido y acogedor en Venezuela. Nuestra pasión
+                        es
+                        brindar un servicio excepcional, guiándote hacia el destino perfecto para tu vida.
+                    </p>
+                </div>
+
+                <div class="col-sm-0 col-lg-2 d-flex align-items-center justify-content-center">
+                    <div class="separator-vertical"></div>
+                </div>
+
+                <div class="col-lg-5 col-12"> <!-- Esta columna ocupará todo el ancho en pantallas pequeñas -->
+                    <h3 data-aos="fade-up" class="text-center">Visión</h3>
+                    <p data-aos="fade-up" style="text-align: justify;">
+                        "Nos visualizamos como el faro que ilumina el camino hacia hogares felices y realizados en
+                        Venezuela. Buscamos ser reconocidos como la fuerza que no solo conecta propiedades con personas,
+                        sino que construye puentes hacia la felicidad y la plenitud en cada familia que confía en
+                        nosotros. Nuestra visión es ser el punto de partida de cada historia de vida, el inicio de un
+                        emocionante viaje hacia un hogar lleno de significado."
+                    </p>
+                </div>
+            </div>
+
+        </div>
+</section>
+{% endblock %}

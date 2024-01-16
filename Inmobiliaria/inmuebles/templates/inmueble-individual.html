@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block active_inmuebles %}active{% endblock %}
+
+{% load static %}
+
+
+{% block css %}
+<link href="{% static 'assets/css/individual_inmueble.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<!-- ======= inmuebles Details Section ======= -->
+<section id="inmuebles-details" class="inmuebles-details">
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-8">
+                <div class="inmuebles-info">
+                    <h3 class="text-center">Fotos del Inmueble</h3>
+                    <div class="inmuebles-details-slider swiper">
+                        <div class="swiper-wrapper align-items-center">
+
+                            <div class="swiper-slide">
+                                <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="">
+                            </div>
+
+                            <div class="swiper-slide">
+                                <img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="">
+                            </div>
+
+                            <div class="swiper-slide">
+                                <img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="">
+                            </div>
+
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                    <div class="Informacion-inmueble" style="margin: 30px;">
+                        <h3 class="text-center">Información del inmueble</h3>
+
+                        <ul class="text-center ">
+                            <li><strong>Tipo de inmueble</strong>: Apartamento</li>
+                            <li><strong>Transacción</strong>: Alquiler</li>
+                        </ul>
+
+                        <ul class="text-center">
+                            <li class="bx bxs-bed me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
+                                <strong>Habitaciones
+                                </strong>: 3
+                            </li>
+                            <li class="bx bxs-car-garage me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
+                                <strong>Estacionamientos </strong>: 3
+                            </li>
+                            <li class="bx bxs-bath me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
+                                <strong>Baños
+                                </strong>: 2
+                            </li>
+                            <li class="bx bxs-building-house" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
+                                <strong>Metros
+                                    cuadrados </strong>: 100 m²
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 style="margin: 30px;">Características adicionales</h3>
+                    <div class="Caracteristicas" style="display: flex;justify-content: center;">
+
+                        <div class="tablas col-9">
+                            <table class="table">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th colspan="2">Servicios</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr>
+                                        <th scope="row">Agua</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gas natural</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Aire acondicionado</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ascensor</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Seguridad</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th colspan="2">Ambientes</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr>
+                                        <th scope="row">Armarios</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Comedor</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Estar</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cocina</th>
+                                        <td>Sí</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="inmuebles-description" style="margin: 30px;">
+                        <h2>Descripción</h2>
+                        <p style="text-align: justify;">
+                            Apartamento de 3 habitaciones y 2 baños ubicado en el centro de la ciudad. La vivienda tiene
+                            una
+                            superficie de 100 m² y cuenta con una amplia terraza con vistas a la ciudad. El apartamento
+                            está
+                            equipado con aire acondicionado, calefacción central, cocina equipada y armarios empotrados.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="inmuebles-info">
+                    <h3 class="text-center">Código: 26139</h3>
+                    <ul>
+                        <li><strong>Precio:</strong>
+                            <div class="price mb-2 text-center"><span>$1.291,00</span></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="inmuebles-info">
+                    <h3 class="text-center">Asesor Inmobiliario</h3>
+
+                    <div class="container team">
+                        <div class="row">
+                            <div class="col-12 d-flex align-items-stretch">
+                                <div class="member" data-aos="fade-up">
+                                    <div class="member-img">
+                                        <img src="{% static 'assets/img/team/team-1.jpg' %}" class="img-fluid" alt="">
+                                        <div class="social">
+                                            <a href=""><i class="bi bi-twitter"></i></a>
+                                            <a href=""><i class="bi bi-facebook"></i></a>
+                                            <a href=""><i class="bi bi-instagram"></i></a>
+                                            <a href=""><i class="bi bi-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="member-info">
+                                        <h4>Walter White</h4>
+                                        <i class='bx bxs-phone text-center'> +58 424-0000000</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-8 ">
+                <div class="inmuebles-info">
+                    <h3 class="text-center">Mapa</h3>
+                    <div class="map-section">
+                        <iframe style="border:0; width: 100%; height: 350px;"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                            frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="inmuebles-info">
+                    <h3 class="text-center">Ubicación</h3>
+                    <ul>
+                        <li><strong>País</strong>: Venezuela</li>
+                        <li><strong>Estado</strong>: Lara</li>
+                        <li><strong>Ciudad</strong>: Barquisimeto</li>
+                        <li><strong>Urbanización</strong>: Los Crepúsculos</li>
+                        <li><strong>Dirección</strong>: Avenida 3, Los Crepúsculos, Barquisimeto, Iribarren, Lara, 3023,
+                            VEN
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End inmuebles Details Section -->
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'assets/js/inmuebles.js' %}"></script>
+{% endblock %}
