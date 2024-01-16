@@ -12,6 +12,9 @@ from inmuebles.models import Pais, Estado, Municipio
 import json
 # Create your views here.
 
+from django.views.generic import TemplateView#Para trabajar con vistas en función de clases 
+
+class InmueblesView(TemplateView):
 
 def get_paises(request):  # Devuelve diccionario de paises
     data = {'message': "Not Found"}
@@ -71,7 +74,7 @@ def get_municipios(request, paises_seleccionados: str, estados_seleccionados: st
 
 
 def inmuebles(request):
-    return render(request, 'inmuebles.html')
+    return render(request, 'base_inmuebles.html')
 
 
 def inmueble_individual(request):
