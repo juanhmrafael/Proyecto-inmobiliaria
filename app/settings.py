@@ -1,18 +1,23 @@
 import os
 from pathlib import Path
 
+# ↓Para proteger datos↓
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bya7po&xmw)&95s#%9!23(b^hkr_rfeh#lh!_y*=+_2t)qenyc'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -26,6 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Agregamos las aps que hemos creado
+    'app',
     'contacto',
     'inicio',
     'acceso',
@@ -54,7 +62,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.csrf',#Agregada para Protección en el sitio web
+                # Agregada para Protección en el sitio web
+                'django.template.context_processors.csrf',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -85,7 +94,6 @@ DATABASES = {
 }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -108,10 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'es'#Cambias a es para ponerlo a español los mensajes en los formularios
+LANGUAGE_CODE = 'es'  # Cambias a es para ponerlo a español los mensajes en los formularios
 
 LANGUAGE = [
-    ('es', 'Español'),#Agregamos
+    ('es', 'Español'),  # Agregamos
     ('en', 'Inglés')
 ]
 
@@ -135,10 +143,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#mailtrap -> Configuración para el envío de correo. Ir a la página de mailtrap y crear cuenta y copiar la configuración y pegar
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '151ff8b47a9fce'
-EMAIL_HOST_PASSWORD = '72aa53bb29b8aa'
-EMAIL_PORT = '2525'
-
-AJAX_ENABLED = True
+# mailtrap -> Configuración para el envío de correo. Ir a la página de mailtrap y crear cuenta y copiar la configuración y pegar
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
