@@ -1,16 +1,12 @@
-const listarEstados = async (selectedPais) => {
+const listarEstados = async (data) => {
     try {
-        const response = await fetch(`./en-paises/${selectedPais}`);
-
-        const data = await response.json();
-
-        if (data.message === "Success") {
+        if (data.length > 0) {
 
             btnMostrarEstados.querySelector('span').textContent = 'Seleccionar Estado';
 
             let opciones = ``;
 
-            data.estados.forEach(estado => {
+            data.forEach(estado => {
                 opciones += `
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="estado-${estado.id}" name="estado"
@@ -30,18 +26,15 @@ const listarEstados = async (selectedPais) => {
 }
 
 
-const listarMunicipios = async (selectedPais, selectedEstados) => {
+const listarMunicipios = async (data) => {
     try {
-        const response = await fetch(`./en-paises/${selectedPais}/en-estados/${selectedEstados}`);
-        const data = await response.json();
-
-        if (data.message === "Success") {
+        if (data.length > 0) {
 
             btnMostrarMunicipios.querySelector('span').textContent = 'Seleccionar Municipio';
 
             let opciones = ``;
 
-            data.municipios.forEach(municipio => {
+            data.forEach(municipio => {
                 opciones += `
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="municipio-${municipio.id}" name="municipio"
@@ -62,12 +55,11 @@ const listarMunicipios = async (selectedPais, selectedEstados) => {
 
 const listarPaises = async () => {
     try {
-        const response = await fetch(`./en-paises/`);
-        const data = await response.json();
+        const data = datos.ubicacion_filtro.paises;
 
-        if (data.message === "Success") {
+        if (data.length > 0) {
             let opciones = ``;
-            data.paises.forEach(pais => {
+            data.forEach(pais => {
                 opciones += `
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="pais-${pais.id}" name="pais"
@@ -97,37 +89,47 @@ const cargaInicial = async () => {
         selectedPais = Array.from(formPais.querySelectorAll('input[type="checkbox"]:checked'))
 
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.value)
-
-            // Ordenar los valores alfabéticamente
-            .sort()
-
-            // Unir los valores en una cadena separada por '_'
-            .join('_')
+            .map(checkbox => checkbox.id.split('-')[1])
+            
+            
 
         if (selectedPais) {
-            listarEstados(selectedPais);
-        }else{
+            let data = []
+            let info = datos.ubicacion_filtro.estados;
 
+            selectedPais.forEach(selectedID => {
+                
+                info.forEach(estado => {
+                    if(estado.pais_id == selectedID){
+                        data.push(estado)
+                    }
+                });
+            });
+
+            listarEstados(data);
         }
-
     });
 
     formEstados.addEventListener("change", (event) => {
         // Obtener los checkboxes seleccionados del formPais
         selectedEstados = Array.from(formEstados.querySelectorAll('input[type="checkbox"]:checked'))
-
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.value)
+            .map(checkbox => checkbox.id.split('-')[1])
 
-            // Ordenar los valores alfabéticamente
-            .sort()
-
-            // Unir los valores en una cadena separada por '_'
-            .join('_')
 
         if (selectedEstados) {
-            listarMunicipios(selectedPais, selectedEstados);
+            let data = []
+            let info = datos.ubicacion_filtro.municipios;
+
+            selectedEstados.forEach(selectedID => {
+                
+                info.forEach(municipio => {
+                    if(municipio.estado_id == selectedID){
+                        data.push(municipio)
+                    }
+                });
+            });
+            listarMunicipios(data);
         }
     });
 };

@@ -30,8 +30,8 @@
     <div class="container-fluid" data-aos="fade-up">
         <div class="row">
             
-            {% include "vistas_inmuebles/filtros.html" %}
-            {% include "vistas_inmuebles/vista.html" %}
+            {% include "./filtros.html" %}
+            {% include "./inmuebles.html" %}
             
         </div>
     </div>
@@ -39,7 +39,12 @@
 {% endblock %}
 
 {% block js %}
-<script  src="{% static 'assets/js/inmuebles.js' %}"></script>
 
+<script>
+    var datos = {{ data|safe }};
+</script>
+
+<script  src="{% static 'assets/js/inmuebles.js' %}"></script>
+<script  src="{% static 'assets/js/data.js' %}"></script>
 
 {% endblock %}
