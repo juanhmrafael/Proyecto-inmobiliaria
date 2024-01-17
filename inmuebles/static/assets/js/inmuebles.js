@@ -188,7 +188,7 @@ const cargaListas = async () => {
     btnTexContent(btnMostrarpaises, contenido);
 
     removerBtn(formMunicipios, btnMostrarMunicipios, 'Seleccionar Municipio')
-    removerBtn(formEstados, btnMostrarEstados, 'Seleccionar Estado')
+    removerBtn(formEstados, btnMostrarEstados, `Seleccionar Estado`)
 
     if (selectedPais) {
       btnMostrar(btnMostrarEstados)
