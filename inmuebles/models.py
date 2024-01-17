@@ -1,5 +1,5 @@
 from django.db import models
-
+from agentes.models import AgenteInmobiliario
 # Modelo de país
 
 
@@ -67,3 +67,61 @@ class Ciudad(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nombre} ({self.parroquia.nombre})"
+
+
+class Direccion(models.Model):
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    ubicacion_google_maps = models.URLField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return f"{self.ciudad.nombre} - {self.descripcion}"
+
+
+class TipoInmueble(models.Model):
+    nombre = models.CharField(max_length=255, unique=True)
+
+    def __str__(self) -> str:
+        return self.nombre
+
+
+class EstadoInmueble(models.Model):
+    nombre = models.CharField(max_length=255, unique=True)
+
+    def __str__(self) -> str:
+        return self.nombre
+
+
+class FotoInmueble(models.Model):
+    def foto_inmueble_path(instance, filename):
+        return f'inmuebles/{instance.inmueble.id}/{filename}'
+
+    imagen = models.ImageField(
+        upload_to=foto_inmueble_path, blank=True, null=True)
+    inmueble = models.ForeignKey(
+        'Inmueble', on_delete=models.CASCADE, related_name='fotos')
+
+    def __str__(self) -> str:
+        return f"Foto del Inmueble #{self.pk} - Inmueble: {self.inmueble.nombre}"
+
+
+class Inmueble(models.Model):
+    nombre = models.CharField(max_length=255)
+    tipo = models.ForeignKey(TipoInmueble, on_delete=models.CASCADE)
+    estado = models.ForeignKey(EstadoInmueble, on_delete=models.CASCADE)
+    descripcion = models.TextField()
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    habitaciones = models.PositiveIntegerField()
+    banos = models.PositiveIntegerField()
+    area = models.DecimalField(max_digits=8, decimal_places=2)
+    ubicacion_direccion = models.ForeignKey(
+        Direccion, on_delete=models.CASCADE)
+    agente = models.ForeignKey(AgenteInmobiliario, on_delete=models.CASCADE)
+    puestos_estacionamiento = models.PositiveIntegerField(default=0)
+    fotos = models.ManyToManyField(FotoInmueble, related_name='inmuebles')
+
+    def clean(self) -> None:
+        self.nombre = self.nombre.capitalize()
+
+    def __str__(self) -> str:
+        return f"{self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
