@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Agregamos las aps que hemos creado
-    'app',
     'contacto',
     'inicio',
     'acceso',
