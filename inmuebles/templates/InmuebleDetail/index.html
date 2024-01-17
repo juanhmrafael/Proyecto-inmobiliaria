@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block active_inmuebles %}active{% endblock %}
+{% block active_inmuebles %}active{% endblock active_inmuebles %}
 
 {% load static %}
 
 
 {% block css %}
 <link href="{% static 'assets/css/individual_inmueble.css' %}" rel="stylesheet">
-{% endblock %}
+{% endblock css %}
 
 
 {% block content %}
@@ -216,8 +216,8 @@
 
     </div>
 </section><!-- End inmuebles Details Section -->
-{% endblock %}
+{% endblock content %}
 
 {% block js %}
-<script src="{% static 'assets/js/inmuebles.js' %}"></script>
-{% endblock %}
+<script  src="{% static 'assets/js/InmuebleDetail/main.js' %}"></script>
+{% endblock js %}
