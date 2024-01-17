@@ -25,7 +25,13 @@
 
             <div id="paises" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
                 <form id="formPais">                            
-
+                    {% for pais in ubicacion_filtro.paises %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="pais-{{pais.id}}" name="pais"
+                            value="{{pais.nombre}}">
+                        <label class="form-check-label" for="pais-{{pais.id}}">{{pais.nombre}}</label>
+                    </div>
+                    {% endfor %}
                 </form>
             </div>
         </div>

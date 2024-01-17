@@ -1,0 +1,394 @@
+{% load static %}
+
+<div class="col-lg-9 entries">
+    <section id="inmuebles" class="inmuebles">
+        <ul id="inmuebles-flters">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-viviendas">Viviendas</li>
+            <li data-filter=".filter-locales">Locales</li>
+            <li data-filter=".filter-oficinas">Oficinas</li>
+            <li data-filter=".filter-industrias">Industrias</li>
+            <li data-filter=".filter-instituciones">Instituciones</li>
+            <li data-filter=".filter-terrenos">Terrenos</li>
+        </ul>
+
+        <div class="row inmuebles-container" data-aos="fade-up">
+            <div class="section section-properties">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-viviendas">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-viviendas">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-locales">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-locales">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_4.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-oficinas">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_5.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-terrenos">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_6.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-terrenos">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_7.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-industrias">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_8.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+
+                        <div
+                            class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-instituciones">
+                            <div class="property-item mb-30">
+
+                                <a href="{% url 'inmuebles:inmueble-ref' %}" class="img">
+                                    <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image"
+                                        class="img-fluid">
+                                </a>
+
+                                <div class=" property-content text-center">
+                                    <div class="price mb-2"><span>$1.291,00</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave.
+                                            21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
+
+                                        <div class="specs d-flex mb-4" style="justify-content: center;">
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bed me-2"></span>
+                                                <span class="caption">2 Hab.</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-bath me-2"></span>
+                                                <span class="caption">2 Baños</span>
+                                            </span>
+
+                                            <span class="d-block me-3">
+                                                <span class="bx bxs-car-garage me-2"></span>
+                                                <span class="caption">2 Est.</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="btn btn-primary py-2 px-3">Ver
+                                            más</a>
+                                    </div>
+                                </div>
+                            </div> <!-- .item -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+            <div class="col-lg-3">
+                Paginación (1 de 10)
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="inmuebles-pagination">
+                    <ul class="justify-content-center">
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+</div>

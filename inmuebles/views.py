@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
 
 # Importar la biblioteca de HttpResponse
 from django.http import HttpResponse, JsonResponse
@@ -12,9 +13,34 @@ from inmuebles.models import Pais, Estado, Municipio
 import json
 # Create your views here.
 
-from django.views.generic import TemplateView#Para trabajar con vistas en función de clases 
+from django.views.generic import View #Para trabajar con vistas en función de clases 
 
-class InmueblesView(TemplateView):
+class InmueblesListView(View):
+    def get(self, request, *args, **kwargs):
+        estados = []
+        municipios = []
+        
+        paises = list(Pais.objects.values())
+        if len(paises) > 0:
+            estados = list(Estado.objects.values())
+            if len(estados) > 0:
+                municicipios = list(Municipio.objects.values())
+        
+        data = {
+            'ubicacion_filtro': {
+                'paises': paises,
+                'estados': estados,
+                'municipios': municicipios
+            }
+        }
+
+        return render(request, 'inmuebles.html', data)
+        
+
+        
+        
+        
+    
 
 def get_paises(request):  # Devuelve diccionario de paises
     data = {'message': "Not Found"}
@@ -74,8 +100,9 @@ def get_municipios(request, paises_seleccionados: str, estados_seleccionados: st
 
 
 def inmuebles(request):
-    return render(request, 'base_inmuebles.html')
+    return render(request, 'inmuebles.html')
 
 
 def inmueble_individual(request):
-    return render(request, 'inmueble-individual.html')
+    return render(request, 'inmueble-single.html')
+
