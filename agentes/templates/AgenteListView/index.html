@@ -37,16 +37,31 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
             <div class="member" data-aos="fade-up">
               <div class="member-img">
-                <img src="{{ agente.foto.url }}" class="img-fluid" alt="{{ agente.nombre }}" />
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
+                <img src="/media/{{ agente.foto }}" class="img-fluid" alt="" />
+
+                {% if agente.twitter or agente.facebook or agente.instagram or agente.linkedin %}
+                  <div class="social">
+                    {% if agente.twitter %}
+                      <a href="{{ agente.twitter }}"><i class="bi bi-twitter"></i></a>
+                    {% endif %}
+
+                    {% if agente.facebook %}
+                      <a href="{{ agente.facebook }}"><i class="bi bi-facebook"></i></a>
+                    {% endif %}
+
+                    {% if agente.instagram %}
+                      <a href="{{ agente.instagram }}"><i class="bi bi-instagram"></i></a>
+                    {% endif %}
+
+                    {% if agente.linkedin %}
+                      <a href="{{ agente.linkedin }}"><i class="bi bi-linkedin"></i></a>
+                    {% endif %}
+                  </div>
+                {% endif %}
               </div>
               <div class="member-info">
                 <h4>{{ agente.nombre }}</h4>
+                <i class='bx bxs-phone text-center'> {{ agente.telefono }}</i>
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ class AgenteInmobiliario(models.Model):
     foto = models.ImageField(upload_to=foto_agente_path, blank=True, null=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
         self.correo = self.correo.lower()
 
     def __str__(self) -> str:
