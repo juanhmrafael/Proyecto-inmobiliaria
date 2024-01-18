@@ -1,4 +1,6 @@
+# Comando para instalar dependencias -> pip install -r requirements.txt
 django==5.0.1
 mysqlclient==2.2.0
 django-environ==0.11.2
-pillow
+django-admin-interface==0.28.3
+pillow==10.2.0

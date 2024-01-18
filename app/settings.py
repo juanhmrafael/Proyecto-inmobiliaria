@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "admin_interface",#Al principio - Para personalizar el panel admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,10 +40,18 @@ INSTALLED_APPS = [
     'nosotros',
     'servicios',
     'agentes',
-    'inmuebles'
+    'inmuebles',
+    
+    "colorfield",#Al final - Para personalizar el panel admin
+    
 ]
+#Para personalizar el panel admin
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+#############
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',#Para lenguajes
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -115,17 +124,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'es'  # Cambias a es para ponerlo a español los mensajes en los formularios
-
-LANGUAGE = [
-    ('es', 'Español'),  # Agregamos
-    ('en', 'Inglés')
+# Agregamos Lenguajes - Para lenguajes
+LANGUAGES = [
+    ('es', 'Español'),  
+    ('en', 'Ingles'),
 ]
 
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'es'  # Cambias a es para ponerlo a español los mensajes en los formularios
 USE_I18N = True
 
+TIME_ZONE = 'UTC'
 USE_TZ = True
 
 

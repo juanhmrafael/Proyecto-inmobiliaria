@@ -28,6 +28,8 @@ def foto_agente_path(instance, filename):
 
 
 class AgenteInmobiliario(models.Model):
+    cedula = models.CharField(
+        max_length=20, unique=True, blank=False, null=True)  # Nueva línea
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True)
     telefono = models.CharField(max_length=15)
@@ -42,7 +44,7 @@ class AgenteInmobiliario(models.Model):
         self.correo = self.correo.lower()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.correo}) ({self.telefono})"
+        return f"{self.cedula if self.cedula is not None else ''} {self.nombre} ({self.correo}) ({self.telefono})"
 
     # Usar la señal post_save para redimensionar la imagen después de guardarla
 
