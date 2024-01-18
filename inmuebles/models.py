@@ -80,17 +80,22 @@ class Direccion(models.Model):
 
 class TipoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
-
+    
+    def clean(self) -> None:
+        self.nombre = self.nombre.capitalize()
+        
     def __str__(self) -> str:
         return self.nombre
 
 
 class EstadoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
-
+    
+    def clean(self) -> None:
+        self.nombre = self.nombre.capitalize()
+        
     def __str__(self) -> str:
         return self.nombre
-
 
 class FotoInmueble(models.Model):
     def foto_inmueble_path(instance, filename):
@@ -99,11 +104,10 @@ class FotoInmueble(models.Model):
     imagen = models.ImageField(
         upload_to=foto_inmueble_path, blank=True, null=True)
     inmueble = models.ForeignKey(
-        'Inmueble', on_delete=models.CASCADE, related_name='fotos')
+        'Inmueble', on_delete=models.CASCADE, related_name='fotos_inmueble')
 
     def __str__(self) -> str:
         return f"Foto del Inmueble #{self.pk} - Inmueble: {self.inmueble.nombre}"
-
 
 class Inmueble(models.Model):
     nombre = models.CharField(max_length=255)
