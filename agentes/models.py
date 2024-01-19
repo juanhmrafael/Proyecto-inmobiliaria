@@ -29,14 +29,14 @@ def foto_agente_path(instance, filename):
 
 class AgenteInmobiliario(models.Model):
     cedula = models.CharField(
-        max_length=20, unique=True, blank=False, null=True)  # Nueva línea
+        max_length=20, unique=True, blank=False, null=False)  # Nueva línea
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True)
-    telefono = models.CharField(max_length=15)
-    twitter = models.URLField(blank=True, null=True)
-    facebook = models.URLField(blank=True, null=True)
-    instagram = models.URLField(blank=True, null=True)
-    linkedin = models.URLField(blank=True, null=True)
+    telefono = models.CharField(max_length=15, unique=True)
+    twitter = models.URLField(blank=True, null=True, unique=True)
+    facebook = models.URLField(blank=True, null=True, unique=True)
+    instagram = models.URLField(blank=True, null=True, unique=True)
+    linkedin = models.URLField(blank=True, null=True, unique=True)
     foto = models.ImageField(upload_to=foto_agente_path, blank=True, null=True)
 
     def clean(self) -> None:

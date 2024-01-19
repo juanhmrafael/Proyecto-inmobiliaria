@@ -1,5 +1,6 @@
 from django.db import models
 from agentes.models import AgenteInmobiliario
+import re
 # Modelo de país
 
 
@@ -71,8 +72,12 @@ class Ciudad(models.Model):
 
 class Direccion(models.Model):
     ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
-    descripcion = models.TextField()
-    ubicacion_google_maps = models.URLField(blank=True, null=True)
+    descripcion = models.TextField(unique=True)
+    ubicacion_google_maps = models.URLField(
+        max_length=600, blank=True, null=True)
+
+    def clean(self) -> None:
+        self.descripcion = self.descripcion.title()
 
     def __str__(self) -> str:
         return f"{self.ciudad.nombre} - {self.descripcion}"
@@ -89,6 +94,16 @@ class TipoInmueble(models.Model):
 
 
 class EstadoInmueble(models.Model):
+    nombre = models.CharField(max_length=255, unique=True)
+
+    def clean(self) -> None:
+        self.nombre = self.nombre.capitalize()
+
+    def __str__(self) -> str:
+        return self.nombre
+
+
+class TipoTransaccion(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
 
     def clean(self) -> None:
@@ -116,7 +131,7 @@ class Inmueble(models.Model):
     tipo = models.ForeignKey(TipoInmueble, on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoInmueble, on_delete=models.CASCADE)
     descripcion = models.TextField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.DecimalField(max_digits=20, decimal_places=2)
     habitaciones = models.PositiveIntegerField()
     banos = models.PositiveIntegerField()
     area = models.DecimalField(max_digits=8, decimal_places=2)
@@ -124,10 +139,12 @@ class Inmueble(models.Model):
         Direccion, on_delete=models.CASCADE)
     agente = models.ForeignKey(AgenteInmobiliario, on_delete=models.CASCADE)
     puestos_estacionamiento = models.PositiveIntegerField(default=0)
-    fotos = models.ManyToManyField(FotoInmueble, related_name='inmuebles')
+    
+    transaccion = models.ForeignKey(TipoTransaccion, on_delete=models.CASCADE)
+    disponible = models.BooleanField(default=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
+        return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"

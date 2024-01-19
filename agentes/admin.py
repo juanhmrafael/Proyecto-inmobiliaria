@@ -10,8 +10,6 @@ class AgenteInmobiliarioAdmin(admin.ModelAdmin):
                     'telefono', 
                     'foto']
     
-    search_fields = ['cedula', 'telefono', 'correo']
-    
-    
+    search_fields = ['cedula', 'nombre']
 
 admin.site.register(AgenteInmobiliario, AgenteInmobiliarioAdmin)
