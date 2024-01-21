@@ -4,7 +4,7 @@ from .models import AgenteInmobiliario
 
 class AgenteListView(View):
     def get(self, request, *args, **kwargs):
-        agentes = list(AgenteInmobiliario.objects.values())
+        agentes = AgenteInmobiliario.objects.all()
         data = {
             'agentes': agentes
         }

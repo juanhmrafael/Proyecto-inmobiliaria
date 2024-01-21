@@ -1,6 +1,6 @@
 from django.db import models
 from agentes.models import AgenteInmobiliario
-import re
+
 # Modelo de país
 
 
@@ -111,20 +111,6 @@ class TipoTransaccion(models.Model):
 
     def __str__(self) -> str:
         return self.nombre
-
-
-class FotoInmueble(models.Model):
-    def foto_inmueble_path(instance, filename):
-        return f'inmuebles/{instance.inmueble.id}/{filename}'
-
-    imagen = models.ImageField(
-        upload_to=foto_inmueble_path, blank=True, null=True)
-    inmueble = models.ForeignKey(
-        'Inmueble', on_delete=models.CASCADE, related_name='fotos_inmueble')
-
-    def __str__(self) -> str:
-        return f"Foto del Inmueble #{self.pk} - Inmueble: {self.inmueble.nombre}"
-
 
 class Inmueble(models.Model):
     nombre = models.CharField(max_length=255)

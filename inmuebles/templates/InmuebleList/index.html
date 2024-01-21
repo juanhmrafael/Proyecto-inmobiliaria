@@ -2,13 +2,13 @@
 
 {% block active_inmuebles %}
   active
-{% endblock active_inmuebles %}
+{% endblock %}
 
 {% load static %}
 
 {% block css %}
   <link href="{% static 'assets/css/inmuebles.css' %}" rel="stylesheet" />
-{% endblock css %}
+{% endblock %}
 
 {% block content %}
   <section id="breadcrumbs" class="breadcrumbs">
@@ -34,11 +34,11 @@
       </div>
     </div>
   </section>
-{% endblock content %}
+{% endblock %}
 
 {% block js %}
-  <script> var datos = {{ data|safe }} </script>
+  <script> var datos = {{ filtros_json|safe }} </script>
   <script src="{% static 'assets/js/InmuebleList/main.js' %}"></script>
   <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
   <script src="{% static 'assets/js/InmuebleList/data.js' %}"></script>
-{% endblock js %}
+{% endblock %}

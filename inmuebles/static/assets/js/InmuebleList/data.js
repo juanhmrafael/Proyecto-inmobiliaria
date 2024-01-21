@@ -1,7 +1,5 @@
-const listarPaises = async () => {
+const listarPaises = async (data) => {
     try {
-        const data = datos.ubicacion_filtro.paises;
-
         if (data.length > 0) {
             let opciones = ``;
             data.forEach(pais => {
@@ -133,7 +131,8 @@ const listarCiudades = async (data) => {
 }
 
 const cargaInicial = async () => {
-    await listarPaises();
+    let filtros = datos.filtros;
+    await listarPaises(filtros.ubicacion.pais);
     let selectedPais = '';
     let selectedEstados = '';
 
@@ -148,12 +147,12 @@ const cargaInicial = async () => {
 
         if (selectedPais) {
             let data = []
-            let info = datos.ubicacion_filtro.estados;
+            let info = filtros.ubicacion.estado;
 
             selectedPais.forEach(selectedID => {
 
                 info.forEach(estado => {
-                    if (estado.pais_id == selectedID) {
+                    if (estado.pais == selectedID) {
                         data.push(estado)
                     }
                 });
@@ -172,12 +171,12 @@ const cargaInicial = async () => {
 
         if (selectedEstados) {
             let data = []
-            let info = datos.ubicacion_filtro.municipios;
+            let info = filtros.ubicacion.municipio;
 
             selectedEstados.forEach(selectedID => {
 
                 info.forEach(municipio => {
-                    if (municipio.estado_id == selectedID) {
+                    if (municipio.estado == selectedID) {
                         data.push(municipio)
                     }
                 });
@@ -195,12 +194,12 @@ const cargaInicial = async () => {
 
         if (selectedMunicipios) {
             let data = []
-            let info = datos.ubicacion_filtro.parroquias;
+            let info = filtros.ubicacion.parroquia;
 
             selectedMunicipios.forEach(selectedID => {
 
                 info.forEach(parroquia => {
-                    if (parroquia.municipio_id == selectedID) {
+                    if (parroquia.municipio == selectedID) {
                         data.push(parroquia)
                     }
                 });
@@ -218,12 +217,12 @@ const cargaInicial = async () => {
 
         if (selectedParroquias) {
             let data = []
-            let info = datos.ubicacion_filtro.ciudades;
+            let info = filtros.ubicacion.ciudad;
 
             selectedParroquias.forEach(selectedID => {
 
                 info.forEach(ciudad => {
-                    if (ciudad.parroquia_id == selectedID) {
+                    if (ciudad.parroquia == selectedID) {
                         data.push(ciudad)
                     }
                 });
