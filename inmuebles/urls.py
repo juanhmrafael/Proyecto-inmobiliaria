@@ -5,5 +5,5 @@ app_name = 'inmuebles'
 
 urlpatterns = [
     path('', InmuebleListView.as_view(), name='home'),
-    path('inmueble-ref/', InmuebleDetailView.as_view(), name='inmueble-ref'),
+    path('<>', InmuebleDetailView.as_view(), name='detail'),
 ]

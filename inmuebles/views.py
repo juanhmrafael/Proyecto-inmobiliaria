@@ -118,6 +118,6 @@ class InmuebleListView(View):
 
 class InmuebleDetailView(View):
     def get(self, request, *args, **kwargs):
+        
         data = {}
-        data_json = json.dumps(data)
-        return render(request, 'InmuebleDetail/index.html', {'data': data_json})
+        return render(request, 'InmuebleDetail/index.html', {'data': data})

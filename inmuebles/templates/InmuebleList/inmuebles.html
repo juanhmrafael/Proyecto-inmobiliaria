@@ -19,13 +19,13 @@
                   <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image" class="img-fluid" /></a>
+                        <a href="{% url 'inmuebles:detail inmueble.id' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image" class="img-fluid" /></a>
                       </div>
                       <div class="carousel-item">
-                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image" class="img-fluid" /></a>
+                        <a href="{% url 'inmuebles:detail inmueble.id' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image" class="img-fluid" /></a>
                       </div>
                       <div class="carousel-item">
-                        <a href="{% url 'inmuebles:inmueble-ref' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image" class="img-fluid" /></a>
+                        <a href="{% url 'inmuebles:detail inmueble.id' %}" class="img"><img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image" class="img-fluid" /></a>
                       </div>
                     </div>
                   </div>
