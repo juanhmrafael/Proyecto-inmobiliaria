@@ -43,26 +43,38 @@
                         <h3 class="text-center">Información del inmueble</h3>
 
                         <ul class="text-center ">
-                            <li><strong>Tipo de inmueble</strong>: Apartamento</li>
-                            <li><strong>Transacción</strong>: Alquiler</li>
+                            <li><strong>Tipo de inmueble</strong>: {{ data.inmueble.tipo }}</li>
+                            <li><strong>Transacción</strong>: {{ data.inmueble.transaccion.nombre }}</li>
                         </ul>
 
                         <ul class="text-center">
+                            {% if data.inmueble.habitaciones != 0 %}
                             <li class="bx bxs-bed me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
                                 <strong>Habitaciones
-                                </strong>: 3
+                                </strong>: {{ data.inmueble.habitaciones }}
                             </li>
+                            {% endif %}
+
+                            {% if data.inmueble.puestos_estacionamiento != 0 %}
                             <li class="bx bxs-car-garage me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
-                                <strong>Estacionamientos </strong>: 3
+                                <strong>Estacionamientos </strong>: {{ data.inmueble.puestos_estacionamiento }}
                             </li>
+                            {% endif %}
+
+                            {% if data.inmueble.banos != 0 %}
                             <li class="bx bxs-bath me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
                                 <strong>Baños
-                                </strong>: 2
+                                </strong>: {{ data.inmueble.banos }}
                             </li>
+                            {% endif %}
+
+                            {% if data.inmueble.area != 0 %}
                             <li class="bx bxs-building-house" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
                                 <strong>Metros
-                                    cuadrados </strong>: 100 m²
+                                    cuadrados </strong>: {{ data.inmueble.area }} m²
                             </li>
+                            {% endif %}
+
                         </ul>
                     </div>
 
@@ -132,11 +144,7 @@
                     <div class="inmuebles-description" style="margin: 30px;">
                         <h2>Descripción</h2>
                         <p style="text-align: justify;">
-                            Apartamento de 3 habitaciones y 2 baños ubicado en el centro de la ciudad. La vivienda tiene
-                            una
-                            superficie de 100 m² y cuenta con una amplia terraza con vistas a la ciudad. El apartamento
-                            está
-                            equipado con aire acondicionado, calefacción central, cocina equipada y armarios empotrados.
+                            {{ data.inmueble.descripcion }}
                         </p>
                     </div>
 
@@ -147,10 +155,10 @@
             <div class="col-lg-4">
 
                 <div class="inmuebles-info">
-                    <h3 class="text-center">Código: 26139</h3>
+                    <h3 class="text-center">Código: {{ data.inmueble.id }}</h3>
                     <ul>
                         <li><strong>Precio:</strong>
-                            <div class="price mb-2 text-center"><span>$1.291,00</span></div>
+                            <div class="price mb-2 text-center"><span>${{ data.inmueble.precio }}</span></div>
                         </li>
                     </ul>
                 </div>
@@ -163,17 +171,30 @@
                             <div class="col-12 d-flex align-items-stretch">
                                 <div class="member" data-aos="fade-up">
                                     <div class="member-img">
-                                        <img src="{% static 'assets/img/team/team-1.jpg' %}" class="img-fluid" alt="">
+                                        <img src={{ data.inmueble.agente.foto.url }} class="img-fluid" alt="">
+                                        {% if data.inmueble.agente.twitter or data.inmueble.agente.facebook or data.inmueble.agente.instagram or data.inmueble.agente.linkedin %}
                                         <div class="social">
-                                            <a href=""><i class="bi bi-twitter"></i></a>
-                                            <a href=""><i class="bi bi-facebook"></i></a>
-                                            <a href=""><i class="bi bi-instagram"></i></a>
-                                            <a href=""><i class="bi bi-linkedin"></i></a>
+                                          {% if data.inmueble.agente.twitter %}
+                                            <a href="{{ data.inmueble.agente.twitter }}"><i class="bi bi-twitter"></i></a>
+                                          {% endif %}
+                      
+                                          {% if data.inmueble.agente.facebook %}
+                                            <a href="{{ data.inmueble.agente.facebook }}"><i class="bi bi-facebook"></i></a>
+                                          {% endif %}
+                      
+                                          {% if data.inmueble.agente.instagram %}
+                                            <a href="{{ data.inmueble.agente.instagram }}"><i class="bi bi-instagram"></i></a>
+                                          {% endif %}
+                      
+                                          {% if data.inmueble.agente.linkedin %}
+                                            <a href="{{ data.inmueble.agente.linkedin }}"><i class="bi bi-linkedin"></i></a>
+                                          {% endif %}
                                         </div>
+                                      {% endif %}
                                     </div>
                                     <div class="member-info">
-                                        <h4>Walter White</h4>
-                                        <i class='bx bxs-phone text-center'> +58 424-0000000</i>
+                                        <h4>{{ data.inmueble.agente.nombre }}</h4>
+                                        <i class='bx bxs-phone text-center'> {{ data.inmueble.agente.telefono }}</i>
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +210,7 @@
                     <h3 class="text-center">Mapa</h3>
                     <div class="map-section">
                         <iframe style="border:0; width: 100%; height: 350px;"
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
+                            src="{{ data.inmueble.ubicacion_direccion.ubicacion_google_maps }}"
                             frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -199,12 +220,12 @@
                 <div class="inmuebles-info">
                     <h3 class="text-center">Ubicación</h3>
                     <ul>
-                        <li><strong>País</strong>: Venezuela</li>
-                        <li><strong>Estado</strong>: Lara</li>
-                        <li><strong>Municipio</strong>: Los Crepúsculos</li>
-                        <li><strong>Parroquia</strong>: Los Crepúsculos</li>
-                        <li><strong>Ciudad</strong>: Barquisimeto</li>
-                        <li><strong>Dirección</strong>: Avenida 3, Los Crepúsculos, Barquisimeto, Iribarren, Lara, 3023, VEN</li>
+                        <li><strong>País</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.pais.nombre }}</li>
+                        <li><strong>Estado</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.nombre }}</li>
+                        <li><strong>Municipio</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.nombre }}</li>
+                        <li><strong>Parroquia</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.nombre }}</li>
+                        <li><strong>Ciudad</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.nombre }}</li>
+                        <li><strong>Dirección</strong>: {{ data.inmueble.ubicacion_direccion.descripcion }}</li>
                     </ul>
                     
 

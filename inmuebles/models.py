@@ -131,6 +131,7 @@ class Inmueble(models.Model):
 
     def clean(self) -> None:
         self.nombre = self.nombre.title()
+        self.descripcion = self.descripcion.capitalize()
 
     def __str__(self) -> str:
         return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"

@@ -52,7 +52,7 @@ class InmuebleListView(View):
                 'precio': self.formatearNumero(dato.precio),
                 'habitaciones': dato.habitaciones,
                 'banos': dato.banos,
-                'area': float(dato.area),
+                'area': self.formatearNumero(dato.area),
                 'ubicacion': {
                     'direccion': direccion.descripcion,
                     'maps': direccion.ubicacion_google_maps,
@@ -117,7 +117,16 @@ class InmuebleListView(View):
 
 
 class InmuebleDetailView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, id, *args, **kwargs):
+        # Obtener un objeto de modelo
+        inmueble = Inmueble.objects.get(id=id)
+        inmueble.precio = self.formatearNumero(inmueble.precio)
         
-        data = {}
+        data = {
+            'inmueble': inmueble
+        }
+        
         return render(request, 'InmuebleDetail/index.html', {'data': data})
+    
+    def formatearNumero(self, numero: float) -> str:
+        return "{:,.2f}".format(numero).replace(",", " ").replace(".", ",").replace(" ", ".")

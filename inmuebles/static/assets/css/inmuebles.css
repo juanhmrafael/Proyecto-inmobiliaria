@@ -1,12 +1,13 @@
-@media (min-width: 992px) and (max-width: 1290px){
-    .col-lg-9{
+@media (min-width: 992px) and (max-width: 1290px) {
+    .col-lg-9 {
         width: 65%;
     }
 
-    .col-lg-3{
+    .col-lg-3 {
         width: 35%;
     }
 }
+
 .btn-primary {
     color: #fff;
     background-color: #3886c1;
@@ -59,7 +60,11 @@
     color: #fff;
 }
 
-.inmuebles #paises, #estados, #municipios, #parroquias, #ciudades {
+.inmuebles #paises,
+#estados,
+#municipios,
+#parroquias,
+#ciudades {
     padding: 30px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
