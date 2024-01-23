@@ -26,11 +26,27 @@
   </section>
   <!-- End Breadcrumbs -->
 
-  <section id="inmuebles" class="inmuebles" >
+  <section id="inmuebles" class="inmuebles">
     <div class="container-fluid" data-aos="fade-up">
       <div class="row">
         {% include './filtros.html' %}
-        {% include './inmuebles.html' %}
+
+        <div class="col-lg-9 entries">
+          <section id="inmuebles" class="inmuebles">
+            {% include './inmuebles.html' %}
+
+            <div class="row align-items-center py-5">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6 text-center">
+                <div class="inmuebles-pagination">
+                  <ul class="justify-content-center" id="paginationList">
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </section>
@@ -38,13 +54,11 @@
 
 {% block js %}
   <script> 
-    var selecFiltro = ".filter-Casa"
+    var inmueblesPorPagina = 3;
     var datos = {{ filtros_json|safe }}
     var datos_inmuebles = {{ inmuebles_json|safe }}
   </script>
 
-
   <script src="{% static 'assets/js/InmuebleList/data.js' %}"></script>
   <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
-  
 {% endblock %}

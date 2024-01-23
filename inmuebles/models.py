@@ -36,8 +36,10 @@ class Estado(models.Model):
     class Meta:
         verbose_name = "Estado"
         verbose_name_plural = "Estados"
-        
+
 # Modelo de municipio
+
+
 class Municipio(models.Model):
     nombre = models.CharField(max_length=255)
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
@@ -47,7 +49,7 @@ class Municipio(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nombre} -> {self.estado}"
-    
+
     class Meta:
         verbose_name = "Municipio"
         verbose_name_plural = "Municipios"
@@ -63,7 +65,7 @@ class Parroquia(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nombre} -> {self.municipio}"
-    
+
     class Meta:
         verbose_name = "Parroquia"
         verbose_name_plural = "Parroquias"
@@ -79,10 +81,11 @@ class Ciudad(models.Model):
 
     def __str__(self) -> str:
         return f"{self.nombre} -> {self.parroquia}"
-    
+
     class Meta:
         verbose_name = "Ciudad"
         verbose_name_plural = "Ciudades"
+
 
 class Direccion(models.Model):
     ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
@@ -94,12 +97,13 @@ class Direccion(models.Model):
         self.descripcion = self.descripcion.title()
 
     def __str__(self) -> str:
-        return f"{self.ciudad.nombre} - {self.descripcion}"
+        return f"{self.descripcion} - {self.ciudad}"
 
     class Meta:
         verbose_name = "Dirección"
         verbose_name_plural = "Direcciones"
-        
+
+
 class TipoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
 
@@ -112,7 +116,8 @@ class TipoInmueble(models.Model):
     class Meta:
         verbose_name = "Tipo de inmueble"
         verbose_name_plural = "Tipos de inmueble"
-        
+
+
 class EstadoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
 
@@ -121,10 +126,11 @@ class EstadoInmueble(models.Model):
 
     def __str__(self) -> str:
         return self.nombre
-    
+
     class Meta:
         verbose_name = "Estado de inmueble"
         verbose_name_plural = "Estados de inmueble"
+
 
 class TipoTransaccion(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
@@ -138,7 +144,8 @@ class TipoTransaccion(models.Model):
     class Meta:
         verbose_name = "Tipo transacción"
         verbose_name_plural = "Tipos de transacción"
-        
+
+
 class Inmueble(models.Model):
     nombre = models.CharField(max_length=255)
     tipo = models.ForeignKey(TipoInmueble, on_delete=models.CASCADE)
@@ -161,8 +168,8 @@ class Inmueble(models.Model):
         self.descripcion = self.descripcion.capitalize()
 
     def __str__(self) -> str:
-        return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
-    
+        return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} - ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
+
     class Meta:
         verbose_name = "Inmueble"
         verbose_name_plural = "Inmuebles"

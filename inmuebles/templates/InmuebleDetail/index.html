@@ -11,6 +11,19 @@
 
 
 {% block content %}
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Inmueble: {{data.inmueble.id}}</h2>
+        <ol>
+          <li>
+            <a href="{% url 'inmuebles:home' %}">Buscar Inmueble</a>
+          </li>
+          <li>Inmueble: {{data.inmueble.id}}</li>
+        </ol>
+      </div>
+    </div>
+  </section>
 <!-- ======= inmuebles Details Section ======= -->
 <section id="inmuebles-details" class="inmuebles-details">
     <div class="container">

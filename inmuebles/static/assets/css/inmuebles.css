@@ -14,6 +14,8 @@
     border-color: #3886c1;
 }
 
+
+
 .btn-primary:hover {
     color: #fff;
     background-color: #28affd;
@@ -198,9 +200,7 @@
     padding: 40px 0px 0px 0;
 }
 
-.inmuebles .inmuebles-pagination {
-    color: #4c5865;
-}
+
 
 .inmuebles .inmuebles-pagination ul {
     display: flex;
@@ -210,12 +210,12 @@
 }
 
 .inmuebles .inmuebles-pagination li {
+    border-radius: 0;
     margin: 0 5px;
     transition: 0.3s;
 }
 
-.inmuebles .inmuebles-pagination li a {
-    color: #20262b;
+.inmuebles .inmuebles-pagination li {
     padding: 7px 16px;
     display: flex;
     align-items: center;
@@ -225,10 +225,6 @@
 .inmuebles .inmuebles-pagination li.active,
 .inmuebles .inmuebles-pagination li:hover {
     background: #3886c1;
-}
-
-.inmuebles .inmuebles-pagination li.active a,
-.inmuebles .inmuebles-pagination li:hover a {
     color: #fff;
 }
 

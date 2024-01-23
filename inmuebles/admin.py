@@ -36,6 +36,13 @@ class EstadoInmuebleAdmin(admin.ModelAdmin):
 class TipoTransaccionAdmin(admin.ModelAdmin):
     list_display = ['nombre']
     search_fields = ['nombre']
+
+class InmuebleAdmin(admin.ModelAdmin):
+    list_display = ['id', 'ubicacion_direccion', 'tipo', 'estado']
+    search_fields = ['id']
+    
+    list_filter = ['transaccion', 'disponible']
+
     
 # Register your models here.
 admin.site.register(Pais, PaisAdmin)
@@ -48,4 +55,4 @@ admin.site.register(EstadoInmueble, EstadoInmuebleAdmin)
 admin.site.register(TipoTransaccion, TipoTransaccionAdmin)
 
 admin.site.register(Direccion, DireccionAdmin)
-admin.site.register(Inmueble)
+admin.site.register(Inmueble, InmuebleAdmin)

@@ -4,9 +4,15 @@ var filtros_activos = {
     'municipio': new Set(),
     'parroquia': new Set(),
     'ciudad': new Set(),
-    'inmuebles': new Set()
+    'inmuebles': new Set(),
+    'habitacion': 0,
+    'bano': 0,
+    'estacionamiento': 0,
+    'precio_minimo': 0,
+    'precio_maximo': 0
 };
 
+var inmueblesArray = []
 /**
  * Easy selector helper function
  */
@@ -58,13 +64,19 @@ function inmuebleOcultar(inmueble_id) {
 
 function aplicar_filtro_all() {
     let inmuebles = [...datos_inmuebles];
+    inmueblesArray = []
 
     const algunFiltroSeleccionado =
         filtros_activos.pais.size > 0 ||
         filtros_activos.estado.size > 0 ||
         filtros_activos.municipio.size > 0 ||
         filtros_activos.parroquia.size > 0 ||
-        filtros_activos.ciudad.size > 0;
+        filtros_activos.ciudad.size > 0 ||
+        filtros_activos.bano > 0 ||
+        filtros_activos.habitacion > 0 ||
+        filtros_activos.estacionamiento > 0 ||
+        filtros_activos.precio_maximo > 0 ||
+        filtros_activos.precio_minimo > 0;
 
     inmuebles.forEach(inmueble => {
         let inmueble_id = document.getElementById(`inmueble-${inmueble.id}`);
@@ -75,20 +87,72 @@ function aplicar_filtro_all() {
         }
 
         const cumpleFiltros =
-            filtros_activos.pais.has(String(inmueble.ubicacion.pais.id)) &&
+            (filtros_activos.pais.size === 0 || filtros_activos.pais.has(String(inmueble.ubicacion.pais.id))) &&
             (filtros_activos.estado.size === 0 || filtros_activos.estado.has(String(inmueble.ubicacion.estado.id))) &&
             (filtros_activos.municipio.size === 0 || filtros_activos.municipio.has(String(inmueble.ubicacion.municipio.id))) &&
             (filtros_activos.parroquia.size === 0 || filtros_activos.parroquia.has(String(inmueble.ubicacion.parroquia.id))) &&
-            (filtros_activos.ciudad.size === 0 || filtros_activos.ciudad.has(String(inmueble.ubicacion.ciudad.id)));
+            (filtros_activos.ciudad.size === 0 || filtros_activos.ciudad.has(String(inmueble.ubicacion.ciudad.id))) &&
+            (filtros_activos.habitacion === 0 || inmueble.habitaciones >= filtros_activos.habitacion) &&
+            (filtros_activos.bano === 0 || inmueble.banos >= filtros_activos.bano) &&
+            (filtros_activos.estacionamiento === 0 || inmueble.puestos_estacionamiento >= filtros_activos.estacionamiento) &&
+            (filtros_activos.precio_minimo === 0 || Number(inmueble.precio.replace(/\./g, '').replace(',', '.')) >= filtros_activos.precio_minimo) &&
+            (filtros_activos.precio_maximo === 0 || Number(inmueble.precio.replace(/\./g, '').replace(',', '.')) <= filtros_activos.precio_maximo);
 
         if (cumpleFiltros) {
             inmuebleMostrar(inmueble_id);
+            inmueblesArray.push(inmueble_id)
         } else {
             inmuebleOcultar(inmueble_id);
         }
     });
+    // //Probando paginación
+    // paginationList.innerHTML = '';
+    // let totalPaginas = Math.ceil(inmueblesArray.length / inmueblesPorPagina);
+    // if (totalPaginas > 1) {
+    //     for (let i = 1; i <= totalPaginas; i++) {
+    //         let listItem = document.createElement("li");
+    //         listItem.classList.add('btn')
+    //         listItem.textContent = i;
+    //         listItem.addEventListener("click", function (event) {
+    //             mostrarInmueblesPorPagina(event.target.textContent);
+    //             actualizarPaginaActiva(event.target);
+    //         });
+    //         paginationList.appendChild(listItem);
+    //     }
+    //     // Muestra la primera página por defecto
+    //     mostrarInmueblesPorPagina(1);
+    //     // Inicializa la clase activa para la primera página
+    //     actualizarPaginaActiva(paginationList.getElementsByTagName("li")[0]);
+    // }
 }
 
+// Función para mostrar los inmuebles según la página seleccionada
+function mostrarInmueblesPorPagina(paginaSeleccionada) {
+    let inicio = (paginaSeleccionada - 1) * inmueblesPorPagina;
+    let fin = inicio + inmueblesPorPagina;
+
+    let inmueblesPagina = inmueblesArray.slice(inicio, fin);
+
+    inmueblesArray.forEach(inmueble => {
+        inmuebleOcultar(inmueble)
+    })
+
+    inmueblesPagina.forEach(inmueble => {
+        inmuebleMostrar(inmueble)
+    })
+}
+
+
+// Función para actualizar la clase activa
+function actualizarPaginaActiva(elementoSeleccionado) {
+    var listaItems = paginationList.getElementsByTagName("li");
+
+    for (var i = 0; i < listaItems.length; i++) {
+        listaItems[i].classList.remove("active");
+    }
+
+    elementoSeleccionado.classList.add("active");
+}
 
 
 const listarPaises = (data) => {
@@ -220,11 +284,35 @@ const listarCiudades = (data) => {
     }
 }
 
-
+function obtenerValor(id) {
+    filtros_activos[id] = Number(document.getElementById(id).value.replace(/\./g, '').replace(',', '.'));
+    aplicar_filtro_all()
+}
 
 const cargaInicial = () => {
     let filtros = datos.filtros;
     listarPaises(filtros.ubicacion.pais);
+
+    document.getElementById('habitacionesGroup').addEventListener('change', function (event) {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'radio' && event.target.name === 'habitacion') {
+            filtros_activos.habitacion = Number(event.target.value);
+            aplicar_filtro_all()
+        }
+    });
+
+    document.getElementById('bañosGroup').addEventListener('change', function (event) {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'radio' && event.target.name === 'baño') {
+            filtros_activos.bano = Number(event.target.value);
+            aplicar_filtro_all()
+        }
+    });
+
+    document.getElementById('estacionamientosGroup').addEventListener('change', function (event) {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'radio' && event.target.name === 'estacionamiento') {
+            filtros_activos.estacionamiento = Number(event.target.value);
+            aplicar_filtro_all()
+        }
+    });
 
     formPais.addEventListener("change", (event) => {
         // Obtener los checkboxes seleccionados del formPais
@@ -335,15 +423,22 @@ window.addEventListener('load', () => {
             inmueblesFilters.forEach(el => el.classList.remove('filter-active'));
             this.classList.add('filter-active');
 
+            console.log(inmueblesIsotope.items[0].element);
+
             inmueblesIsotope.arrange({
                 filter
             });
+
+            // Accede a la cantidad de inmuebles filtrados y muéstralo
+            const cantidadInmuebles = inmueblesIsotope.filteredItems.length;
+            console.log(`Se muestran ${cantidadInmuebles} inmuebles.`);
 
             inmueblesIsotope.once('arrangeComplete', AOS.refresh);
         };
 
         on('click', '#inmuebles-flters li', handleFilterClick, true);
-        
+
     }
     cargaInicial();
+    // document.getElementById('habitación-1+').click();
 });

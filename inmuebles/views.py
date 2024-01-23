@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Importar modelos
 from inmuebles.models import Pais, Estado, Municipio, Parroquia, Ciudad, Inmueble, Direccion
 import json
@@ -9,7 +9,7 @@ from django.forms import model_to_dict
 
 
 class InmuebleListView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, error=False, *args, **kwargs):
         inmuebles = self.obtenerInmueble()
         filtros = self.obtenerFiltrosInmueble(inmuebles)
 
@@ -21,10 +21,33 @@ class InmuebleListView(View):
             'filtros_json': json.dumps(data),
             'filtro_tipo': filtros['tipo'],
             'inmuebles': inmuebles,
-            'inmuebles_json': json.dumps(inmuebles)
+            'inmuebles_json': json.dumps(inmuebles),
+            # La vista por defecto tiene error desactivado pero si desde el post le envia un True indicara que el inmueble no se encontro
+            'error': {
+                'estado': error,
+                'message': "Inmueble no encontrado"
+            }
         }
 
         return render(request, 'InmuebleList/index.html', context)
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            id = request.POST.get('codigo_inmueble', '')
+            # Obtener un objeto de modelo
+            try:
+                inmueble = Inmueble.objects.get(id=id)
+
+                inmueble.precio = self.formatearNumero(inmueble.precio)
+
+                data = {
+                    'inmueble': inmueble
+                }
+
+                return redirect('inmuebles:detail', id=inmueble.id)
+            except Exception:
+                # Mandamos una notificación de que el inmueble no ha sido encontrado
+                return self.get(request, True)
 
     def obtenerInmueble(self) -> dict:
         consulta = Inmueble.objects.all()  # Consultamos inmuebles a la bd
@@ -43,7 +66,6 @@ class InmuebleListView(View):
             agente = model_to_dict(dato.agente, exclude=['foto'])
             agente.update({'foto': dato.agente.foto.url})
 
-            
             inmueble = {
                 'id': dato.id,
                 'nombre': dato.nombre,
@@ -73,7 +95,7 @@ class InmuebleListView(View):
 
     def formatearNumero(self, numero: float) -> str:
         return "{:,.2f}".format(numero).replace(",", " ").replace(".", ",").replace(" ", ".")
-    
+
     def obtenerFiltrosInmueble(self, inmuebles: list) -> dict:
         # Filtros a utilizar de inmuebles en bd
         pais = []
@@ -122,12 +144,12 @@ class InmuebleDetailView(View):
         # Obtener un objeto de modelo
         inmueble = Inmueble.objects.get(id=id)
         inmueble.precio = self.formatearNumero(inmueble.precio)
-        
+
         data = {
             'inmueble': inmueble
         }
-        
+
         return render(request, 'InmuebleDetail/index.html', {'data': data})
-    
+
     def formatearNumero(self, numero: float) -> str:
         return "{:,.2f}".format(numero).replace(",", " ").replace(".", ",").replace(" ", ".")
