@@ -17,7 +17,9 @@ class Pais(models.Model):
 
     # class Meta: #Sirve para cambiar el nombre con el que se guardara la tabla y no por defecto que es nombreApp_table
     #     db_table = 'pais'
-
+    class Meta:
+        verbose_name = "Pais"
+        verbose_name_plural = "Paises"
 # Modelo de estado
 
 
@@ -29,9 +31,12 @@ class Estado(models.Model):
         self.nombre = self.nombre.capitalize()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.pais.nombre})"
+        return f"{self.nombre} -> {self.pais.nombre}"
 
-
+    class Meta:
+        verbose_name = "Estado"
+        verbose_name_plural = "Estados"
+        
 # Modelo de municipio
 class Municipio(models.Model):
     nombre = models.CharField(max_length=255)
@@ -41,8 +46,11 @@ class Municipio(models.Model):
         self.nombre = self.nombre.capitalize()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.estado.nombre})"
-
+        return f"{self.nombre} -> {self.estado}"
+    
+    class Meta:
+        verbose_name = "Municipio"
+        verbose_name_plural = "Municipios"
 # Modelo de parroquia
 
 
@@ -54,8 +62,11 @@ class Parroquia(models.Model):
         self.nombre = self.nombre.capitalize()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.municipio.nombre})"
-
+        return f"{self.nombre} -> {self.municipio}"
+    
+    class Meta:
+        verbose_name = "Parroquia"
+        verbose_name_plural = "Parroquias"
 # Modelo de ciudad
 
 
@@ -67,8 +78,11 @@ class Ciudad(models.Model):
         self.nombre = self.nombre.capitalize()
 
     def __str__(self) -> str:
-        return f"{self.nombre} ({self.parroquia.nombre})"
-
+        return f"{self.nombre} -> {self.parroquia}"
+    
+    class Meta:
+        verbose_name = "Ciudad"
+        verbose_name_plural = "Ciudades"
 
 class Direccion(models.Model):
     ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
@@ -82,7 +96,10 @@ class Direccion(models.Model):
     def __str__(self) -> str:
         return f"{self.ciudad.nombre} - {self.descripcion}"
 
-
+    class Meta:
+        verbose_name = "Dirección"
+        verbose_name_plural = "Direcciones"
+        
 class TipoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
 
@@ -92,7 +109,10 @@ class TipoInmueble(models.Model):
     def __str__(self) -> str:
         return self.nombre
 
-
+    class Meta:
+        verbose_name = "Tipo de inmueble"
+        verbose_name_plural = "Tipos de inmueble"
+        
 class EstadoInmueble(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
 
@@ -101,7 +121,10 @@ class EstadoInmueble(models.Model):
 
     def __str__(self) -> str:
         return self.nombre
-
+    
+    class Meta:
+        verbose_name = "Estado de inmueble"
+        verbose_name_plural = "Estados de inmueble"
 
 class TipoTransaccion(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
@@ -112,6 +135,10 @@ class TipoTransaccion(models.Model):
     def __str__(self) -> str:
         return self.nombre
 
+    class Meta:
+        verbose_name = "Tipo transacción"
+        verbose_name_plural = "Tipos de transacción"
+        
 class Inmueble(models.Model):
     nombre = models.CharField(max_length=255)
     tipo = models.ForeignKey(TipoInmueble, on_delete=models.CASCADE)
@@ -125,7 +152,7 @@ class Inmueble(models.Model):
         Direccion, on_delete=models.CASCADE)
     agente = models.ForeignKey(AgenteInmobiliario, on_delete=models.CASCADE)
     puestos_estacionamiento = models.PositiveIntegerField(default=0)
-    
+
     transaccion = models.ForeignKey(TipoTransaccion, on_delete=models.CASCADE)
     disponible = models.BooleanField(default=True)
 
@@ -135,3 +162,7 @@ class Inmueble(models.Model):
 
     def __str__(self) -> str:
         return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
+    
+    class Meta:
+        verbose_name = "Inmueble"
+        verbose_name_plural = "Inmuebles"

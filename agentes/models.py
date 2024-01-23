@@ -45,7 +45,10 @@ class AgenteInmobiliario(models.Model):
 
     def __str__(self) -> str:
         return f"{self.cedula if self.cedula is not None else ''} {self.nombre} ({self.correo}) ({self.telefono})"
-
+    
+    class Meta:
+        verbose_name = "Agente inmobiliario"
+        verbose_name_plural = "Agentes inmobiliario"
     # Usar la señal post_save para redimensionar la imagen después de guardarla
 
 
