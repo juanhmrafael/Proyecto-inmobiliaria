@@ -26,7 +26,7 @@
   </section>
   <!-- End Breadcrumbs -->
 
-  <section id="inmuebles" class="inmuebles">
+  <section id="inmuebles" class="inmuebles" >
     <div class="container-fluid" data-aos="fade-up">
       <div class="row">
         {% include './filtros.html' %}
@@ -37,8 +37,14 @@
 {% endblock %}
 
 {% block js %}
-  <script> var datos = {{ filtros_json|safe }} </script>
-  <script src="{% static 'assets/js/InmuebleList/main.js' %}"></script>
-  <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
+  <script> 
+    var selecFiltro = ".filter-Casa"
+    var datos = {{ filtros_json|safe }}
+    var datos_inmuebles = {{ inmuebles_json|safe }}
+  </script>
+
+
   <script src="{% static 'assets/js/InmuebleList/data.js' %}"></script>
+  <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
+  
 {% endblock %}

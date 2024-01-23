@@ -20,7 +20,8 @@ class InmuebleListView(View):
         context = {
             'filtros_json': json.dumps(data),
             'filtro_tipo': filtros['tipo'],
-            'inmuebles': inmuebles
+            'inmuebles': inmuebles,
+            'inmuebles_json': json.dumps(inmuebles)
         }
 
         return render(request, 'InmuebleList/index.html', context)
