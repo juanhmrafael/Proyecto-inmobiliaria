@@ -1,9 +1,20 @@
 {% load static %}
 
 <ul id="inmuebles-flters">
-  <li data-filter="*" class="filter-active">All</li>
+  {% if filtro_activo == '*' %}
+    <li data-filter="*" class="filter-active">All</li>
+  {% else %}
+    <li data-filter="*">All</li>
+  {% endif %}
+
   {% for tipo in filtro_tipo %}
+
+    {% if filtro_activo != ".filter-"|add:tipo|cut:' ' %}
     <li data-filter=".filter-{{ tipo|cut:' ' }}">{{ tipo }}</li>
+    {% else %}
+    <li data-filter=".filter-{{ tipo|cut:' ' }}" class="filter-active">{{ tipo }}</li>
+    {% endif %}
+    
   {% endfor %}
 </ul>
 
@@ -12,7 +23,7 @@
     <div class="container">
       <div class="row">
         {% for inmueble in inmuebles %}
-          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-{{ inmueble.tipo|cut:' ' }}">
+          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-disponible filter-{{ inmueble.id }} filter-{{ inmueble.tipo|cut:' ' }}">
             <div class="property-item mb-30">
               <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">

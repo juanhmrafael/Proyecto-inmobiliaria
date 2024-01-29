@@ -310,6 +310,9 @@ h6 {
 .mobile-nav-toggle.bi-x {
   color: white;
 }
+.mobile-nav-toggle.bi-x:hover {
+  color: #3886c1;
+}
 
 @media (max-width: 1200px) {
   .mobile-nav-toggle {
@@ -347,7 +350,7 @@ h6 {
   bottom: 15px;
   left: 15px;
   padding: 10px 0;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   overflow-y: auto;
   transition: 0.3s;
 }
@@ -356,7 +359,7 @@ h6 {
 .navbar-mobile a:focus {
   padding: 10px 20px;
   font-size: 15px;
-  color: #013158;
+  color: #fff;
 }
 
 .navbar-mobile a:hover,

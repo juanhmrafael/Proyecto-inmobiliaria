@@ -42,23 +42,33 @@ const on = (type, el, listener, all = false) => {
     }
 }
 
+function obtenerFiltroActivo() {
+    const filtros = document.querySelectorAll('#inmuebles-flters li');
 
+    for (const filtro of filtros) {
+        if (filtro.classList.contains('filter-active')) {
+            return filtro.dataset.filter || null;
+        }
+    }
 
-function click(seleccion = "*") {
-    select(`#inmuebles-flters li[data-filter="${seleccion}"]`).click();
+    return null; // En caso de que no se encuentre ningún filtro activo
+}
+
+function filtrar() {
+    inmueblesIsotope.arrange({
+        filter: `${obtenerFiltroActivo()}.filter-disponible`
+    });
 }
 
 function inmuebleMostrar(inmueble_id) {
-    if (inmueble_id.classList.contains("d-none")) {
-        inmueble_id.classList.remove("d-none");
-        click();
+    if (!inmueble_id.classList.contains("filter-disponible")) {
+        inmueble_id.classList.add("filter-disponible");
     }
 }
 
 function inmuebleOcultar(inmueble_id) {
-    if (!inmueble_id.classList.contains("d-none")) {
-        inmueble_id.classList.add("d-none");
-        click();
+    if (inmueble_id.classList.contains("filter-disponible")) {
+        inmueble_id.classList.remove("filter-disponible");
     }
 }
 
@@ -105,25 +115,31 @@ function aplicar_filtro_all() {
             inmuebleOcultar(inmueble_id);
         }
     });
-    // //Probando paginación
-    // paginationList.innerHTML = '';
-    // let totalPaginas = Math.ceil(inmueblesArray.length / inmueblesPorPagina);
-    // if (totalPaginas > 1) {
-    //     for (let i = 1; i <= totalPaginas; i++) {
-    //         let listItem = document.createElement("li");
-    //         listItem.classList.add('btn')
-    //         listItem.textContent = i;
-    //         listItem.addEventListener("click", function (event) {
-    //             mostrarInmueblesPorPagina(event.target.textContent);
-    //             actualizarPaginaActiva(event.target);
-    //         });
-    //         paginationList.appendChild(listItem);
-    //     }
-    //     // Muestra la primera página por defecto
-    //     mostrarInmueblesPorPagina(1);
-    //     // Inicializa la clase activa para la primera página
-    //     actualizarPaginaActiva(paginationList.getElementsByTagName("li")[0]);
-    // }
+    filtrar();
+    console.log(inmueblesIsotope.filteredItems)
+
+}
+
+function crearPaginacion() {
+    //Probando paginación
+    paginationList.innerHTML = '';
+    let totalPaginas = Math.ceil(inmueblesArray.length / inmueblesPorPagina);
+    if (totalPaginas > 1) {
+        for (let i = 1; i <= totalPaginas; i++) {
+            let listItem = document.createElement("li");
+            listItem.classList.add('btn')
+            listItem.textContent = i;
+            listItem.addEventListener("click", function (event) {
+                mostrarInmueblesPorPagina(event.target.textContent);
+                actualizarPaginaActiva(event.target);
+            });
+            paginationList.appendChild(listItem);
+        }
+        // Muestra la primera página por defecto
+        mostrarInmueblesPorPagina(1);
+        // Inicializa la clase activa para la primera página
+        actualizarPaginaActiva(paginationList.getElementsByTagName("li")[0]);
+    }
 }
 
 // Función para mostrar los inmuebles según la página seleccionada
@@ -410,7 +426,7 @@ window.addEventListener('load', () => {
 
     if (inmueblesContainer) {
         const inmueblesFilters = select('#inmuebles-flters li', true);
-        const inmueblesIsotope = new Isotope(inmueblesContainer, {
+        inmueblesIsotope = new Isotope(inmueblesContainer, {
             itemSelector: '.inmuebles-item',
             layoutMode: 'fitRows'
         });
@@ -418,21 +434,21 @@ window.addEventListener('load', () => {
         const handleFilterClick = function (e) {
             e.preventDefault();
 
-            const { filter } = this.dataset;
+            const { filter } = this.dataset;//Filtro que se está aplicando (String)
 
+            //Realiza la acción de cambiar el estado activo de un filtro a otro
             inmueblesFilters.forEach(el => el.classList.remove('filter-active'));
             this.classList.add('filter-active');
-
-            console.log(inmueblesIsotope.items[0].element);
-
+            
+            //inmueblesIsotope.items ->Obtengo todos los elementos
+            // filter = '.filter-inmueble3'
             inmueblesIsotope.arrange({
-                filter
+                filter: `${filter}.filter-disponible`
             });
 
-            // Accede a la cantidad de inmuebles filtrados y muéstralo
-            const cantidadInmuebles = inmueblesIsotope.filteredItems.length;
-            console.log(`Se muestran ${cantidadInmuebles} inmuebles.`);
-
+            //inmueblesIsotope.filteredItems.length -> Obtengo la cantidad de elementos filtrados
+            console.log(inmueblesIsotope.filteredItems)
+            //Tiene que estar despues que se filtran los elementos
             inmueblesIsotope.once('arrangeComplete', AOS.refresh);
         };
 
@@ -440,5 +456,5 @@ window.addEventListener('load', () => {
 
     }
     cargaInicial();
-    // document.getElementById('habitación-1+').click();
+    filtrar();
 });

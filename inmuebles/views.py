@@ -9,7 +9,7 @@ from django.forms import model_to_dict
 
 
 class InmuebleListView(View):
-    def get(self, request, error=False, *args, **kwargs):
+    def get(self, request, error=False, filtro_activo = '*', *args, **kwargs):
         inmuebles = self.obtenerInmueble()
         filtros = self.obtenerFiltrosInmueble(inmuebles)
 
@@ -26,7 +26,8 @@ class InmuebleListView(View):
             'error': {
                 'estado': error,
                 'message': "Inmueble no encontrado"
-            }
+            },
+            'filtro_activo': filtro_activo
         }
 
         return render(request, 'InmuebleList/index.html', context)
