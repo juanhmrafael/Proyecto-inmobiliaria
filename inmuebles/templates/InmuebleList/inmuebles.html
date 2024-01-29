@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row">
         {% for inmueble in inmuebles %}
-          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-disponible filter-{{ inmueble.id }} filter-{{ inmueble.tipo|cut:' ' }}">
+          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-paginacion filter-disponible filter-{{ inmueble.id }} filter-{{ inmueble.tipo|cut:' ' }}">
             <div class="property-item mb-30">
               <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">

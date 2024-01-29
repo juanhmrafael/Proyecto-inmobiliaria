@@ -45,7 +45,7 @@
 	transition: height 0.5s ease;
 	/* Agrega una transición suave en la altura */
 	text-align: center;
-	background: rgb(46, 45, 45);
+	background: rgb(9, 9, 9);
 }
 
 .main.small {
@@ -154,7 +154,7 @@
 
 .contenido .signup button:hover {
 	color: #ffffff;
-	background: rgb(46, 45, 45);
+	background: rgb(9, 9, 9);
 }
 
 .signup {

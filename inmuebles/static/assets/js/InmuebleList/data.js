@@ -56,7 +56,7 @@ function obtenerFiltroActivo() {
 
 function filtrar() {
     inmueblesIsotope.arrange({
-        filter: `${obtenerFiltroActivo()}.filter-disponible`
+        filter: `${obtenerFiltroActivo()}.filter-disponible.filter-paginacion`
     });
 }
 
@@ -74,7 +74,6 @@ function inmuebleOcultar(inmueble_id) {
 
 function aplicar_filtro_all() {
     let inmuebles = [...datos_inmuebles];
-    inmueblesArray = []
 
     const algunFiltroSeleccionado =
         filtros_activos.pais.size > 0 ||
@@ -110,17 +109,39 @@ function aplicar_filtro_all() {
 
         if (cumpleFiltros) {
             inmuebleMostrar(inmueble_id);
-            inmueblesArray.push(inmueble_id)
         } else {
             inmuebleOcultar(inmueble_id);
         }
     });
     filtrar();
-    console.log(inmueblesIsotope.filteredItems)
 
+    inmueblesArray = []
+    inmueblesIsotope.filteredItems.forEach(inmuebleDisponible => {
+        inmueblesArray.push(inmuebleDisponible.element);
+    });
+    crearPaginacion();
+}
+
+
+function pagMostrar(inmueble_id) {
+    if (!inmueble_id.classList.contains("filter-paginacion")) {
+        inmueble_id.classList.add("filter-paginacion");
+    }
+}
+
+function pagOcultar(inmueble_id) {
+    if (inmueble_id.classList.contains("filter-paginacion")) {
+        inmueble_id.classList.remove("filter-paginacion");
+    }
 }
 
 function crearPaginacion() {
+    //Quitamos la ocultación de todos
+    inmueblesIsotope.items.forEach(inmueble => {
+        pagMostrar(inmueble.element);
+    })
+    filtrar();
+
     //Probando paginación
     paginationList.innerHTML = '';
     let totalPaginas = Math.ceil(inmueblesArray.length / inmueblesPorPagina);
@@ -150,12 +171,14 @@ function mostrarInmueblesPorPagina(paginaSeleccionada) {
     let inmueblesPagina = inmueblesArray.slice(inicio, fin);
 
     inmueblesArray.forEach(inmueble => {
-        inmuebleOcultar(inmueble)
+        pagOcultar(inmueble);
     })
 
     inmueblesPagina.forEach(inmueble => {
-        inmuebleMostrar(inmueble)
+        pagMostrar(inmueble);
     })
+
+    filtrar();
 }
 
 
@@ -439,22 +462,32 @@ window.addEventListener('load', () => {
             //Realiza la acción de cambiar el estado activo de un filtro a otro
             inmueblesFilters.forEach(el => el.classList.remove('filter-active'));
             this.classList.add('filter-active');
-            
+
             //inmueblesIsotope.items ->Obtengo todos los elementos
             // filter = '.filter-inmueble3'
             inmueblesIsotope.arrange({
-                filter: `${filter}.filter-disponible`
+                filter: `${filter}.filter-disponible.filter-paginacion`
             });
 
             //inmueblesIsotope.filteredItems.length -> Obtengo la cantidad de elementos filtrados
-            console.log(inmueblesIsotope.filteredItems)
+            // console.log(inmueblesIsotope.filteredItems)
             //Tiene que estar despues que se filtran los elementos
+            inmueblesArray = []
+            inmueblesIsotope.filteredItems.forEach(inmuebleDisponible => {
+                inmueblesArray.push(inmuebleDisponible.element);
+            });
+            crearPaginacion();
+
             inmueblesIsotope.once('arrangeComplete', AOS.refresh);
         };
-
         on('click', '#inmuebles-flters li', handleFilterClick, true);
-
     }
     cargaInicial();
+    inmueblesArray = []
+    inmueblesIsotope.filteredItems.forEach(inmuebleDisponible => {
+        inmueblesArray.push(inmuebleDisponible.element);
+    });
+    crearPaginacion();
     filtrar();
+
 });
