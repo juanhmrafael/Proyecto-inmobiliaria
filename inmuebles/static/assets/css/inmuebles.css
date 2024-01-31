@@ -8,11 +8,12 @@
     }
 }
 
-.btn-primary {
+.btn-primary, :not(.btn-check)+.btn:active, .btn-primary:focus-visible {
     color: #fff;
     background-color: #3886c1;
     border-color: #3886c1;
 }
+
 
 
 

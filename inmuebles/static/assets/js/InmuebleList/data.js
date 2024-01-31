@@ -74,7 +74,10 @@ function inmuebleOcultar(inmueble_id) {
 
 function aplicar_filtro_all() {
     let inmuebles = [...datos_inmuebles];
-
+    inmueblesIsotope.items.forEach(inmueble => {
+        pagMostrar(inmueble.element);
+    })
+    
     const algunFiltroSeleccionado =
         filtros_activos.pais.size > 0 ||
         filtros_activos.estado.size > 0 ||
@@ -136,12 +139,6 @@ function pagOcultar(inmueble_id) {
 }
 
 function crearPaginacion() {
-    //Quitamos la ocultación de todos
-    inmueblesIsotope.items.forEach(inmueble => {
-        pagMostrar(inmueble.element);
-    })
-    filtrar();
-
     //Probando paginación
     paginationList.innerHTML = '';
     let totalPaginas = Math.ceil(inmueblesArray.length / inmueblesPorPagina);
@@ -463,6 +460,10 @@ window.addEventListener('load', () => {
             inmueblesFilters.forEach(el => el.classList.remove('filter-active'));
             this.classList.add('filter-active');
 
+            inmueblesIsotope.items.forEach(inmueble => {
+                pagMostrar(inmueble.element);
+            })
+
             //inmueblesIsotope.items ->Obtengo todos los elementos
             // filter = '.filter-inmueble3'
             inmueblesIsotope.arrange({
@@ -482,12 +483,13 @@ window.addEventListener('load', () => {
         };
         on('click', '#inmuebles-flters li', handleFilterClick, true);
     }
-    cargaInicial();
     inmueblesArray = []
     inmueblesIsotope.filteredItems.forEach(inmuebleDisponible => {
         inmueblesArray.push(inmuebleDisponible.element);
     });
     crearPaginacion();
+
+    cargaInicial();
     filtrar();
 
 });
