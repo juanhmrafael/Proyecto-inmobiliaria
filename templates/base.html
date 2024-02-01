@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Destino Punta</title>
+    <title>{{ informacion_empresa.nombre_empresa }}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -16,9 +16,7 @@
     <link href="{% static 'home/assets/img/apple-touch-icon.png" rel="apple-touch-icon' %}">
 
     <!-- Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <link href="{% static 'home/assets/font/font.css' %}" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="{% static 'home/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
@@ -46,8 +44,8 @@
         <div class="container d-flex justify-content-center justify-content-md-between">
             <div class="contact-info d-flex align-items-center">
                 <i class="bi bi-envelope d-flex align-items-center"><a
-                        href="mailto:contact@example.com">contacto@destinopunta.com</a></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>(+XX) XXX-XXX-XXXX</span></i>
+                        href="mailto:contact@example.com">{{ informacion_empresa.correo_electronico }}</a></i>
+                <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ informacion_empresa.telefono }}</span></i>
             </div>
             <div class="social-links d-none d-md-flex align-items-center">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -66,8 +64,8 @@
                 <!-- <h1 class="text-light"><a href="index.html">Destino Punta</a></h1> -->
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <a href="/" class="logo-link">
-                    <img src="{% static 'home/assets/img/logo.png' %}" alt="" class="img-fluid">
-                    <span class="company-name">Destino Punta</span>
+                    <img src="{% if informacion_empresa.logo %} {{informacion_empresa.logo.url}} {% endif %}" alt="{{informacion_empresa.nombre_empresa}}" class="img-fluid">
+                    <span class="company-name">{{ informacion_empresa.nombre_empresa }}</span>
                 </a>
             </div>
 
@@ -103,13 +101,13 @@
                 <div class="row">
 
                     <div class="col-lg-4 col-md-6 footer-contact">
-                        <h3>Destino Punta</h3>
+                        <h3>{{ informacion_empresa.nombre_empresa }}</h3>
                         <p>
-                            A108 Adam Street <br>
-                            Nueva York, NY 535022<br>
-                            Estados Unidos <br><br>
-                            <strong>Teléfono:</strong> +1 5589 55488 55<br>
-                            <strong>Correo Electrónico:</strong> info@example.com<br>
+                            {{ informacion_empresa.direccion }} <br>
+                            {{ informacion_empresa.estado }}, {{ informacion_empresa.ciudad }} {{ informacion_empresa.cod_postal }}<br>
+                            {{ informacion_empresa.pais }} <br><br>
+                            <strong>Teléfono:</strong> {{ informacion_empresa.telefono }}<br>
+                            <strong>Correo Electrónico:</strong> {{ informacion_empresa.correo_electronico }}<br>
                         </p>
                     </div>
 
@@ -126,10 +124,8 @@
                     </div>
 
                     <div class="col-lg-5 col-md-6 footer-newsletter">
-                        <h4>Descubre las mejores ofertas y oportunidades del mercado inmobiliario</h4>
-                        <p>Destino Punta te invita a suscribirte a nuestro boletín informativo, donde podrás encontrar
-                            las últimas noticias y tendencias del mercado inmobiliario, así como ofertas exclusivas y
-                            descuentos especiales.</p>
+                        <h4 class="text-center">{{informacion_empresa.title_boletin}}</h4>
+                        <p style="text-align: justify;">{{informacion_empresa.descripcion_boletin}}</p>
                         <form action="" method="post">
                             {% csrf_token %}
                             <input type="email" name="email" placeholder="Tu correo electrónico"><input type="submit"
@@ -145,7 +141,7 @@
 
             <div class="me-md-auto text-center text-md-start">
                 <div class="copyright">
-                    &copy; Derechos de Autor <strong><span>Destino Punta</span></strong>. Todos los derechos reservados
+                    &copy; Derechos de Autor <strong><span>{{ informacion_empresa.nombre_empresa }}</span></strong>. Todos los derechos reservados
                 </div>
                 <div class="credits">
                     Diseñado por <a href="#">Autores</a>

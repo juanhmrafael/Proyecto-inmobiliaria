@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Agregamos las aps que hemos creado
+    'app',
     'contacto',
     'inicio',
     'acceso',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'servicios',
     'agentes',
     'inmuebles',
+    'empresa',
     
     "colorfield",#Al final - Para personalizar el panel admin
     
@@ -76,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'empresa.context_processors.informacion_empresa',
             ],
         },
     },

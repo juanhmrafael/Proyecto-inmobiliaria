@@ -23,18 +23,18 @@
     <div class="container">
       <div class="row">
         {% for inmueble in inmuebles %}
-          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-paginacion filter-disponible filter-{{ inmueble.id }} filter-{{ inmueble.tipo|cut:' ' }}">
+          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-{{ inmueble.tipo|cut:' ' }} filter-disponible filter-paginacion">
             <div class="property-item mb-30">
               <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image" class="img-fluid" /></a>
+                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image" class="img-thumbnail" /></a>
                   </div>
                   <div class="carousel-item">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image" class="img-fluid" /></a>
+                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image" class="img-thumbnail" /></a>
                   </div>
                   <div class="carousel-item">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image" class="img-fluid" /></a>
+                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image" class="img-thumbnail" /></a>
                   </div>
                 </div>
               </div>

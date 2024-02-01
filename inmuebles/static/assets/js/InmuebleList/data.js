@@ -77,7 +77,7 @@ function aplicar_filtro_all() {
     inmueblesIsotope.items.forEach(inmueble => {
         pagMostrar(inmueble.element);
     })
-    
+
     const algunFiltroSeleccionado =
         filtros_activos.pais.size > 0 ||
         filtros_activos.estado.size > 0 ||
@@ -130,11 +130,20 @@ function pagMostrar(inmueble_id) {
     if (!inmueble_id.classList.contains("filter-paginacion")) {
         inmueble_id.classList.add("filter-paginacion");
     }
+
+    if (inmueble_id.classList.contains("d-none")) {
+        inmueble_id.classList.remove("d-none");
+    }
+
 }
 
 function pagOcultar(inmueble_id) {
     if (inmueble_id.classList.contains("filter-paginacion")) {
         inmueble_id.classList.remove("filter-paginacion");
+    }
+    
+    if (!inmueble_id.classList.contains("d-none")) {
+        inmueble_id.classList.add("d-none");
     }
 }
 
@@ -174,7 +183,6 @@ function mostrarInmueblesPorPagina(paginaSeleccionada) {
     inmueblesPagina.forEach(inmueble => {
         pagMostrar(inmueble);
     })
-
     filtrar();
 }
 
@@ -188,6 +196,7 @@ function actualizarPaginaActiva(elementoSeleccionado) {
     }
 
     elementoSeleccionado.classList.add("active");
+
 }
 
 
