@@ -33,6 +33,7 @@ class InformacionEmpresa(models.Model):
     facebook = models.URLField(blank=True, null=True, unique=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
+    msj_whatsapp = models.TextField(null=True)
     
     def __str__(self):
         return self.nombre_empresa.title()

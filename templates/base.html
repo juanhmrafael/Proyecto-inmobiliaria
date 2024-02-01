@@ -1,181 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <title>{{ informacion_empresa.nombre_empresa }} | {% block title %} {% endblock %}</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Estilos de plantilla base -->
-    {% load static %}
-    <!-- Favicons -->
-    <link href="{% static 'home/assets/img/favicon.png' %}" rel="icon">
-    <link href="{% static 'home/assets/img/apple-touch-icon.png" rel="apple-touch-icon' %}">
-
-    <!-- Fonts -->
-    <link href="{% static 'home/assets/font/font.css' %}" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'home/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-    <link href="{% static 'home/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-
-    <link href="{% static 'home/assets/css/estilo_base.css' %}" rel="stylesheet">
-
-    <!-- Estilos de plantillas a heredar de base (css)-->
-    {% block css %} {% endblock %}
-
-
-</head>
-
-<body>
-
-    <!-- ======= Top Bar ======= -->
-    <section id="topbar" class="d-flex align-items-center">
-        <div class="container d-flex justify-content-center justify-content-md-between">
-            <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-envelope d-flex align-items-center"><a
-                        href="mailto:contact@example.com">{{ informacion_empresa.correo_electronico }}</a></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ informacion_empresa.telefono }}</span></i>
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>{{ informacion_empresa.nombre_empresa }} |
+            {% block title %}{% endblock %}
+        </title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <!-- Estilos de plantilla base -->
+        {% load static %}
+        <!-- Favicons -->
+        <link href="{% static 'home/assets/img/favicon.png' %}" rel="icon">
+        <link href="{% static 'home/assets/img/apple-touch-icon.png" rel="apple-touch-icon' %}">
+        <!-- Fonts -->
+        <link href="{% static 'home/assets/font/font.css' %}" rel="stylesheet">
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'home/assets/vendor/animate.css/animate.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/bootstrap/css/bootstrap.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/boxicons/css/boxicons.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/glightbox/css/glightbox.min.css' %}"
+              rel="stylesheet">
+        <link href="{% static 'home/assets/vendor/swiper/swiper-bundle.min.css' %}"
+              rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="{% static 'home/assets/css/estilo_base.css' %}"
+              rel="stylesheet">
+        <!-- Estilos de plantillas a heredar de base (css)-->
+        {% block css %}{% endblock %}
+    </head>
+    <body>
+        <!-- ======= Header ======= -->
+        <header id="header" class="">
+            <!-- ======= Top Bar ======= -->
+            <section id="topbar" class="d-flex align-items-center">
+                <div class="container d-flex justify-content-center justify-content-md-between">
+                    <div class="contact-info d-flex align-items-center">
+                        <i class="bi bi-envelope d-flex align-items-center"><a href="{{ informacion_empresa.correo_electronico }}">{{ informacion_empresa.correo_electronico }}</a></i>
+                        <i class="bi bi-phone d-flex align-items-center ms-4"><span>{{ informacion_empresa.telefono }}</span></i>
+                    </div>
+                    <div class="social-links d-none d-md-flex align-items-center">
+                        {% if informacion_empresa.twitter %}
+                            <a href="{{ informacion_empresa.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        {% endif %}
+                        {% if informacion_empresa.facebook %}
+                            <a href="{{ informacion_empresa.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        {% endif %}
+                        {% if informacion_empresa.instagram %}
+                            <a href="{{ informacion_empresa.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        {% endif %}
+                        {% if informacion_empresa.linkedin %}
+                            <a href="{{ informacion_empresa.linkedin }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        {% endif %}
+                        <a href="https://api.whatsapp.com/send?phone={{ telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
+                           class="whatsapp">
+                            <i class='bx bxl-whatsapp bx-xs'></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <div class="container d-flex justify-content-between">
+                <div class="logo">
+                    <!-- <h1 class="text-light"><a href="index.html">Destino Punta</a></h1> -->
+                    <!-- Uncomment below if you prefer to use an image logo -->
+                    <a href="{inicio:home}" class="logo-link">
+                        <img src="{% if informacion_empresa.logo %} {{ informacion_empresa.logo.url }} {% endif %}"
+                             alt="{{ informacion_empresa.nombre_empresa }}"
+                             class="img-fluid">
+                        <span class="company-name">{{ informacion_empresa.nombre_empresa }}</span>
+                    </a>
+                </div>
+                <nav id="navbar" class="navbar">
+                    <ul>
+                        <li>
+                            <a class="{% block active_inicio %} {% endblock active_inicio %}"
+                               href="{% url 'inicio:home' %}">Inicio</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_nosotros %} {% endblock active_nosotros %}"
+                               href="{% url 'nosotros:home' %}">Acerca de Nosotros</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_servicios %} {% endblock active_servicios %}"
+                               href="{% url 'servicios:home' %}">Servicios</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_agentes %} {% endblock active_agentes %}"
+                               href="{% url 'agentes:home' %}">Nuestros Agentes</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_inmuebles %} {% endblock active_inmuebles %}"
+                               href="{% url 'inmuebles:home' %}">Buscar inmueble</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_contacto %} {% endblock active_contacto %}"
+                               href="{% url 'contacto:home' %}">Contacto</a>
+                        </li>
+                        <li>
+                            <a class="{% block active_acceder %} {% endblock active_acceder %}"
+                               href="{% url 'acceso:home' %}">Acceder o Registrarse</a>
+                        </li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav>
+                <!-- .navbar -->
             </div>
-            <div class="social-links d-none d-md-flex align-items-center">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+        </header>
+        <!-- End Header -->
+        <main id="main">
+            {% block content %}{% endblock %}
+        </main>
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+            <div class="footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 footer-contact">
+                            <h3>{{ informacion_empresa.nombre_empresa }}</h3>
+                            <p>
+                                {{ informacion_empresa.direccion }}
+                                <br>
+                                {{ informacion_empresa.estado }}, {{ informacion_empresa.ciudad }} {{ informacion_empresa.cod_postal }}
+                                <br>
+                                {{ informacion_empresa.pais }}
+                                <br>
+                                <br>
+                                <strong>Teléfono:</strong> {{ informacion_empresa.telefono }}
+                                <br>
+                                <strong>Correo Electrónico:</strong> {{ informacion_empresa.correo_electronico }}
+                                <br>
+                            </p>
+                        </div>
+                        <div class="col-lg-3 col-md-6 footer-links">
+                            <h4>Enlaces Útiles</h4>
+                            <ul>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'inicio:home' %}">Inicio</a>
+                                </li>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'nosotros:home' %}">Acerca de Nosotros</a>
+                                </li>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'servicios:home' %}">Servicios</a>
+                                </li>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'agentes:home' %}">Nuestros Agentes</a>
+                                </li>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'inmuebles:home' %}">Buscar inmueble</a>
+                                </li>
+                                <li>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'contacto:home' %}">Contacto</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-5 col-md-6 footer-newsletter">
+                            <h4 class="text-center">{{ informacion_empresa.title_boletin }}</h4>
+                            <p style="text-align: justify;">{{ informacion_empresa.descripcion_boletin }}</p>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input type="email" name="email" placeholder="Tu correo electrónico">
+                                <input type="submit" value="Suscribirse">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ======= Header ======= -->
-    <header id="header" class="d-flex align-items-center">
-        <div class="container d-flex justify-content-between">
-
-            <div class="logo">
-                <!-- <h1 class="text-light"><a href="index.html">Destino Punta</a></h1> -->
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <a href="/" class="logo-link">
-                    <img src="{% if informacion_empresa.logo %} {{informacion_empresa.logo.url}} {% endif %}" alt="{{informacion_empresa.nombre_empresa}}" class="img-fluid">
-                    <span class="company-name">{{ informacion_empresa.nombre_empresa }}</span>
-                </a>
+            <div class="container d-md-flex py-4">
+                <div class="me-md-auto text-center text-md-start">
+                    <div class="copyright">
+                        &copy; Derechos de Autor <strong><span>{{ informacion_empresa.nombre_empresa }}</span></strong>. Todos los derechos reservados
+                    </div>
+                    <div class="credits">
+                        Diseñado por <a href="#">Autores</a>
+                    </div>
+                </div>
+                <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                    {% if informacion_empresa.twitter %}
+                        <a href="{{ informacion_empresa.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    {% endif %}
+                    {% if informacion_empresa.facebook %}
+                        <a href="{{ informacion_empresa.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    {% endif %}
+                    {% if informacion_empresa.instagram %}
+                        <a href="{{ informacion_empresa.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    {% endif %}
+                    {% if informacion_empresa.linkedin %}
+                        <a href="{{ informacion_empresa.linkedin }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                    {% endif %}
+                    <a href="https://api.whatsapp.com/send?phone={{ telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
+                       class="whatsapp">
+                        <i class="bx bxl-whatsapp"></i>
+                    </a>
+                </div>
             </div>
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="{% block active_inicio %} {% endblock %}" href="{% url 'inicio:home' %}">Inicio</a></li>
-                    <li><a class="{% block active_nosotros %} {% endblock %}" href="{% url 'nosotros:home' %}">Acerca de Nosotros</a></li>
-                    <li><a class="{% block active_servicios %} {% endblock %}" href="{% url 'servicios:home' %}">Servicios</a></li>
-                    <li><a class="{% block active_agentes %} {% endblock %}" href="{% url 'agentes:home' %}">Nuestros Agentes</a></li>
-                    <li><a class="{% block active_inmuebles %} {% endblock %}" href="{% url 'inmuebles:home' %}">Buscar inmueble</a></li>
-                    <li><a class="{% block active_contacto %} {% endblock %}" href="{% url 'contacto:home' %}">Contacto</a></li>
-                    <li><a class="{% block active_acceder %} {% endblock %}" href="{% url 'acceso:home' %}">Acceder o Registrarse</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
-
-    <main id="main">
-
-        {% block content %}
-
+        </footer>
+        <!-- Fin del Pie de Página -->
+        <a href="#"
+           class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <!-- Script de la plantilla base -->
+        <!-- Vendor JS Files -->
+        <script src="{% static 'home/assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'home/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'home/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'home/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        <script src="{% static 'home/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+        <!-- Template Main JS File -->
+        <script src="{% static 'home/assets/js/base.js' %}"></script>
+        <!-- Scripts de las plantillas a heredar de base (js)-->
+        {% block js %}
         {% endblock %}
-
-    </main>
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-4 col-md-6 footer-contact">
-                        <h3>{{ informacion_empresa.nombre_empresa }}</h3>
-                        <p>
-                            {{ informacion_empresa.direccion }} <br>
-                            {{ informacion_empresa.estado }}, {{ informacion_empresa.ciudad }} {{ informacion_empresa.cod_postal }}<br>
-                            {{ informacion_empresa.pais }} <br><br>
-                            <strong>Teléfono:</strong> {{ informacion_empresa.telefono }}<br>
-                            <strong>Correo Electrónico:</strong> {{ informacion_empresa.correo_electronico }}<br>
-                        </p>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Enlaces Útiles</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'inicio:home' %}">Inicio</a></li>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'nosotros:home' %}">Acerca de Nosotros</a></li>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'servicios:home' %}">Servicios</a></li>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'agentes:home' %}">Nuestros Agentes</a></li>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'inmuebles:home' %}">Buscar inmueble</a></li>
-                            <li><i class="bx bx-chevron-right"></i><a  href="{% url 'contacto:home' %}">Contacto</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-5 col-md-6 footer-newsletter">
-                        <h4 class="text-center">{{informacion_empresa.title_boletin}}</h4>
-                        <p style="text-align: justify;">{{informacion_empresa.descripcion_boletin}}</p>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            <input type="email" name="email" placeholder="Tu correo electrónico"><input type="submit"
-                                value="Suscribirse">
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="container d-md-flex py-4">
-
-            <div class="me-md-auto text-center text-md-start">
-                <div class="copyright">
-                    &copy; Derechos de Autor <strong><span>{{ informacion_empresa.nombre_empresa }}</span></strong>. Todos los derechos reservados
-                </div>
-                <div class="credits">
-                    Diseñado por <a href="#">Autores</a>
-                </div>
-            </div>
-            <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-        </div>
-    </footer><!-- Fin del Pie de Página -->
-
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Script de la plantilla base -->
-
-    <!-- Vendor JS Files -->
-    <script src="{% static 'home/assets/vendor/aos/aos.js' %}"></script>
-    <script src="{% static 'home/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'home/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-    <script src="{% static 'home/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'home/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
-    <script src="{% static 'home/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
-
-    <!-- Template Main JS File -->
-    <script src="{% static 'home/assets/js/base.js' %}"></script>
-
-    <!-- Scripts de las plantillas a heredar de base (js)-->
-    {% block js %} {% endblock %}
-</body>
-
+    </body>
 </html>
