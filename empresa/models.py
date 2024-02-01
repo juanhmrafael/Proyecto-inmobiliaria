@@ -1,22 +1,17 @@
 import os
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
 
-def nombrarLogo(instance, filename):
+def nombrar_logo(instance, filename):#Función para guardado de imagen
     ext = filename.split('.')[-1]
 
-    # Si la instancia tiene un ID, verifica y elimina el archivo antiguo si existe
-    if instance.id:
-        try:
-            existente = InformacionEmpresa.objects.get(pk=instance.id)
-            ruta_anterior = existente.logo.path
-            if os.path.isfile(ruta_anterior):
-                os.remove(ruta_anterior)
-
-        except Exception as e:
-            # Manejar cualquier excepción al intentar eliminar el archivo antiguo
-            print(f"Error al eliminar el archivo-logo_empresa antiguo: {e}")
+    # Eliminar archivo antiguo si existe
+    existente = InformacionEmpresa.objects.get(pk=instance.pk)
+    if existente.logo:
+        ruta_anterior = existente.logo.path
+        if os.path.isfile(ruta_anterior):
+            os.remove(ruta_anterior)
 
     return f'Empresa/logo.{ext}'
 
@@ -33,23 +28,30 @@ class InformacionEmpresa(models.Model):
     correo_electronico = models.EmailField()
     title_boletin = models.CharField(max_length=255)
     descripcion_boletin = models.TextField()
-    logo = models.ImageField(upload_to=nombrarLogo, null=True, blank=True)
-
+    logo = models.ImageField(upload_to = nombrar_logo, null=True, blank=True)
+    twitter = models.URLField(blank=True, null=True, unique=True)
+    facebook = models.URLField(blank=True, null=True, unique=True)
+    instagram = models.URLField(blank=True, null=True, unique=True)
+    linkedin = models.URLField(blank=True, null=True, unique=True)
+    
     def __str__(self):
         return self.nombre_empresa.title()
 
 
-@receiver(pre_save, sender=InformacionEmpresa)
-def actualizar_logo(sender, instance, **kwargs):
-    # Verificar si ya existe una instancia almacenada en la base de datos
-    if instance.pk:
-        try:
-            # Obtener la instancia actual en la base de datos
-            existente = InformacionEmpresa.objects.get(pk=instance.pk)
-            # Verificar si la imagen ha cambiado
-            if existente.logo and not instance.logo:
-                ruta_anterior = existente.logo.path
-                if os.path.isfile(ruta_anterior):
-                    os.remove(ruta_anterior)
-        except Exception:
-            pass
+@receiver(pre_save, sender=InformacionEmpresa)#Señal que borra la imagen si está vacía
+def borrar_logo_al_actualizar(sender, instance, **kwargs):
+    # Verificar si la imagen ha cambiado
+    if instance.id and not instance.logo:
+        existente = InformacionEmpresa.objects.get(id=instance.id)
+        if existente.logo:
+            ruta_anterior = existente.logo.path
+            if os.path.exists(ruta_anterior):
+                os.remove(ruta_anterior)
+                
+@receiver(pre_delete, sender=InformacionEmpresa)#Señal que borra el logo al ser eliminado su registro
+def borrar_logo_al_eliminar(sender, instance, **kwargs):
+    # Eliminar archivo antiguo si existe
+    if instance.logo:
+        ruta_anterior = instance.logo.path
+        if os.path.exists(ruta_anterior):
+            os.remove(ruta_anterior)
