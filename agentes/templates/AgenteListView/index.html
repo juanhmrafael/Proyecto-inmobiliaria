@@ -1,68 +1,79 @@
-{% extends 'base.html' %}
-{% block title %}Asesores{% endblock title %}
-
+{% extends "base.html" %}
+{% block title %}
+  Asesores
+{% endblock title %}
 {% block active_agentes %}
   active
-{% endblock %}
-
+{% endblock active_agentes %}
 {% load static %}
-
 {% block css %}
   <link href="{% static 'assets/css/estilo_agentes.css' %}" rel="stylesheet" />
-{% endblock %}
-
+{% endblock css %}
 {% block content %}
   <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
-        <h2>Nuestros Agentes</h2>
+        <h2>Nuestros Asesores</h2>
         <ol>
           <li>
             <a href="{% url 'inicio:home' %}">Inicio</a>
           </li>
-          <li>Nuestros Agentes</li>
+          <li>Nuestros Asesores</li>
         </ol>
       </div>
     </div>
   </section>
-
   <section id="team" class="team section-bg">
     <div class="container">
       <div class="section-title" data-aos="fade-up">
-        <h2>Nuestro <strong>Equipo</strong></h2>
-        <p>En Destino Punta, nuestro equipo es tu confiable camino hacia el hogar perfecto. Con experiencia sólida y dedicación incomparable, estamos aquí para convertir tus sueños inmobiliarios en realidad, ofreciéndote seguridad y conexión en cada paso del camino.</p>
+        <h2>
+          Nuestro <strong>Equipo</strong>
+        </h2>
+        <p>
+          En Destino Punta, nuestro equipo es tu confiable camino hacia el hogar perfecto. Con experiencia sólida y dedicación incomparable, estamos aquí para convertir tus sueños inmobiliarios en realidad, ofreciéndote seguridad y conexión en cada paso del camino.
+        </p>
       </div>
-
       <div class="row">
         {% for agente in data.agentes %}
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
             <div class="member" data-aos="fade-up">
               <div class="member-img">
                 <img src={{ agente.foto.url }} class="img-fluid" alt="" />
-
                 {% if agente.twitter or agente.facebook or agente.instagram or agente.linkedin %}
                   <div class="social">
                     {% if agente.twitter %}
-                      <a href="{{ agente.twitter }}"><i class="bi bi-twitter"></i></a>
+                      <a href="{{ agente.twitter }}"
+                         target="_blank"
+                         rel="noreferrer noopener"
+                         class="bi bi-twitter"></a>
                     {% endif %}
-
                     {% if agente.facebook %}
-                      <a href="{{ agente.facebook }}"><i class="bi bi-facebook"></i></a>
+                      <a href="{{ agente.facebook }}"
+                         target="_blank"
+                         rel="noreferrer noopener"
+                         class="bi bi-facebook"></a>
                     {% endif %}
-
                     {% if agente.instagram %}
-                      <a href="{{ agente.instagram }}"><i class="bi bi-instagram"></i></a>
+                      <a href="{{ agente.instagram }}"
+                         target="_blank"
+                         rel="noreferrer noopener"
+                         class="bi bi-instagram"></a>
                     {% endif %}
-
                     {% if agente.linkedin %}
-                      <a href="{{ agente.linkedin }}"><i class="bi bi-linkedin"></i></a>
+                      <a href="{{ agente.linkedin }}"
+                         target="_blank"
+                         rel="noreferrer noopener"
+                         class="bi bi-linkedin"></a>
                     {% endif %}
                   </div>
                 {% endif %}
               </div>
               <div class="member-info">
                 <h4>{{ agente.nombre }}</h4>
-                <i class='bx bxs-phone'> {{ agente.telefono }}</i>
+                <a href="https://api.whatsapp.com/send?phone={{ agente.telefono }}&text={{ informacion_empresa.msj_whatsapp }} {{ informacion_empresa.msj_asesores }} {{ agente.nombre }}."
+                   target="_blank"
+                   rel="noreferrer noopener"
+                   class="bx bxl-whatsapp">{{ agente.telefono }}</a>
               </div>
             </div>
           </div>
@@ -70,4 +81,4 @@
       </div>
     </div>
   </section>
-{% endblock %}
+{% endblock content %}

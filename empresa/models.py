@@ -1,7 +1,8 @@
 import os
 from django.db import models
-from django.db.models.signals import pre_save, pre_delete
+from django.db.models.signals import pre_save, pre_delete, post_save
 from django.dispatch import receiver
+from PIL import Image
 
 def nombrar_logo(instance, filename):#Función para guardado de imagen
     ext = filename.split('.')[-1]
@@ -33,8 +34,9 @@ class InformacionEmpresa(models.Model):
     facebook = models.URLField(blank=True, null=True, unique=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
     linkedin = models.URLField(blank=True, null=True, unique=True)
-    msj_whatsapp = models.TextField(null=True)
-    
+    msj_whatsapp = models.TextField()
+    msj_asesores = models.TextField()
+    autores = models.CharField(max_length=255)
     def __str__(self):
         return self.nombre_empresa.title()
 
@@ -56,3 +58,20 @@ def borrar_logo_al_eliminar(sender, instance, **kwargs):
         ruta_anterior = instance.logo.path
         if os.path.exists(ruta_anterior):
             os.remove(ruta_anterior)
+
+@receiver(post_save, sender=InformacionEmpresa)#Señal para redimensionar imagen a un tamaño por defecto
+def redimensionar_imagen(sender, instance, created, **kwargs):
+    if instance.logo:
+        try:
+            # Abrir la imagen original
+            image = Image.open(instance.logo.path)
+
+            # Redimensionar la imagen a 600x600
+            image = image.resize((110, 110))
+
+            # Guardar la imagen redimensionada
+            image.save(instance.logo.path)
+
+        except Exception as e:
+            # Manejar cualquier excepción al intentar redimensionar la imagen
+            print(f"Error al redimensionar la imagen: {e}")

@@ -1,257 +1,260 @@
-{% extends 'base.html' %}
-{% block title %}Inmuebles{% endblock title %}
-{% block active_inmuebles %}active{% endblock active_inmuebles %}
-
+{% extends "base.html" %}
 {% load static %}
-
-
+{% block title %}
+    Inmuebles
+{% endblock title %}
+{% block active_inmuebles %}
+    active
+{% endblock active_inmuebles %}
 {% block css %}
-<link href="{% static 'assets/css/individual_inmueble.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/individual_inmueble.css' %}"
+          rel="stylesheet">
 {% endblock css %}
-
-
 {% block content %}
-<section id="breadcrumbs" class="breadcrumbs">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <h2>Inmueble: {{data.inmueble.id}}</h2>
-        <ol>
-          <li>
-            <a href="{% url 'inmuebles:home' %}">Buscar Inmueble</a>
-          </li>
-          <li>Inmueble: {{data.inmueble.id}}</li>
-        </ol>
-      </div>
-    </div>
-  </section>
-<!-- ======= inmuebles Details Section ======= -->
-<section id="inmuebles-details" class="inmuebles-details">
-    <div class="container">
-
-        <div class="row gy-4">
-
-            <div class="col-lg-8">
-                <div class="inmuebles-info">
-                    <h3 class="text-center">Fotos del Inmueble</h3>
-                    <div class="inmuebles-details-slider swiper">
-                        <div class="swiper-wrapper align-items-center">
-
-                            <div class="swiper-slide">
-                                <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="">
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="">
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="">
-                            </div>
-
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-
-                    <div class="Informacion-inmueble" style="margin: 30px;">
-                        <h3 class="text-center">Información del inmueble</h3>
-
-                        <ul class="text-center ">
-                            <li><strong>Tipo de inmueble</strong>: {{ data.inmueble.tipo }}</li>
-                            <li><strong>Transacción</strong>: {{ data.inmueble.transaccion.nombre }}</li>
-                        </ul>
-
-                        <ul class="text-center">
-                            {% if data.inmueble.habitaciones != 0 %}
-                            <li class="bx bxs-bed me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
-                                <strong>Habitaciones
-                                </strong>: {{ data.inmueble.habitaciones }}
-                            </li>
-                            {% endif %}
-
-                            {% if data.inmueble.puestos_estacionamiento != 0 %}
-                            <li class="bx bxs-car-garage me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
-                                <strong>Estacionamientos </strong>: {{ data.inmueble.puestos_estacionamiento }}
-                            </li>
-                            {% endif %}
-
-                            {% if data.inmueble.banos != 0 %}
-                            <li class="bx bxs-bath me-2" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
-                                <strong>Baños
-                                </strong>: {{ data.inmueble.banos }}
-                            </li>
-                            {% endif %}
-
-                            {% if data.inmueble.area != 0 %}
-                            <li class="bx bxs-building-house" style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);">
-                                <strong>Metros
-                                    cuadrados </strong>: {{ data.inmueble.area }} m²
-                            </li>
-                            {% endif %}
-
-                        </ul>
-                    </div>
-
-                    <h3 style="margin: 30px;">Características adicionales</h3>
-                    <div class="Caracteristicas" style="display: flex;justify-content: center;">
-
-                        <div class="tablas col-9">
-                            <table class="table">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th colspan="2">Servicios</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <th scope="row">Agua</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Gas natural</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Aire acondicionado</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Ascensor</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Seguridad</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <table class="table">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th colspan="2">Ambientes</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <th scope="row">Armarios</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Comedor</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Estar</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Cocina</th>
-                                        <td>Sí</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                    <div class="inmuebles-description" style="margin: 30px;">
-                        <h2>Descripción</h2>
-                        <p style="text-align: justify;">
-                            {{ data.inmueble.descripcion }}
-                        </p>
-                    </div>
-
-                </div>
-
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Inmueble: {{ data.inmueble.id }}</h2>
+                <ol>
+                    <li>
+                        <a href="{% url 'inmuebles:home' %}">Buscar Inmueble</a>
+                    </li>
+                    <li>Inmueble: {{ data.inmueble.id }}</li>
+                </ol>
             </div>
-
-            <div class="col-lg-4">
-
-                <div class="inmuebles-info">
-                    <h3 class="text-center">Código: {{ data.inmueble.id }}</h3>
-                    <ul>
-                        <li><strong>Precio:</strong>
-                            <div class="price mb-2 text-center"><span>${{ data.inmueble.precio }}</span></div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="inmuebles-info">
-                    <h3 class="text-center">Asesor Inmobiliario</h3>
-
-                    <div class="container team">
-                        <div class="row">
-                            <div class="col-12 d-flex align-items-stretch">
-                                <div class="member" data-aos="fade-up">
-                                    <div class="member-img">
-                                        <img src={{ data.inmueble.agente.foto.url }} class="img-fluid" alt="">
-                                        {% if data.inmueble.agente.twitter or data.inmueble.agente.facebook or data.inmueble.agente.instagram or data.inmueble.agente.linkedin %}
-                                        <div class="social">
-                                          {% if data.inmueble.agente.twitter %}
-                                            <a href="{{ data.inmueble.agente.twitter }}"><i class="bi bi-twitter"></i></a>
-                                          {% endif %}
-                      
-                                          {% if data.inmueble.agente.facebook %}
-                                            <a href="{{ data.inmueble.agente.facebook }}"><i class="bi bi-facebook"></i></a>
-                                          {% endif %}
-                      
-                                          {% if data.inmueble.agente.instagram %}
-                                            <a href="{{ data.inmueble.agente.instagram }}"><i class="bi bi-instagram"></i></a>
-                                          {% endif %}
-                      
-                                          {% if data.inmueble.agente.linkedin %}
-                                            <a href="{{ data.inmueble.agente.linkedin }}"><i class="bi bi-linkedin"></i></a>
-                                          {% endif %}
-                                        </div>
-                                      {% endif %}
+        </div>
+    </section>
+    <!-- ======= inmuebles Details Section ======= -->
+    <section id="inmuebles-details" class="inmuebles-details">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-8">
+                    <div class="inmuebles-info">
+                        <h3 class="text-center">Fotos del Inmueble</h3>
+                        <div class="inmuebles-details-slider swiper">
+                            <div class="swiper-wrapper align-items-center">
+                                <div class="swiper-slide">
+                                    <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                        <div class="Informacion-inmueble" style="margin: 30px;">
+                            <h3 class="text-center">Información del inmueble</h3>
+                            <ul class="text-center ">
+                                <li>
+                                    <strong>Tipo de inmueble</strong>: {{ data.inmueble.tipo }}
+                                </li>
+                                <li>
+                                    <strong>Transacción</strong>: {{ data.inmueble.transaccion.nombre }}
+                                </li>
+                            </ul>
+                            <ul class="text-center">
+                                {% if data.inmueble.habitaciones != 0 %}
+                                    <li class="bx bxs-bed me-2"
+                                        style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1)">
+                                        <strong>Habitaciones</strong>: {{ data.inmueble.habitaciones }}
+                                    </li>
+                                {% endif %}
+                                {% if data.inmueble.puestos_estacionamiento != 0 %}
+                                    <li class="bx bxs-car-garage me-2"
+                                        style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1)">
+                                        <strong>Estacionamientos</strong>: {{ data.inmueble.puestos_estacionamiento }}
+                                    </li>
+                                {% endif %}
+                                {% if data.inmueble.banos != 0 %}
+                                    <li class="bx bxs-bath me-2"
+                                        style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1)">
+                                        <strong>Baños</strong>: {{ data.inmueble.banos }}
+                                    </li>
+                                {% endif %}
+                                {% if data.inmueble.area != 0 %}
+                                    <li class="bx bxs-building-house"
+                                        style="box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1)">
+                                        <strong>Metros
+                                            cuadrados </strong>: {{ data.inmueble.area }} m²
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <h3 style="margin: 30px;">Características adicionales</h3>
+                            <div class="Caracteristicas"
+                                 style="display: flex;
+                                        justify-content: center">
+                                <div class="tablas col-9">
+                                    <table class="table">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th colspan="2">Servicios</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider">
+                                            <tr>
+                                                <th scope="row">Agua</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Gas natural</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Aire acondicionado</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Ascensor</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Seguridad</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th colspan="2">Ambientes</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-group-divider">
+                                            <tr>
+                                                <th scope="row">Armarios</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Comedor</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Estar</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Cocina</th>
+                                                <td>Sí</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="inmuebles-description" style="margin: 30px;">
+                                <h2>Descripción</h2>
+                                <p style="text-align: justify;">{{ data.inmueble.descripcion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="inmuebles-info">
+                            <h3 class="text-center">Código: {{ data.inmueble.id }}</h3>
+                            <ul>
+                                <li>
+                                    <strong>Precio:</strong>
+                                    <div class="price mb-2 text-center">
+                                        <span>${{ data.inmueble.precio }}</span>
                                     </div>
-                                    <div class="member-info">
-                                        <h4>{{ data.inmueble.agente.nombre }}</h4>
-                                        <i class='bx bxs-phone text-center'> {{ data.inmueble.agente.telefono }}</i>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="inmuebles-info">
+                            <h3 class="text-center">Asesor Inmobiliario</h3>
+                            <div class="container team">
+                                <div class="row">
+                                    <div class="col-12 d-flex align-items-stretch">
+                                        <div class="member" data-aos="fade-up">
+                                            <div class="member-img">
+                                                <img src={{ data.inmueble.agente.foto.url }} class="img-fluid" alt="">
+                                                {% if data.inmueble.agente.twitter or data.inmueble.agente.facebook or data.inmueble.agente.instagram or data.inmueble.agente.linkedin %}
+                                                    <div class="social">
+                                                        {% if data.inmueble.agente.twitter %}
+                                                            <a href="{{ data.inmueble.agente.twitter }}"
+                                                               target="_blank"
+                                                               rel="noreferrer noopener"><i class="bi bi-twitter"></i></a>
+                                                        {% endif %}
+                                                        {% if data.inmueble.agente.facebook %}
+                                                            <a href="{{ data.inmueble.agente.facebook }}"
+                                                               target="_blank"
+                                                               rel="noreferrer noopener"
+                                                               class="bi bi-facebook"></a>
+                                                        {% endif %}
+                                                        {% if data.inmueble.agente.instagram %}
+                                                            <a href="{{ data.inmueble.agente.instagram }}"
+                                                               target="_blank"
+                                                               rel="noreferrer noopener"
+                                                               class="bi bi-instagram"></a>
+                                                        {% endif %}
+                                                        {% if data.inmueble.agente.linkedin %}
+                                                            <a href="{{ data.inmueble.agente.linkedin }}"
+                                                               target="_blank"
+                                                               rel="noreferrer noopener"
+                                                               class="bi bi-linkedin"></a>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="member-info">
+                                                <h4>{{ data.inmueble.agente.nombre }}</h4>
+                                                <a href="https://api.whatsapp.com/send?phone={{ data.inmueble.agente.telefono }}&text={{ informacion_empresa.msj_whatsapp }} {{ informacion_empresa.msj_asesores }} {{ data.inmueble.agente.nombre }}."
+                                                   target="_blank"
+                                                   rel="noreferrer noopener"
+                                                   class="bx bxl-whatsapp">{{ data.inmueble.agente.telefono }}</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
-
-            </div>
-
-            <div class="col-lg-8 ">
-                <div class="inmuebles-info">
-                    <h3 class="text-center">Mapa</h3>
-                    <div class="map-section">
-                        <iframe style="border:0; width: 100%; height: 350px;"
-                            src="{{ data.inmueble.ubicacion_direccion.ubicacion_google_maps }}"
-                            frameborder="0" allowfullscreen></iframe>
+                    <div class="col-lg-8 ">
+                        <div class="inmuebles-info">
+                            <h3 class="text-center">Mapa</h3>
+                            <div class="map-section">
+                                <iframe style="border:0;
+                                               width: 100%;
+                                               height: 350px"
+                                        src="{{ data.inmueble.ubicacion_direccion.ubicacion_google_maps }}"
+                                        frameborder="0"
+                                        allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="inmuebles-info">
+                            <h3 class="text-center">Ubicación</h3>
+                            <ul>
+                                <li>
+                                    <strong>País</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.pais.nombre }}
+                                </li>
+                                <li>
+                                    <strong>Estado</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.nombre }}
+                                </li>
+                                <li>
+                                    <strong>Municipio</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.nombre }}
+                                </li>
+                                <li>
+                                    <strong>Parroquia</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.nombre }}
+                                </li>
+                                <li>
+                                    <strong>Ciudad</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.nombre }}
+                                </li>
+                                <li>
+                                    <strong>Dirección</strong>: {{ data.inmueble.ubicacion_direccion.descripcion }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="inmuebles-info">
-                    <h3 class="text-center">Ubicación</h3>
-                    <ul>
-                        <li><strong>País</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.pais.nombre }}</li>
-                        <li><strong>Estado</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.nombre }}</li>
-                        <li><strong>Municipio</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.nombre }}</li>
-                        <li><strong>Parroquia</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.nombre }}</li>
-                        <li><strong>Ciudad</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.nombre }}</li>
-                        <li><strong>Dirección</strong>: {{ data.inmueble.ubicacion_direccion.descripcion }}</li>
-                    </ul>
-                    
-
-                </div>
-
-            </div>
-
         </div>
-
-    </div>
-</section><!-- End inmuebles Details Section -->
+    </section>
+    <!-- End inmuebles Details Section -->
 {% endblock content %}
-
 {% block js %}
-<script  src="{% static 'assets/js/InmuebleDetail/main.js' %}"></script>
+    <script src="{% static 'assets/js/InmuebleDetail/main.js' %}"></script>
 {% endblock js %}

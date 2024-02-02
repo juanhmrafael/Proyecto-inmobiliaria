@@ -3,28 +3,26 @@ from django.db.models.signals import pre_save, pre_delete, post_save
 from PIL import Image
 from django.dispatch import receiver
 import os
-from django.conf import settings
 # Create your models here.
 
 
 def foto_agente_path(instance, filename):
-    # 'agentes/' es la carpeta principal para todas las fotos de agentes
-    # El nombre del archivo será el ID del agente con la extensión del archivo original
-    ext = filename.split('.')[-1]
+    if instance.id:  # Si no es primera vez, borra la anterior si es que la hay y da nombre con el id
+        # 'agentes/' es la carpeta principal para todas las fotos de agentes
+        # El nombre del archivo será el ID del agente con la extensión del archivo original
+        ext = filename.split('.')[-1]
 
-    # Si la instancia tiene un ID, verifica y elimina el archivo antiguo si existe
-    if instance.id:
-        try:
-            old_file_path = os.path.join(
-                settings.MEDIA_ROOT, 'agentes', f'{instance.id}.{ext}')
-            if os.path.exists(old_file_path):
-                os.remove(old_file_path)
-        except Exception as e:
-            # Manejar cualquier excepción al intentar eliminar el archivo antiguo
-            print(f"Error al eliminar el archivo-foto_agente antiguo: {e}")
+        # Eliminar archivo antiguo si existe
+        existente = AgenteInmobiliario.objects.get(pk=instance.pk)
+        if existente.foto:
+            ruta_anterior = existente.foto.path
+            if os.path.isfile(ruta_anterior):
+                os.remove(ruta_anterior)
 
-    # Si la instancia tiene un ID, usa ese ID en el nombre del archivo
-    return f'agentes/{instance.id}.{ext}'
+        # Si la instancia tiene un ID, usa ese ID en el nombre del archivo
+        return f'agentes/{instance.id}.{ext}'
+    # Si es la primera vez la deja con el nombre original
+    return f'agentes/{filename}'
 
 
 class AgenteInmobiliario(models.Model):
@@ -32,7 +30,7 @@ class AgenteInmobiliario(models.Model):
         max_length=20, unique=True, blank=False, null=False)  # Nueva línea
     nombre = models.CharField(max_length=255)
     correo = models.EmailField(unique=True)
-    telefono = models.CharField(max_length=15, unique=True)
+    telefono = models.CharField(max_length=20, unique=True)
     twitter = models.URLField(blank=True, null=True, unique=True)
     facebook = models.URLField(blank=True, null=True, unique=True)
     instagram = models.URLField(blank=True, null=True, unique=True)
@@ -45,7 +43,7 @@ class AgenteInmobiliario(models.Model):
 
     def __str__(self) -> str:
         return f"{self.cedula if self.cedula is not None else ''} {self.nombre} ({self.correo}) ({self.telefono})"
-    
+
     class Meta:
         verbose_name = "Agente inmobiliario"
         verbose_name_plural = "Agentes inmobiliario"
@@ -55,6 +53,24 @@ class AgenteInmobiliario(models.Model):
 @receiver(post_save, sender=AgenteInmobiliario)
 def redimensionar_imagen(sender, instance, created, **kwargs):
     if instance.foto:
+        if created:  # Por primera vez la renombra
+            # Obtener la extensión original de la foto
+            ext = instance.foto.path.split('.')[-1]
+            # Obtener la ruta actual de la foto
+            ruta_anterior = instance.foto.path
+            # Construir el nuevo nombre de la foto con el ID del agente
+            nuevo_nombre = f'{instance.id}.{ext}'
+            # Obtener la ruta actual de la foto
+            ruta_anterior = instance.foto.path
+            # Construir la nueva ruta con el nuevo nombre
+            nueva_ruta = os.path.join(
+                os.path.dirname(ruta_anterior), nuevo_nombre)
+            # Renombrar la foto
+            os.rename(ruta_anterior, nueva_ruta)
+            # Actualizar la referencia a la foto en la base de datos
+            instance.foto.name = 'agentes/'+nuevo_nombre
+            instance.save()
+
         try:
             # Abrir la imagen original
             image = Image.open(instance.foto.path)
@@ -68,35 +84,28 @@ def redimensionar_imagen(sender, instance, created, **kwargs):
         except Exception as e:
             # Manejar cualquier excepción al intentar redimensionar la imagen
             print(f"Error al redimensionar la imagen: {e}")
+
 # Usar la señal pre_save para eliminar la imagen cuando se establece a None
 
 
 @receiver(pre_save, sender=AgenteInmobiliario)
 def eliminar_imagen_si_necesario(sender, instance, **kwargs):
-    if instance.id is not None:
-        try:
-            # Obtener el valor actual del campo foto en la base de datos
-            antigua_instancia = AgenteInmobiliario.objects.get(id=instance.id)
-            # Verificar si el campo foto ha cambiado a None o se ha limpiado
-            if antigua_instancia.foto and not instance.foto:
-                # Eliminar el archivo antiguo
-                old_file_path = os.path.join(
-                    settings.MEDIA_ROOT, 'agentes', f'{instance.id}.{antigua_instancia.foto.name.split(".")[-1]}')
-                if os.path.exists(old_file_path):
-                    os.remove(old_file_path)
-        except AgenteInmobiliario.DoesNotExist:
-            pass  # Manejar el caso en que la instancia antigua no existe aún
+    if instance.id and not instance.foto:
+        # Obtener el valor actual del campo foto en la base de datos
+        existente = AgenteInmobiliario.objects.get(id=instance.id)
+        # Verificar si el campo foto ha cambiado a None o se ha limpiado
+        if existente.foto:
+            ruta_anterior = existente.foto.path
+            if os.path.exists(ruta_anterior):
+                os.remove(ruta_anterior)
 
 # Usar la señal pre_delete para eliminar la imagen cuando se borra el registro
 
 
 @receiver(pre_delete, sender=AgenteInmobiliario)
 def eliminar_imagen_al_borrar(sender, instance, **kwargs):
+    # Eliminar archivo antiguo si existe
     if instance.foto:
-        try:
-            # Eliminar el archivo asociado al campo foto
-            file_path = os.path.join(settings.MEDIA_ROOT, instance.foto.name)
-            if os.path.exists(file_path):
-                os.remove(file_path)
-        except Exception as e:
-            print(f"Error al eliminar la imagen asociada al borrar: {e}")
+        ruta_anterior = instance.foto.path
+        if os.path.exists(ruta_anterior):
+            os.remove(ruta_anterior)

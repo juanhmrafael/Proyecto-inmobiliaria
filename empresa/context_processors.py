@@ -10,8 +10,7 @@ def informacion_empresa(request):
     
     if empresa:
         data = {
-            'informacion_empresa': empresa,
-            'telefono': empresa.telefono.replace('+', '').replace(' ', '').replace('-', '')
+            'informacion_empresa': empresa
         }
     # Retornar el diccionario con la información que deseas compartir con todas las plantillas
     return data

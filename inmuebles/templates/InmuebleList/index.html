@@ -49,16 +49,17 @@
         </div>
       </div>
     </div>
+    
   </section>
-{% endblock %}
+{% endblock content %}
 
 {% block js %}
   <script> 
-    var inmueblesPorPagina = 6;
+    var inmueblesPorPagina = 3;
     var datos = {{ filtros_json|safe }}
     var datos_inmuebles = {{ inmuebles_json|safe }}
   </script>
 
   <script src="{% static 'assets/js/InmuebleList/data.js' %}"></script>
   <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
-{% endblock %}
+{% endblock js %}

@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>{{ informacion_empresa.nombre_empresa }} |
-            {% block title %}{% endblock %}
+            {% block title %}
+            {% endblock title %}
         </title>
         <meta content="" name="description">
         <meta content="" name="keywords">
@@ -33,11 +34,12 @@
         <link href="{% static 'home/assets/css/estilo_base.css' %}"
               rel="stylesheet">
         <!-- Estilos de plantillas a heredar de base (css)-->
-        {% block css %}{% endblock %}
+        {% block css %}
+        {% endblock css %}
     </head>
     <body>
         <!-- ======= Header ======= -->
-        <header id="header" class="">
+        <header id="header">
             <!-- ======= Top Bar ======= -->
             <section id="topbar" class="d-flex align-items-center">
                 <div class="container d-flex justify-content-center justify-content-md-between">
@@ -47,21 +49,33 @@
                     </div>
                     <div class="social-links d-none d-md-flex align-items-center">
                         {% if informacion_empresa.twitter %}
-                            <a href="{{ informacion_empresa.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="{{ informacion_empresa.twitter }}"
+                               target="_blank"
+                               rel="noreferrer noopener"
+                               class="bx bxl-twitter"></a>
                         {% endif %}
                         {% if informacion_empresa.facebook %}
-                            <a href="{{ informacion_empresa.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="{{ informacion_empresa.facebook }}"
+                               target="_blank"
+                               rel="noreferrer noopener"
+                               class="bx bxl-facebook"></a>
                         {% endif %}
                         {% if informacion_empresa.instagram %}
-                            <a href="{{ informacion_empresa.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                            <a href="{{ informacion_empresa.instagram }}"
+                               target="_blank"
+                               rel="noreferrer noopener"
+                               class="bx bxl-instagram"></a>
                         {% endif %}
                         {% if informacion_empresa.linkedin %}
-                            <a href="{{ informacion_empresa.linkedin }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                            <a href="{{ informacion_empresa.linkedin }}"
+                               target="_blank"
+                               rel="noreferrer noopener"
+                               class="bx bxl-linkedin"></a>
                         {% endif %}
-                        <a href="https://api.whatsapp.com/send?phone={{ telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
-                           class="whatsapp">
-                            <i class='bx bxl-whatsapp bx-xs'></i>
-                        </a>
+                        <a href="https://api.whatsapp.com/send?phone={{ informacion_empresa.telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           class="bx bxl-whatsapp bx-xs"></a>
                     </div>
                 </div>
             </section>
@@ -69,8 +83,10 @@
                 <div class="logo">
                     <!-- <h1 class="text-light"><a href="index.html">Destino Punta</a></h1> -->
                     <!-- Uncomment below if you prefer to use an image logo -->
-                    <a href="{inicio:home}" class="logo-link">
-                        <img src="{% if informacion_empresa.logo %} {{ informacion_empresa.logo.url }} {% endif %}"
+                    <a href="{% url 'inicio:home' %}" class="logo-link">
+                        <img height="110px"
+                             width="110px"
+                             src="{% if informacion_empresa.logo %} {{ informacion_empresa.logo.url }} {% endif %}"
                              alt="{{ informacion_empresa.nombre_empresa }}"
                              class="img-fluid">
                         <span class="company-name">{{ informacion_empresa.nombre_empresa }}</span>
@@ -92,7 +108,7 @@
                         </li>
                         <li>
                             <a class="{% block active_agentes %} {% endblock active_agentes %}"
-                               href="{% url 'agentes:home' %}">Nuestros Agentes</a>
+                               href="{% url 'agentes:home' %}">Nuestros Asesores</a>
                         </li>
                         <li>
                             <a class="{% block active_inmuebles %} {% endblock active_inmuebles %}"
@@ -114,7 +130,8 @@
         </header>
         <!-- End Header -->
         <main id="main">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock content %}
         </main>
         <!-- ======= Footer ======= -->
         <footer id="footer">
@@ -150,7 +167,7 @@
                                     <i class="bx bx-chevron-right"></i><a href="{% url 'servicios:home' %}">Servicios</a>
                                 </li>
                                 <li>
-                                    <i class="bx bx-chevron-right"></i><a href="{% url 'agentes:home' %}">Nuestros Agentes</a>
+                                    <i class="bx bx-chevron-right"></i><a href="{% url 'agentes:home' %}">Nuestros Asesores</a>
                                 </li>
                                 <li>
                                     <i class="bx bx-chevron-right"></i><a href="{% url 'inmuebles:home' %}">Buscar inmueble</a>
@@ -178,26 +195,38 @@
                         &copy; Derechos de Autor <strong><span>{{ informacion_empresa.nombre_empresa }}</span></strong>. Todos los derechos reservados
                     </div>
                     <div class="credits">
-                        Diseñado por <a href="#">Autores</a>
+                        Diseñado por <a href="#">{{ informacion_empresa.autores }}</a>
                     </div>
                 </div>
                 <div class="social-links text-center text-md-right pt-3 pt-md-0">
                     {% if informacion_empresa.twitter %}
-                        <a href="{{ informacion_empresa.twitter }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="{{ informacion_empresa.twitter }}"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           class="bx bxl-twitter"></a>
                     {% endif %}
                     {% if informacion_empresa.facebook %}
-                        <a href="{{ informacion_empresa.facebook }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="{{ informacion_empresa.facebook }}"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           class="bx bxl-facebook"></a>
                     {% endif %}
                     {% if informacion_empresa.instagram %}
-                        <a href="{{ informacion_empresa.instagram }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="{{ informacion_empresa.instagram }}"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           class="bx bxl-instagram"></a>
                     {% endif %}
                     {% if informacion_empresa.linkedin %}
-                        <a href="{{ informacion_empresa.linkedin }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                        <a href="{{ informacion_empresa.linkedin }}"
+                           target="_blank"
+                           rel="noreferrer noopener"
+                           class="bx bxl-linkedin"></a>
                     {% endif %}
-                    <a href="https://api.whatsapp.com/send?phone={{ telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
-                       class="whatsapp">
-                        <i class="bx bxl-whatsapp"></i>
-                    </a>
+                    <a href="https://api.whatsapp.com/send?phone={{ informacion_empresa.telefono }}&text={{ informacion_empresa.msj_whatsapp }}"
+                       target="_blank"
+                       rel="noreferrer noopener"
+                       class="bx bxl-whatsapp"></a>
                 </div>
             </div>
         </footer>
@@ -216,6 +245,6 @@
         <script src="{% static 'home/assets/js/base.js' %}"></script>
         <!-- Scripts de las plantillas a heredar de base (js)-->
         {% block js %}
-        {% endblock %}
+        {% endblock js %}
     </body>
 </html>
