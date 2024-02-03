@@ -1,6 +1,11 @@
 from django.db import models
 from agentes.models import AgenteInmobiliario
-
+from django.db.models.signals import pre_save, pre_delete, post_save
+from PIL import Image
+from django.dispatch import receiver
+import os
+from django.conf import settings
+import shutil
 # Modelo de país
 
 
@@ -173,3 +178,61 @@ class Inmueble(models.Model):
     class Meta:
         verbose_name = "Inmueble"
         verbose_name_plural = "Inmuebles"
+
+
+@receiver(pre_delete, sender=Inmueble)
+def eliminar_carpeta_imagen_al_borrar(sender, instance, **kwargs):
+    # Eliminar archivo antiguo si existe
+    if instance.id:
+        ruta_anterior = os.path.join(
+            settings.MEDIA_ROOT, f"Inmuebles/{instance.id}")
+        print(f'ruta anterior: {ruta_anterior}')
+        if os.path.exists(ruta_anterior):
+            shutil.rmtree(ruta_anterior)
+            print('Se borro carpeta')
+
+
+def nombrar_imagen_inmueble(instance, filename):
+    if instance.id:
+        existente = ImagenInmueble.objects.get(pk=instance.pk)
+        if existente.imagen:
+            ruta_anterior = existente.imagen.path
+            if os.path.isfile(ruta_anterior):
+                os.remove(ruta_anterior)
+    return f'Inmuebles/{instance.inmueble.id}/{filename}'
+
+
+class ImagenInmueble(models.Model):
+    imagen = models.ImageField(
+        upload_to=nombrar_imagen_inmueble)
+    inmueble = models.ForeignKey(
+        Inmueble, on_delete=models.CASCADE, related_name="imagenes")
+
+    class Meta:
+        verbose_name_plural = "Imagenes del Inmueble"
+
+
+@receiver(post_save, sender=ImagenInmueble)
+def redimensionar_imagen(sender, instance, created, **kwargs):
+    if instance.imagen:
+        try:
+            # Abrir la imagen original
+            image = Image.open(instance.imagen.path)
+
+            # Redimensionar la imagen a 600x600
+            image = image.resize((500, 500))
+
+            # Guardar la imagen redimensionada
+            image.save(instance.imagen.path)
+
+        except Exception as e:
+            # Manejar cualquier excepción al intentar redimensionar la imagen
+            print(f"Error al redimensionar la imagen: {e}")
+            
+@receiver(pre_delete, sender=ImagenInmueble)
+def eliminar_imagen_al_borrar(sender, instance, **kwargs):
+    # Eliminar archivo antiguo si existe
+    if instance.imagen:
+        ruta_anterior = instance.imagen.path
+        if os.path.exists(ruta_anterior):
+            os.remove(ruta_anterior)

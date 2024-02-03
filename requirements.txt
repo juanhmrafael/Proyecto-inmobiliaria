@@ -4,3 +4,4 @@ mysqlclient==2.2.0
 django-environ==0.11.2
 django-admin-interface==0.28.3
 pillow==10.2.0
+djlint==1.34.1

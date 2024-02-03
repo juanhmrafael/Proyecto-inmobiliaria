@@ -9,8 +9,10 @@ from django.forms import model_to_dict
 
 
 class InmuebleListView(View):
-    def get(self, request, error=False, filtro_activo = '*', *args, **kwargs):
-        inmuebles = self.obtenerInmueble()
+    def get(self, request, error=False, filtro_activo='*', *args, **kwargs):
+        inmuebles = self.obtenerInmueble(True)
+        inmuebles_json = self.obtenerInmueble()
+
         filtros = self.obtenerFiltrosInmueble(inmuebles)
 
         data = {
@@ -21,7 +23,7 @@ class InmuebleListView(View):
             'filtros_json': json.dumps(data),
             'filtro_tipo': filtros['tipo'],
             'inmuebles': inmuebles,
-            'inmuebles_json': json.dumps(inmuebles),
+            'inmuebles_json': json.dumps(inmuebles_json),
             # La vista por defecto tiene error desactivado pero si desde el post le envia un True indicara que el inmueble no se encontro
             'error': {
                 'estado': error,
@@ -50,7 +52,7 @@ class InmuebleListView(View):
                 # Mandamos una notificación de que el inmueble no ha sido encontrado
                 return self.get(request, True)
 
-    def obtenerInmueble(self) -> dict:
+    def obtenerInmueble(self, imagenes=False) -> dict:
         consulta = Inmueble.objects.all()  # Consultamos inmuebles a la bd
 
         inmuebles = []  # Lista para los inmuebles
@@ -88,8 +90,10 @@ class InmuebleListView(View):
                 },
                 'agente': agente,
                 'puestos_estacionamiento': dato.puestos_estacionamiento,
-                'transaccion': dato.transaccion.nombre,
+                'transaccion': dato.transaccion.nombre
             }
+            if imagenes:
+                inmueble['imagenes'] = dato.imagenes
             inmuebles.append(inmueble)
 
         return inmuebles

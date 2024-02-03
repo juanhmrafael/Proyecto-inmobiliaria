@@ -1,49 +1,65 @@
 from django.contrib import admin
-from .models import TipoTransaccion, Pais, Estado, Municipio, Parroquia, Ciudad, Direccion, TipoInmueble, EstadoInmueble, Inmueble
+from .models import ImagenInmueble, TipoTransaccion, Pais, Estado, Municipio, Parroquia, Ciudad, Direccion, TipoInmueble, EstadoInmueble, Inmueble
+
 
 class DireccionAdmin(admin.ModelAdmin):
     list_display = ['descripcion', 'ciudad']
     search_fields = ['descripcion']
 
+
 class PaisAdmin(admin.ModelAdmin):
     list_display = ['nombre']
     search_fields = ['nombre']
 
+
 class EstadoAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'pais']
     search_fields = ['nombre']
-    
+
+
 class MunicipioAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'estado']
     search_fields = ['nombre']
+
 
 class ParroquiaAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'municipio']
     search_fields = ['nombre']
 
+
 class CiudadAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'parroquia']
     search_fields = ['nombre']
 
+
 class TipoInmuebleAdmin(admin.ModelAdmin):
     list_display = ['nombre']
     search_fields = ['nombre']
-    
+
+
 class EstadoInmuebleAdmin(admin.ModelAdmin):
     list_display = ['nombre']
     search_fields = ['nombre']
-    
+
+
 class TipoTransaccionAdmin(admin.ModelAdmin):
     list_display = ['nombre']
     search_fields = ['nombre']
 
+
+class ImagenInmuebleAdmin(admin.TabularInline):
+    model = ImagenInmueble
+
+
 class InmuebleAdmin(admin.ModelAdmin):
     list_display = ['id', 'ubicacion_direccion', 'tipo', 'estado']
     search_fields = ['id']
-    
     list_filter = ['transaccion', 'disponible']
+    inlines = [
+        ImagenInmuebleAdmin
+    ]
 
-    
+
 # Register your models here.
 admin.site.register(Pais, PaisAdmin)
 admin.site.register(Estado, EstadoAdmin)

@@ -1,54 +1,70 @@
 {% load static %}
-
 <ul id="inmuebles-flters">
   {% if filtro_activo == '*' %}
     <li data-filter="*" class="filter-active">All</li>
   {% else %}
     <li data-filter="*">All</li>
   {% endif %}
-
   {% for tipo in filtro_tipo %}
-
     {% if filtro_activo != ".filter-"|add:tipo|cut:' ' %}
-    <li data-filter=".filter-{{ tipo|cut:' ' }}">{{ tipo }}</li>
+      <li data-filter=".filter-{{ tipo|cut:' ' }}">{{ tipo }}</li>
     {% else %}
-    <li data-filter=".filter-{{ tipo|cut:' ' }}" class="filter-active">{{ tipo }}</li>
+      <li data-filter=".filter-{{ tipo|cut:' ' }}" class="filter-active">{{ tipo }}</li>
     {% endif %}
-    
   {% endfor %}
 </ul>
-
 <div class="row inmuebles-container" data-aos="fade-up">
   <div class="section section-properties">
     <div class="container">
       <div class="row">
         {% for inmueble in inmuebles %}
-          <div id="inmueble-{{ inmueble.id }}" class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-{{ inmueble.tipo|cut:' ' }} filter-disponible filter-paginacion">
+          <div id="inmueble-{{ inmueble.id }}"
+               class="col-xs-12 col-sm-6 col-md-6 col-lg-4 inmuebles-item filter-{{ inmueble.tipo|cut:' ' }} filter-disponible filter-paginacion">
             <div class="property-item mb-30">
-              <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+              <div id="carouselExampleSlidesOnly"
+                   class="carousel slide"
+                   data-bs-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="Image" class="img-thumbnail" /></a>
-                  </div>
-                  <div class="carousel-item">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="Image" class="img-thumbnail" /></a>
-                  </div>
-                  <div class="carousel-item">
-                    <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img"><img width="100%" src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="Image" class="img-thumbnail" /></a>
-                  </div>
+                  {% for image in inmueble.imagenes.all %}
+                    {% if forloop.first %}
+                      <div class="carousel-item active">
+                        <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img">
+                          <img width="100%"
+                               src="{{ image.imagen.url }}"
+                               alt="Image"
+                               class="img-thumbnail" />
+                        </a>
+                      </div>
+                    {% else %}
+                      <div class="carousel-item">
+                        <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img">
+                          <img width="100%"
+                               src="{{ image.imagen.url }}"
+                               alt="Image"
+                               class="img-thumbnail" />
+                        </a>
+                      </div>
+                    {% endif %}
+                  {% empty %}
+                    <div class="carousel-item active">
+                      <a href="{% url 'inmuebles:detail' inmueble.id %}" class="img">
+                        <img width="100%"
+                             src="{% static 'assets/img/inmuebles/inmueble-no-disponible.jpg' %}"
+                             alt="Image"
+                             class="img-thumbnail" />
+                      </a>
+                    </div>
+                  {% endfor %}
                 </div>
               </div>
-
               <div class="property-content text-center">
                 <span class="city text-black-50">{{ inmueble.transaccion }} - {{ inmueble.tipo }}</span>
-
                 <div class="price mb-2">
                   <span>${{ inmueble.precio }}</span>
                 </div>
                 <div>
                   <span class="d-block mb-2 text-black-50">{{ inmueble.ubicacion.direccion }}</span>
                   <span class="city d-block mb-3">{{ inmueble.ubicacion.estado.nombre }}, {{ inmueble.ubicacion.pais.nombre }}</span>
-
                   <div class="specs d-flex mb-4" style="justify-content: center;">
                     {% if inmueble.habitaciones != 0 %}
                       <span class="d-block me-3">
@@ -56,14 +72,12 @@
                         <span class="caption">{{ inmueble.habitaciones }} Hab.</span>
                       </span>
                     {% endif %}
-
                     {% if inmueble.banos != 0 %}
                       <span class="d-block me-3">
                         <span class="bx bxs-bath me-2"></span>
                         <span class="caption">{{ inmueble.banos }} Baños</span>
                       </span>
                     {% endif %}
-
                     {% if inmueble.puestos_estacionamiento != 0 %}
                       <span class="d-block me-3">
                         <span class="bx bxs-car-garage me-2"></span>
@@ -71,11 +85,12 @@
                       </span>
                     {% endif %}
                   </div>
-
-                  <a href="{% url 'inmuebles:detail' inmueble.id %}" class="btn btn-primary py-2 px-3">Ver más</a>
+                  <a href="{% url 'inmuebles:detail' inmueble.id %}"
+                     class="btn btn-primary py-2 px-3">Ver más</a>
                 </div>
               </div>
-            </div> <!-- .item -->
+            </div>
+            <!-- .item -->
           </div>
         {% endfor %}
       </div>
