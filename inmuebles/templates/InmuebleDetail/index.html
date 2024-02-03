@@ -33,15 +33,16 @@
                         <h3 class="text-center">Fotos del Inmueble</h3>
                         <div class="inmuebles-details-slider swiper">
                             <div class="swiper-wrapper align-items-center">
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/inmuebles/img_1.jpg' %}" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/inmuebles/img_2.jpg' %}" alt="">
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="{% static 'assets/img/inmuebles/img_3.jpg' %}" alt="">
-                                </div>
+                                {% for image in data.inmueble.imagenes.all %}
+                                    <div class="swiper-slide">
+                                        <img src="{{ image.imagen.url }}" alt="Imagen inmueble">
+                                    </div>
+                                {% empty %}
+                                    <div class="swiper-slide">
+                                        <img src="{% static 'assets/img/inmuebles/inmueble-no-disponible.jpg' %}"
+                                             alt="Imagen no disponible">
+                                    </div>
+                                {% endfor %}
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>

@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
-{% block title %}Inmuebles{% endblock title %}
+{% extends "base.html" %}
+{% block title %}
+  Inmuebles
+{% endblock title %}
 {% block active_inmuebles %}
   active
-{% endblock %}
-
+{% endblock active_inmuebles %}
 {% load static %}
-
 {% block css %}
   <link href="{% static 'assets/css/inmuebles.css' %}" rel="stylesheet" />
-{% endblock %}
-
+{% endblock css %}
 {% block content %}
   <section id="breadcrumbs" class="breadcrumbs">
     <div class="container">
@@ -25,22 +24,18 @@
     </div>
   </section>
   <!-- End Breadcrumbs -->
-
   <section id="inmuebles" class="inmuebles">
     <div class="container-fluid" data-aos="fade-up">
       <div class="row">
-        {% include './filtros.html' %}
-
+        {% include "./filtros.html" %}
         <div class="col-lg-9 entries">
           <section id="inmuebles" class="inmuebles">
-            {% include './inmuebles.html' %}
-
+            {% include "./inmuebles.html" %}
             <div class="row align-items-center py-5">
               <div class="col-lg-3"></div>
               <div class="col-lg-6 text-center">
                 <div class="inmuebles-pagination">
                   <ul class="justify-content-center" id="paginationList">
-
                   </ul>
                 </div>
               </div>
@@ -49,17 +44,14 @@
         </div>
       </div>
     </div>
-    
   </section>
 {% endblock content %}
-
 {% block js %}
-  <script> 
-    var inmueblesPorPagina = 3;
+  <script>
+    var inmueblesPorPagina = 9;
     var datos = {{ filtros_json|safe }}
     var datos_inmuebles = {{ inmuebles_json|safe }}
   </script>
-
   <script src="{% static 'assets/js/InmuebleList/data.js' %}"></script>
   <script src="{% static 'assets/js/InmuebleList/form.js' %}"></script>
 {% endblock js %}
