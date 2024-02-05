@@ -129,10 +129,29 @@
                             <a class="{% block active_contacto %} {% endblock active_contacto %}"
                                href="{% url 'contacto:home' %}">Contacto</a>
                         </li>
-                        <li>
-                            <a class="{% block active_acceder %} {% endblock active_acceder %}"
-                               href="{% url 'acceso:home' %}">Acceder o Registrarse</a>
-                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="dropdown">
+                                <a href="{% url 'inicio:home' %}"><span>Bienvenido, {{ user.username }}</span> <i class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">Perfil</a>
+                                    </li>
+                                    {% if user.is_staff %}
+                                    <li>
+                                        <a href="/panel_administrativo/">Panel Administrativo</a>
+                                    </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="{% url 'acceso:cerrar_sesion' %}">Cerrar Sesión</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class="{% block active_acceder %} {% endblock active_acceder %}"
+                                   href="{% url 'acceso:home' %}">Acceder o Registrarse</a>
+                            </li>
+                        {% endif %}
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>

@@ -56,6 +56,7 @@ class ServicioInline(admin.TabularInline):
     model = Servicio
     extra = 0
 
+
 class InmuebleAdmin(admin.ModelAdmin):
     list_display = ['id', 'tipo', 'pais', 'ubestado',
                     'municipio', 'parroquia', 'ciudad', 'ubicacion_direccion']

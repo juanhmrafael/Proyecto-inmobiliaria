@@ -15,7 +15,7 @@ urlpatterns = [
     path('agentes/', include('agentes.urls', namespace='agentes')),
     path('inmuebles/', include('inmuebles.urls', namespace='inmuebles')),
 ]
-urlpatterns += i18n_patterns(path("admin/", admin.site.urls))  # Para lenguajes
+urlpatterns += i18n_patterns(path("panel_administrativo/", admin.site.urls))  # Para lenguajes
 
 # Solo cuando estamos en DEBUG debido a que django protege y para producción hacer engine
 
