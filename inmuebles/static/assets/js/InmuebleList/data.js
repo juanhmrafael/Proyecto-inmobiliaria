@@ -99,11 +99,11 @@ function aplicar_filtro_all() {
         }
 
         const cumpleFiltros =
-            (filtros_activos.pais.size === 0 || filtros_activos.pais.has(String(inmueble.ubicacion.pais.id))) &&
-            (filtros_activos.estado.size === 0 || filtros_activos.estado.has(String(inmueble.ubicacion.estado.id))) &&
-            (filtros_activos.municipio.size === 0 || filtros_activos.municipio.has(String(inmueble.ubicacion.municipio.id))) &&
-            (filtros_activos.parroquia.size === 0 || filtros_activos.parroquia.has(String(inmueble.ubicacion.parroquia.id))) &&
-            (filtros_activos.ciudad.size === 0 || filtros_activos.ciudad.has(String(inmueble.ubicacion.ciudad.id))) &&
+            (filtros_activos.pais.size === 0 || filtros_activos.pais.has(inmueble.ubicacion.pais.id)) &&
+            (filtros_activos.estado.size === 0 || filtros_activos.estado.has(inmueble.ubicacion.estado.id)) &&
+            (filtros_activos.municipio.size === 0 || filtros_activos.municipio.has(inmueble.ubicacion.municipio.id)) &&
+            (filtros_activos.parroquia.size === 0 || filtros_activos.parroquia.has(inmueble.ubicacion.parroquia.id)) &&
+            (filtros_activos.ciudad.size === 0 || filtros_activos.ciudad.has(inmueble.ubicacion.ciudad.id)) &&
             (filtros_activos.habitacion === 0 || inmueble.habitaciones >= filtros_activos.habitacion) &&
             (filtros_activos.bano === 0 || inmueble.banos >= filtros_activos.bano) &&
             (filtros_activos.estacionamiento === 0 || inmueble.puestos_estacionamiento >= filtros_activos.estacionamiento) &&
@@ -141,7 +141,7 @@ function pagOcultar(inmueble_id) {
     if (inmueble_id.classList.contains("filter-paginacion")) {
         inmueble_id.classList.remove("filter-paginacion");
     }
-    
+
     if (!inmueble_id.classList.contains("d-none")) {
         inmueble_id.classList.add("d-none");
     }
@@ -200,132 +200,50 @@ function actualizarPaginaActiva(elementoSeleccionado) {
 }
 
 
-const listarPaises = (data) => {
+const listarPaises = (data, verbo_plural) => {
     try {
         if (data.length > 0) {
             const opciones = data.map(pais => `
-                <div class="form-check">
+                <div class="form-check" id = "item-filtro">
                     <input class="form-check-input" type="checkbox" id="pais-${pais.id}" name="pais"
                         value="${pais.nombre}">
                     <label class="form-check-label" for="pais-${pais.id}">${pais.nombre}</label>
                 </div>
             `).join('');
 
-            formPais.innerHTML = opciones;
+            formPais.innerHTML = `<div class="row" id = "title-filtro"> <strong>${verbo_plural} Disponibles</strong> </div>` + opciones;
         } else {
-            formPais.innerHTML = `<strong>No hay países disponibles</strong>`;
+            formPais.innerHTML = `<strong>No hay inmuebles disponibles</strong>`;
         }
     } catch (error) {
         console.error(`Error en listarPaises -> ${error}`);
     }
 };
 
-
-const listarEstados = (data) => {
+//Lista cualquier filtro (Estado, Municipio, Parroquia, Ciudad)
+const listar = (select_filtro, data, filtro, filtro_verbo_plural, btn, form) => {
     try {
-        if (data.length > 0) {
-
-            btnMostrarEstados.querySelector('span').textContent = 'Seleccionar Estado';
-
-            let opciones = ``;
-
-            data.forEach(estado => {
-                opciones += `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="estado-${estado.id}" name="estado"
-                        value="${estado.nombre}">
-                    <label class="form-check-label" for="estado-${estado.id}">${estado.nombre}</label>
+        let items = [];
+        let opciones = ``;
+        select_filtro.forEach(id => {
+            btn.querySelector('span').textContent = `Seleccionar ${filtro}`;
+            data[id].forEach(item => {
+                if (!items.includes(item.id)) {
+                    items.push(item.id);
+                    opciones += `
+                <div class="form-check" id = "item-filtro">
+                    <input class="form-check-input" type="checkbox" id="${filtro}_${id}-${item.id}" name="${filtro}"
+                        value="${item.nombre}">
+                    <label class="form-check-label" for="${filtro}_${id}-${item.id}">${item.nombre}</label>
                 </div>
                 `;
+                }
+
             });
-            formEstados.innerHTML = opciones;
-        } else {
-            formEstados.innerHTML = `<strong>No hay estados disponibles</strong>`;
-        }
-
+            form.innerHTML = `<div class="row" id = "title-filtro"> <strong>${filtro_verbo_plural} Disponibles</strong> </div>` + opciones;
+        })
     } catch (error) {
-        console.log(`Error en listarEstados -> ${error}`);
-    }
-}
-
-const listarMunicipios = (data) => {
-    try {
-        if (data.length > 0) {
-
-            btnMostrarMunicipios.querySelector('span').textContent = 'Seleccionar Municipio';
-
-            let opciones = ``;
-
-            data.forEach(municipio => {
-                opciones += `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="municipio-${municipio.id}" name="municipio"
-                        value="${municipio.nombre}">
-                    <label class="form-check-label" for="municipio-${municipio.id}">${municipio.nombre}</label>
-                </div>
-                `;
-            });
-            formMunicipios.innerHTML = opciones;
-        } else {
-            formMunicipios.innerHTML = `<strong>No hay municipios disponibles</strong>`;
-        }
-
-    } catch (error) {
-        console.log(`Error en listarMunicipios -> ${error}`);
-    }
-}
-
-const listarParroquias = (data) => {
-    try {
-        if (data.length > 0) {
-
-            btnMostrarParroquias.querySelector('span').textContent = 'Seleccionar Parroquia';
-
-            let opciones = ``;
-
-            data.forEach(parroquia => {
-                opciones += `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="parroquia-${parroquia.id}" name="parroquia"
-                        value="${parroquia.nombre}">
-                    <label class="form-check-label" for="parroquia-${parroquia.id}">${parroquia.nombre}</label>
-                </div>
-                `;
-            });
-            formParroquias.innerHTML = opciones;
-        } else {
-            formParroquias.innerHTML = `<strong>No hay parroquias disponibles</strong>`;
-        }
-
-    } catch (error) {
-        console.log(`Error en listarParroquias -> ${error}`);
-    }
-}
-
-const listarCiudades = (data) => {
-    try {
-        if (data.length > 0) {
-
-            btnMostrarCiudades.querySelector('span').textContent = 'Seleccionar Ciudad';
-
-            let opciones = ``;
-
-            data.forEach(ciudad => {
-                opciones += `
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="ciudad-${ciudad.id}" name="ciudad"
-                        value="${ciudad.nombre}">
-                    <label class="form-check-label" for="ciudad-${ciudad.id}">${ciudad.nombre}</label>
-                </div>
-                `;
-            });
-            formCiudades.innerHTML = opciones;
-        } else {
-            formCiudades.innerHTML = `<strong>No hay ciudades disponibles</strong>`;
-        }
-
-    } catch (error) {
-        console.log(`Error en listarCiudades -> ${error}`);
+        console.log(`Error en listar(${filtro}) -> ${error}`);
     }
 }
 
@@ -335,8 +253,8 @@ function obtenerValor(id) {
 }
 
 const cargaInicial = () => {
-    let filtros = datos.filtros;
-    listarPaises(filtros.ubicacion.pais);
+    let filtros = datos.filtros.ubicacion;
+    listarPaises(filtros.pais, filtros.verbo_plural_pais);
 
     document.getElementById('habitacionesGroup').addEventListener('change', function (event) {
         if (event.target.tagName === 'INPUT' && event.target.type === 'radio' && event.target.name === 'habitacion') {
@@ -363,7 +281,7 @@ const cargaInicial = () => {
         // Obtener los checkboxes seleccionados del formPais
         const selectedPais = new Set([...formPais.querySelectorAll('input[type="checkbox"]:checked')]
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.id.split('-')[1]));
+            .map(checkbox => Number(checkbox.id.split('-')[1])));
 
         filtros_activos.pais = selectedPais;
         // Al manipular filtro de pais los que dependen de este deben vaciarse
@@ -373,11 +291,10 @@ const cargaInicial = () => {
         filtros_activos.ciudad.clear();
 
         aplicar_filtro_all();
-        console.log(selectedPais)
+
         if (selectedPais.size > 0) {
-            const data = filtros.ubicacion.estado.filter(estado => selectedPais.has(String(estado.pais)));
-            console.log(data)
-            listarEstados(data);
+            //Filtramos los estados de los paises seleccionados en una sola lista y envíamos a la función listarEstados
+            listar(selectedPais, filtros.estado, 'estado', filtros.verbo_plural_estado, btnMostrarEstados, formEstados);
         }
     });
 
@@ -385,7 +302,7 @@ const cargaInicial = () => {
         // Obtener los checkboxes seleccionados del formEstados
         const selectedEstados = new Set(Array.from(formEstados.querySelectorAll('input[type="checkbox"]:checked'))
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.id.split('-')[1]));
+            .map(checkbox => Number(checkbox.id.split('-')[1])));
 
         filtros_activos.estado = selectedEstados;
         // Al manipular filtro de estado los que dependen de este deben vaciarse
@@ -395,8 +312,7 @@ const cargaInicial = () => {
         aplicar_filtro_all();
 
         if (selectedEstados.size > 0) {
-            const data = filtros.ubicacion.municipio.filter(municipio => selectedEstados.has(String(municipio.estado)));
-            listarMunicipios(data);
+            listar(selectedEstados, filtros.municipio, 'municipio', filtros.verbo_plural_municipio, btnMostrarMunicipios, formMunicipios);
         }
     });
 
@@ -404,7 +320,7 @@ const cargaInicial = () => {
         // Obtener los checkboxes seleccionados del formMunicipios
         const selectedMunicipios = new Set(Array.from(formMunicipios.querySelectorAll('input[type="checkbox"]:checked'))
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.id.split('-')[1]));
+            .map(checkbox => Number(checkbox.id.split('-')[1])));
 
         filtros_activos.municipio = selectedMunicipios;
         // Al manipular filtro de municipio los que dependen de este deben vaciarse
@@ -413,8 +329,7 @@ const cargaInicial = () => {
         aplicar_filtro_all();
 
         if (selectedMunicipios.size > 0) {
-            const data = filtros.ubicacion.parroquia.filter(parroquia => selectedMunicipios.has(String(parroquia.municipio)));
-            listarParroquias(data);
+            listar(selectedMunicipios, filtros.parroquia, 'parroquia', filtros.verbo_plural_parroquia, btnMostrarParroquias, formParroquias);
         }
     });
 
@@ -422,7 +337,7 @@ const cargaInicial = () => {
         // Obtener los checkboxes seleccionados del formParroquias
         const selectedParroquias = new Set(Array.from(formParroquias.querySelectorAll('input[type="checkbox"]:checked'))
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.id.split('-')[1]));
+            .map(checkbox => Number(checkbox.id.split('-')[1])));
 
         filtros_activos.parroquia = selectedParroquias;
         // Al manipular filtro de parroquia los que dependen de este deben vaciarse
@@ -430,8 +345,7 @@ const cargaInicial = () => {
         aplicar_filtro_all();
 
         if (selectedParroquias.size > 0) {
-            const data = filtros.ubicacion.ciudad.filter(ciudad => selectedParroquias.has(String(ciudad.parroquia)));
-            listarCiudades(data);
+            listar(selectedParroquias, filtros.ciudad, 'ciudad', filtros.verbo_plural_ciudad, btnMostrarCiudades, formCiudades);
         }
     });
 
@@ -440,7 +354,7 @@ const cargaInicial = () => {
         // Obtener los checkboxes seleccionados del formCiudades
         const selectedCiudades = new Set(Array.from(formCiudades.querySelectorAll('input[type="checkbox"]:checked'))
             // Extraer los valores de los checkboxes
-            .map(checkbox => checkbox.id.split('-')[1]));
+            .map(checkbox => Number(checkbox.id.split('-')[1])));
 
         filtros_activos.ciudad = selectedCiudades;
         aplicar_filtro_all();

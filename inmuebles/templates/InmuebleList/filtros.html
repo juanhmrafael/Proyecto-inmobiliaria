@@ -1,195 +1,280 @@
 <div class="col-lg-3">
     <div class="sidebar">
         {% if error.estado %}
-            <div class="bx bx-search-alt alert alert-warning alert-dismissible fade show" role="alert" style="text-align: justify;">
-                
-                <strong>"¡Ups! El inmueble no ha sido encontrado</strong> 
-                ¿Por qué no intentas buscar otro código o explorar nuestras propiedades fascinantes? 
+            <div class="bx bx-search-alt alert alert-warning alert-dismissible fade show"
+                 role="alert"
+                 style="text-align: justify">
+                <strong>"¡Ups! El inmueble no ha sido encontrado</strong>
+                ¿Por qué no intentas buscar otro código o explorar nuestras propiedades fascinantes?
                 <strong>¡Estamos aquí para ayudarte a encontrar tu hogar soñado!" 🌟🏡✨</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"></button>
             </div>
         {% endif %}
-
         <h3 class="sidebar-title">Filtros</h3>
         <div class="sidebar-item search-form">
             <form method="post" action="{% url 'inmuebles:home' %}">
                 {% csrf_token %}
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="codigo_inmueble" name = "codigo_inmueble"
-                        placeholder="Buscar por código inmueble">
-                    <button type="submit"><i class="bi bi-search"></i></button>
+                    <input type="text"
+                           class="form-control"
+                           id="codigo_inmueble"
+                           name="codigo_inmueble"
+                           placeholder="Buscar por código inmueble">
+                    <button type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
                     <label for="codigo_inmueble">Código inmueble</label>
                 </div>
             </form>
-        </div><!-- End sidebar search formn-->
+        </div>
+        <!-- End sidebar search formn-->
         <div class="row">
             <strong>Ubicación</strong>
         </div>
         <div class="row">
             <button id="btnMostrarpaises"
-                class="btn btn-selec d-flex justify-content-between align-items-center">
-                <span>Seleccionar Pais</span>
+                    class="btn btn-selec d-flex justify-content-between align-items-center">
+                <span>Seleccionar pais</span>
                 <span><i class='bx bx-chevron-down'></i></span>
             </button>
-
-            <div id="paises" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
-                <form id="formPais">                            
-
+            <div id="paises"
+                 class="collapse overflow-auto"
+                 style="max-height: 200px">
+                <form id="formPais">
                 </form>
             </div>
         </div>
-
         <div class="row">
             <button id="btnMostrarEstados"
-                class="btn btn-selec d-flex d-none justify-content-between align-items-center">
-                <span>Seleccionar Estado</span>
+                    class="btn btn-selec d-flex d-none justify-content-between align-items-center">
+                <span>Seleccionar estado</span>
                 <span><i class='bx bx-chevron-down'></i></span>
             </button>
-
-            <div id="estados" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
+            <div id="estados"
+                 class="mt-3 collapse overflow-auto"
+                 style="max-height: 200px">
                 <form id="formEstados">
-
                 </form>
             </div>
         </div>
-
         <div class="row">
             <button id="btnMostrarMunicipios"
-                class="btn btn-selec d-flex d-none justify-content-between align-items-center">
-                <span>Seleccionar Municipio</span>
+                    class="btn btn-selec d-flex d-none justify-content-between align-items-center">
+                <span>Seleccionar municipio</span>
                 <span><i class='bx bx-chevron-down'></i></span>
             </button>
-
-            <div id="municipios" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
+            <div id="municipios"
+                 class="mt-3 collapse overflow-auto"
+                 style="max-height: 200px">
                 <form id="formMunicipios">
-
                 </form>
             </div>
         </div>
-
         <div class="row">
             <button id="btnMostrarParroquias"
-                class="btn btn-selec d-flex d-none justify-content-between align-items-center">
-                <span>Seleccionar Parroquia</span>
+                    class="btn btn-selec d-flex d-none justify-content-between align-items-center">
+                <span>Seleccionar parroquia</span>
                 <span><i class='bx bx-chevron-down'></i></span>
             </button>
-
-            <div id="parroquias" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
+            <div id="parroquias"
+                 class="mt-3 collapse overflow-auto"
+                 style="max-height: 200px">
                 <form id="formParroquias">
-
                 </form>
             </div>
         </div>
-
         <div class="row">
             <button id="btnMostrarCiudades"
-                class="btn btn-selec d-flex d-none justify-content-between align-items-center">
-                <span>Seleccionar Ciudad</span>
+                    class="btn btn-selec d-flex d-none justify-content-between align-items-center">
+                <span>Seleccionar ciudad</span>
                 <span><i class='bx bx-chevron-down'></i></span>
             </button>
-
-            <div id="ciudades" class="mt-3 collapse overflow-auto" style="max-height: 200px;">
+            <div id="ciudades"
+                 class="mt-3 collapse overflow-auto"
+                 style="max-height: 200px">
                 <form id="formCiudades">
-
                 </form>
             </div>
         </div>
-
         <div class="row">
             <span>Nro. De Habitaciones</span>
-            <div id="habitacionesGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-
-                <input type="radio" class="btn-check" name="habitacion" value="1" id="habitación-1+"
-                    autocomplete="off" checked>
+            <div id="habitacionesGroup"
+                 class="btn-group"
+                 role="group"
+                 aria-label="Basic radio toggle button group">
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="0"
+                       id="habitación-0+"
+                       autocomplete="off"
+                       checked>
+                <label class="btn btn-outline-primary" for="habitación-0+">~</label>
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="1"
+                       id="habitación-1+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="habitación-1+">1+</label>
-
-                <input type="radio" class="btn-check" name="habitacion" value="2" id="habitación-2+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="2"
+                       id="habitación-2+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="habitación-2+">2+</label>
-
-                <input type="radio" class="btn-check" name="habitacion" value="3" id="habitación-3+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="3"
+                       id="habitación-3+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="habitación-3+">3+</label>
-
-                <input type="radio" class="btn-check" name="habitacion" value="4" id="habitación-4+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="4"
+                       id="habitación-4+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="habitación-4+">4+</label>
-
-                <input type="radio" class="btn-check" name="habitacion" value="5" id="habitación-5+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="habitacion"
+                       value="5"
+                       id="habitación-5+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="habitación-5+">5+</label>
             </div>
         </div>
-
         <div class="row">
             <span>Nro. De Baños</span>
-            <div id="bañosGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-
-                <input type="radio" class="btn-check" name="baño" value="1" id="baño-1+" autocomplete="off" checked>
+            <div id="bañosGroup"
+                 class="btn-group"
+                 role="group"
+                 aria-label="Basic radio toggle button group">
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="0"
+                       id="baño-0+"
+                       autocomplete="off"
+                       checked>
+                <label class="btn btn-outline-primary" for="baño-0+">~</label>
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="1"
+                       id="baño-1+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="baño-1+">1+</label>
-
-                <input type="radio" class="btn-check" name="baño" value="2" id="baño-2+" autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="2"
+                       id="baño-2+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="baño-2+">2+</label>
-
-                <input type="radio" class="btn-check" name="baño" value="3" id="baño-3+" autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="3"
+                       id="baño-3+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="baño-3+">3+</label>
-
-                <input type="radio" class="btn-check" name="baño" value="4" id="baño-4+" autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="4"
+                       id="baño-4+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="baño-4+">4+</label>
-
-                <input type="radio" class="btn-check" name="baño" value="5" id="baño-5+" autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="baño"
+                       value="5"
+                       id="baño-5+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="baño-5+">5+</label>
             </div>
         </div>
-
         <div class="row">
             <span>Nro. De Estacionamientos</span>
-            <div id="estacionamientosGroup" class="btn-group" role="group" aria-label="Basic radio toggle button group">
-
-                <input type="radio" class="btn-check" name="estacionamiento" value="1" id="estacionamiento-1+"
-                    autocomplete="off" checked>
+            <div id="estacionamientosGroup"
+                 class="btn-group"
+                 role="group"
+                 aria-label="Basic radio toggle button group">
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="0"
+                       id="estacionamiento-0+"
+                       autocomplete="off"
+                       checked>
+                <label class="btn btn-outline-primary" for="estacionamiento-0+">~</label>
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="1"
+                       id="estacionamiento-1+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="estacionamiento-1+">1+</label>
-
-                <input type="radio" class="btn-check" name="estacionamiento" value="2" id="estacionamiento-2+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="2"
+                       id="estacionamiento-2+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="estacionamiento-2+">2+</label>
-
-                <input type="radio" class="btn-check" name="estacionamiento" value="3" id="estacionamiento-3+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="3"
+                       id="estacionamiento-3+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="estacionamiento-3+">3+</label>
-
-                <input type="radio" class="btn-check" name="estacionamiento" value="4" id="estacionamiento-4+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="4"
+                       id="estacionamiento-4+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="estacionamiento-4+">4+</label>
-
-                <input type="radio" class="btn-check" name="estacionamiento" value="5" id="estacionamiento-5+"
-                    autocomplete="off">
+                <input type="radio"
+                       class="btn-check"
+                       name="estacionamiento"
+                       value="5"
+                       id="estacionamiento-5+"
+                       autocomplete="off">
                 <label class="btn btn-outline-primary" for="estacionamiento-5+">5+</label>
             </div>
         </div>
-
         <div class="row">
             <span>Precio</span>
             <div class="input-group">
-
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="precio_minimo" placeholder="Máximo"
-                        oninput="formatoUnidadesDecimales('precio_minimo')"
-                        onblur="obtenerValor('precio_minimo')">
+                    <input type="text"
+                           class="form-control"
+                           id="precio_minimo"
+                           placeholder="Máximo"
+                           oninput="formatoUnidadesDecimales('precio_minimo')"
+                           onblur="obtenerValor('precio_minimo')">
                     <label for="precio_minimo">Desde</label>
-
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="precio_maximo" placeholder="Mínimo"
-                            oninput="formatoUnidadesDecimales('precio_maximo')"
-                            onblur="obtenerValor('precio_maximo')">
+                        <input type="text"
+                               class="form-control"
+                               id="precio_maximo"
+                               placeholder="Mínimo"
+                               oninput="formatoUnidadesDecimales('precio_maximo')"
+                               onblur="obtenerValor('precio_maximo')">
                         <label for="precio_máximo">Hasta</label>
                     </div>
                 </div>
-
                 <span class="input-group-text">$</span>
-
             </div>
         </div>
-
     </div>
 </div>

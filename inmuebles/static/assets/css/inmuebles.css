@@ -8,7 +8,9 @@
     }
 }
 
-.btn-primary, :not(.btn-check)+.btn:active, .btn-primary:focus-visible {
+.btn-primary,
+:not(.btn-check)+.btn:active,
+.btn-primary:focus-visible {
     color: #fff;
     background-color: #3886c1;
     border-color: #3886c1;
@@ -68,8 +70,22 @@
 #municipios,
 #parroquias,
 #ciudades {
-    padding: 30px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 0 0 20px 0;
+}
+
+.inmuebles #item-filtro {
+    padding-left: 50px;
+}
+
+.inmuebles #title-filtro {
+    background-color: #000;
+    color: #fff;
+    margin-top: 20px;
+}
+
+.inmuebles #title-filtro strong {
+    padding-left: 40px;
 }
 
 .inmuebles .row .form-check {

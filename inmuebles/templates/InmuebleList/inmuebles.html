@@ -63,7 +63,7 @@
                   <span>${{ inmueble.precio }}</span>
                 </div>
                 <div>
-                  <span class="d-block mb-2 text-black-50">{{ inmueble.ubicacion.direccion }}</span>
+                  <span class="d-block mb-2 text-black-50"> <strong>Municipio</strong> {{ inmueble.ubicacion.municipio.nombre }}  <strong>Parroquia</strong> {{ inmueble.ubicacion.parroquia.nombre }} <strong>Ciudad</strong> {{ inmueble.ubicacion.ciudad.nombre }}</span>
                   <span class="city d-block mb-3">{{ inmueble.ubicacion.estado.nombre }}, {{ inmueble.ubicacion.pais.nombre }}</span>
                   <div class="specs d-flex mb-4" style="justify-content: center;">
                     {% if inmueble.habitaciones != 0 %}

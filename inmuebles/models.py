@@ -10,33 +10,32 @@ import shutil
 
 
 class Pais(models.Model):
-    nombre = models.CharField(max_length=255, unique=True)
-    codigo = models.CharField(max_length=2, unique=True)
+    nombre = models.CharField(max_length=100, unique=True)
+    codigo = models.CharField(max_length=10, unique=True)
     codigo_telefono = models.CharField(max_length=10)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
         return f"{self.nombre}"
 
-    # class Meta: #Sirve para cambiar el nombre con el que se guardara la tabla y no por defecto que es nombreApp_table
-    #     db_table = 'pais'
     class Meta:
+        # db_table = 'pais'
         verbose_name = "Pais"
         verbose_name_plural = "Paises"
+
 # Modelo de estado
 
 
 class Estado(models.Model):
-    nombre = models.CharField(max_length=255, unique=True)
-    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
-        return f"{self.nombre} -> {self.pais.nombre}"
+        return f"{self.nombre}"
 
     class Meta:
         verbose_name = "Estado"
@@ -46,14 +45,13 @@ class Estado(models.Model):
 
 
 class Municipio(models.Model):
-    nombre = models.CharField(max_length=255)
-    estado = models.ForeignKey(Estado, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
-        return f"{self.nombre} -> {self.estado}"
+        return f"{self.nombre}"
 
     class Meta:
         verbose_name = "Municipio"
@@ -62,14 +60,13 @@ class Municipio(models.Model):
 
 
 class Parroquia(models.Model):
-    nombre = models.CharField(max_length=255)
-    municipio = models.ForeignKey(Municipio, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
-        return f"{self.nombre} -> {self.municipio}"
+        return f"{self.nombre}"
 
     class Meta:
         verbose_name = "Parroquia"
@@ -78,39 +75,21 @@ class Parroquia(models.Model):
 
 
 class Ciudad(models.Model):
-    nombre = models.CharField(max_length=255)
-    parroquia = models.ForeignKey(Parroquia, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
-        self.nombre = self.nombre.capitalize()
+        self.nombre = self.nombre.title()
 
     def __str__(self) -> str:
-        return f"{self.nombre} -> {self.parroquia}"
+        return f"{self.nombre}"
 
     class Meta:
         verbose_name = "Ciudad"
         verbose_name_plural = "Ciudades"
 
 
-class Direccion(models.Model):
-    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE)
-    descripcion = models.TextField(unique=True)
-    ubicacion_google_maps = models.URLField(
-        max_length=600, blank=True, null=True)
-
-    def clean(self) -> None:
-        self.descripcion = self.descripcion.title()
-
-    def __str__(self) -> str:
-        return f"{self.descripcion} - {self.ciudad}"
-
-    class Meta:
-        verbose_name = "Dirección"
-        verbose_name_plural = "Direcciones"
-
-
 class TipoInmueble(models.Model):
-    nombre = models.CharField(max_length=255, unique=True)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
         self.nombre = self.nombre.capitalize()
@@ -124,7 +103,7 @@ class TipoInmueble(models.Model):
 
 
 class EstadoInmueble(models.Model):
-    nombre = models.CharField(max_length=255, unique=True)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
         self.nombre = self.nombre.capitalize()
@@ -138,7 +117,7 @@ class EstadoInmueble(models.Model):
 
 
 class TipoTransaccion(models.Model):
-    nombre = models.CharField(max_length=255, unique=True)
+    nombre = models.CharField(max_length=100, unique=True)
 
     def clean(self) -> None:
         self.nombre = self.nombre.capitalize()
@@ -160,11 +139,8 @@ class Inmueble(models.Model):
     habitaciones = models.PositiveIntegerField()
     banos = models.PositiveIntegerField()
     area = models.DecimalField(max_digits=8, decimal_places=2)
-    ubicacion_direccion = models.ForeignKey(
-        Direccion, on_delete=models.CASCADE)
     agente = models.ForeignKey(AgenteInmobiliario, on_delete=models.CASCADE)
     puestos_estacionamiento = models.PositiveIntegerField(default=0)
-
     transaccion = models.ForeignKey(TipoTransaccion, on_delete=models.CASCADE)
     disponible = models.BooleanField(default=True)
 
@@ -178,6 +154,39 @@ class Inmueble(models.Model):
     class Meta:
         verbose_name = "Inmueble"
         verbose_name_plural = "Inmuebles"
+
+class Servicio(models.Model):
+    inmueble = models.ForeignKey(
+        Inmueble, related_name='servicios', on_delete=models.CASCADE)
+    tipo_servicio = models.CharField(max_length=50)
+    incluido = models.BooleanField(default=True)
+    
+class Direccion(models.Model):
+    pais = models.ForeignKey(Pais, on_delete=models.SET_NULL, null=True)
+    estado = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True)
+    municipio = models.ForeignKey(
+        Municipio, on_delete=models.SET_NULL, null=True)
+    parroquia = models.ForeignKey(
+        Parroquia, on_delete=models.SET_NULL, null=True)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.SET_NULL, null=True)
+
+    direccion = models.TextField(unique=True)
+
+    ubicacion_google_maps = models.URLField(
+        max_length=600, blank=True, null=True)
+
+    inmueble = models.OneToOneField(
+        Inmueble, on_delete=models.CASCADE, related_name='ubicacion_direccion')
+
+    def clean(self) -> None:
+        self.direccion = self.direccion.title()
+
+    def __str__(self) -> str:
+        return f"{self.direccion}"
+
+    class Meta:
+        verbose_name = "Dirección"
+        verbose_name_plural = "Direcciones"
 
 
 @receiver(pre_delete, sender=Inmueble)
@@ -228,7 +237,8 @@ def redimensionar_imagen(sender, instance, created, **kwargs):
         except Exception as e:
             # Manejar cualquier excepción al intentar redimensionar la imagen
             print(f"Error al redimensionar la imagen: {e}")
-            
+
+
 @receiver(pre_delete, sender=ImagenInmueble)
 def eliminar_imagen_al_borrar(sender, instance, **kwargs):
     # Eliminar archivo antiguo si existe

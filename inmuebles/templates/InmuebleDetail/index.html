@@ -84,67 +84,33 @@
                                     {% endif %}
                                 </ul>
                             </div>
-                            <h3 style="margin: 30px;">Características adicionales</h3>
-                            <div class="Caracteristicas"
-                                 style="display: flex;
-                                        justify-content: center">
-                                <div class="tablas col-9">
-                                    <table class="table">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th colspan="2">Servicios</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-group-divider">
-                                            <tr>
-                                                <th scope="row">Agua</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Gas natural</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Aire acondicionado</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Ascensor</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Seguridad</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th colspan="2">Ambientes</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-group-divider">
-                                            <tr>
-                                                <th scope="row">Armarios</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Comedor</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Estar</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Cocina</th>
-                                                <td>Sí</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            {% if data.inmueble.servicios.all %}
+                                <div class="Caracteristicas"
+                                     style="display: flex;
+                                            justify-content: center">
+                                    <div class="tablas col-9">
+                                        <table class="table">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th colspan="2">Características adicionales</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-group-divider">
+                                                {% for servicio in data.inmueble.servicios.all %}
+                                                    <tr>
+                                                        <th scope="row">{{ servicio.tipo_servicio }}</th>
+                                                        {% if servicio.incluido %}
+                                                            <td>Si</td>
+                                                        {% else %}
+                                                            <td>No</td>
+                                                        {% endif %}
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                             <div class="inmuebles-description" style="margin: 30px;">
                                 <h2>Descripción</h2>
                                 <p style="text-align: justify;">{{ data.inmueble.descripcion }}</p>
@@ -214,14 +180,27 @@
                     </div>
                     <div class="col-lg-8 ">
                         <div class="inmuebles-info">
-                            <h3 class="text-center">Mapa</h3>
+                            {% if data.inmueble.ubicacion_direccion.ubicacion_google_maps %}
+                                <h3 class="text-center">Mapa</h3>
+                            {% else %}
+                                <h3 class="text-center">Mapa de inmueble no disponible</h3>
+                            {% endif %}
                             <div class="map-section">
-                                <iframe style="border:0;
-                                               width: 100%;
-                                               height: 350px"
-                                        src="{{ data.inmueble.ubicacion_direccion.ubicacion_google_maps }}"
-                                        frameborder="0"
-                                        allowfullscreen></iframe>
+                                {% if data.inmueble.ubicacion_direccion.ubicacion_google_maps %}
+                                    <iframe style="border:0;
+                                                   width: 100%;
+                                                   height: 350px"
+                                            src="{{ data.inmueble.ubicacion_direccion.ubicacion_google_maps }}"
+                                            frameborder="0"
+                                            allowfullscreen></iframe>
+                                {% elif informacion_empresa.maps %}
+                                    <iframe style="border:0;
+                                                   width: 100%;
+                                                   height: 350px"
+                                            src="{{ informacion_empresa.maps }}"
+                                            frameborder="0"
+                                            allowfullscreen></iframe>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -230,32 +209,31 @@
                             <h3 class="text-center">Ubicación</h3>
                             <ul>
                                 <li>
-                                    <strong>País</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.pais.nombre }}
+                                    <strong>País</strong>: {{ data.inmueble.ubicacion_direccion.pais.nombre }}
                                 </li>
                                 <li>
-                                    <strong>Estado</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.estado.nombre }}
+                                    <strong>Estado</strong>: {{ data.inmueble.ubicacion_direccion.estado.nombre }}
                                 </li>
                                 <li>
-                                    <strong>Municipio</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.municipio.nombre }}
+                                    <strong>Municipio</strong>: {{ data.inmueble.ubicacion_direccion.municipio.nombre }}
                                 </li>
                                 <li>
-                                    <strong>Parroquia</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.parroquia.nombre }}
+                                    <strong>Parroquia</strong>: {{ data.inmueble.ubicacion_direccion.parroquia.nombre }}
                                 </li>
                                 <li>
                                     <strong>Ciudad</strong>: {{ data.inmueble.ubicacion_direccion.ciudad.nombre }}
                                 </li>
                                 <li>
-                                    <strong>Dirección</strong>: {{ data.inmueble.ubicacion_direccion.descripcion }}
+                                    <strong>Dirección</strong>: {{ data.inmueble.ubicacion_direccion.direccion }}
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End inmuebles Details Section -->
-{% endblock content %}
-{% block js %}
-    <script src="{% static 'assets/js/InmuebleDetail/main.js' %}"></script>
-{% endblock js %}
+        </section>
+        <!-- End inmuebles Details Section -->
+    {% endblock content %}
+    {% block js %}
+        <script src="{% static 'assets/js/InmuebleDetail/main.js' %}"></script>
+    {% endblock js %}

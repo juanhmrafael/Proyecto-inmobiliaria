@@ -60,11 +60,12 @@ class InmuebleListView(View):
         for dato in consulta:
             # Obtenemos dirección del inmueble
             direccion = dato.ubicacion_direccion
+
             ciudad = direccion.ciudad
-            parroquia = ciudad.parroquia
-            municicipio = parroquia.municipio
-            estado = municicipio.estado
-            pais = estado.pais
+            parroquia = direccion.parroquia
+            municicipio = direccion.municipio
+            estado = direccion.estado
+            pais = direccion.pais
             # Agente inmobiliario
             agente = model_to_dict(dato.agente, exclude=['foto'])
             agente.update({'foto': dato.agente.foto.url})
@@ -80,7 +81,7 @@ class InmuebleListView(View):
                 'banos': dato.banos,
                 'area': self.formatearNumero(dato.area),
                 'ubicacion': {
-                    'direccion': direccion.descripcion,
+                    'direccion': direccion.direccion,
                     'maps': direccion.ubicacion_google_maps,
                     'pais': model_to_dict(pais),
                     'estado': model_to_dict(estado),
@@ -101,44 +102,93 @@ class InmuebleListView(View):
     def formatearNumero(self, numero: float) -> str:
         return "{:,.2f}".format(numero).replace(",", " ").replace(".", ",").replace(" ", ".")
 
+    # Se encarga de realizar las relaciones ejemplo estado_pais
+    def not_repeat(self, key: int, dictionary: dict, value: dict):
+        exist = key in dictionary
+        if not exist:  # si no existe se crea una lista con el elemento
+            dictionary[key] = [value]
+        # si existe y no está registrado en el diccionario[key] Se agrega
+        elif not value in dictionary[key]:
+            dictionary[key].append(value)
+    
     def obtenerFiltrosInmueble(self, inmuebles: list) -> dict:
         # Filtros a utilizar de inmuebles en bd
-        pais = []
-        estado = []
-        municipio = []
-        parroquia = []
-        ciudad = []
-        tipo = []
+        list_pais = []
+        estado_pais = {}
+        municipio_estado = {}
+        parroquia_municipio = {}
+        ciudad_parroquia = {}
+
+        tipo = set()
 
         for inmueble in inmuebles:
+            # Obtenemos datos de ubicación
+            pais = inmueble['ubicacion']['pais']
+            estado = inmueble['ubicacion']['estado']
+            municipio = inmueble['ubicacion']['municipio']
+            parroquia = inmueble['ubicacion']['parroquia']
+            ciudad = inmueble['ubicacion']['ciudad']
 
-            pais.append(inmueble['ubicacion']['pais']
-                        ) if not inmueble['ubicacion']['pais'] in pais else None
+            list_pais.append(
+                pais
+            ) if not pais in list_pais else None
 
-            estado.append(inmueble['ubicacion']['estado']
-                          ) if not inmueble['ubicacion']['estado'] in estado else None
+            self.not_repeat(
+                key=pais['id'],
+                dictionary=estado_pais,
+                value=estado
+            )
 
-            municipio.append(inmueble['ubicacion']['municipio']
-                             ) if not inmueble['ubicacion']['municipio'] in municipio else None
+            self.not_repeat(
+                key=estado['id'],
+                dictionary=municipio_estado,
+                value=municipio
+            )
 
-            parroquia.append(inmueble['ubicacion']['parroquia']
-                             ) if not inmueble['ubicacion']['parroquia'] in parroquia else None
+            self.not_repeat(
+                key=municipio['id'],
+                dictionary=parroquia_municipio,
+                value=parroquia
+            )
 
-            ciudad.append(inmueble['ubicacion']['ciudad']
-                          ) if not inmueble['ubicacion']['ciudad'] in ciudad else None
+            self.not_repeat(
+                key=parroquia['id'],
+                dictionary=ciudad_parroquia,
+                value=ciudad
+            )
+            tipo.add(inmueble['tipo'])
 
-            tipo.append(inmueble['tipo']
-                        ) if not inmueble['tipo'] in tipo else None
+        # print('estados')
+        # for key in estado_pais:
+        #     print(f'{key}: {estado_pais[key]}')
+
+        # print('municipios')
+        # for key in municipio_estado:
+        #     print(f'{key}: {municipio_estado[key]}')
+
+        # print('parroquias')
+        # for key in parroquia_municipio:
+        #     print(f'{key}: {parroquia_municipio[key]}')
+
+        # print('ciudades')
+        # for key in ciudad_parroquia:
+        #     print(f'{key}: {ciudad_parroquia[key]}')
 
         filtros = {
             'ubicacion': {
-                'pais': pais,
-                'estado': estado,
-                'municipio': municipio,
-                'parroquia': parroquia,
-                'ciudad': ciudad
+                'verbo_plural_pais': "Paises",
+                'verbo_plural_estado': "Estados",
+                'verbo_plural_municipio': "Municipios",
+                'verbo_plural_parroquia': "Parroquias",
+                'verbo_plural_ciudad': "Ciudades",
+                
+                'pais': list_pais,
+                'estado': estado_pais,
+                'municipio': municipio_estado,
+                'parroquia': parroquia_municipio,
+                'ciudad': ciudad_parroquia
             },
-            'tipo': tipo
+            'tipo': sorted(tipo)
         }
 
         return filtros

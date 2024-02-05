@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import ImagenInmueble, TipoTransaccion, Pais, Estado, Municipio, Parroquia, Ciudad, Direccion, TipoInmueble, EstadoInmueble, Inmueble
-
-
-class DireccionAdmin(admin.ModelAdmin):
-    list_display = ['descripcion', 'ciudad']
-    search_fields = ['descripcion']
+from .models import Servicio, ImagenInmueble, TipoTransaccion, Pais, Estado, Municipio, Parroquia, Ciudad, Direccion, TipoInmueble, EstadoInmueble, Inmueble
 
 
 class PaisAdmin(admin.ModelAdmin):
@@ -13,22 +8,22 @@ class PaisAdmin(admin.ModelAdmin):
 
 
 class EstadoAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'pais']
+    list_display = ['nombre']
     search_fields = ['nombre']
 
 
 class MunicipioAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'estado']
+    list_display = ['nombre']
     search_fields = ['nombre']
 
 
 class ParroquiaAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'municipio']
+    list_display = ['nombre']
     search_fields = ['nombre']
 
 
 class CiudadAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'parroquia']
+    list_display = ['nombre']
     search_fields = ['nombre']
 
 
@@ -47,17 +42,51 @@ class TipoTransaccionAdmin(admin.ModelAdmin):
     search_fields = ['nombre']
 
 
-class ImagenInmuebleAdmin(admin.TabularInline):
+class ImagenInmuebleAdmin(admin.StackedInline):
     model = ImagenInmueble
+    extra = 1
 
+
+class DireccionInline(admin.StackedInline):
+    model = Direccion
+    min_num = 1  # Número mínimo de formularios requeridos
+
+
+class ServicioInline(admin.TabularInline):
+    model = Servicio
+    extra = 0
 
 class InmuebleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'ubicacion_direccion', 'tipo', 'estado']
+    list_display = ['id', 'tipo', 'pais', 'ubestado',
+                    'municipio', 'parroquia', 'ciudad', 'ubicacion_direccion']
     search_fields = ['id']
-    list_filter = ['transaccion', 'disponible']
+    list_filter = ['estado', 'transaccion', 'disponible']
     inlines = [
-        ImagenInmuebleAdmin
+        DireccionInline,
+        ImagenInmuebleAdmin,
+        ServicioInline
     ]
+
+    def pais(self, obj):
+        return obj.ubicacion_direccion.pais
+
+    def ubestado(self, obj):
+        return obj.ubicacion_direccion.estado
+
+    def municipio(self, obj):
+        return obj.ubicacion_direccion.municipio
+
+    def parroquia(self, obj):
+        return obj.ubicacion_direccion.parroquia
+
+    def ciudad(self, obj):
+        return obj.ubicacion_direccion.ciudad
+
+    pais.short_description = 'País'
+    ubestado.short_description = 'Estado'
+    municipio.short_description = 'Municipio'
+    parroquia.short_description = 'Parroquia'
+    ciudad.short_description = 'Ciudad'
 
 
 # Register your models here.
@@ -69,6 +98,4 @@ admin.site.register(Ciudad, CiudadAdmin)
 admin.site.register(TipoInmueble, TipoInmuebleAdmin)
 admin.site.register(EstadoInmueble, EstadoInmuebleAdmin)
 admin.site.register(TipoTransaccion, TipoTransaccionAdmin)
-
-admin.site.register(Direccion, DireccionAdmin)
 admin.site.register(Inmueble, InmuebleAdmin)

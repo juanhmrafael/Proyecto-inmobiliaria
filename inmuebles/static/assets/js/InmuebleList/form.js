@@ -108,15 +108,15 @@ formPais.addEventListener('change', function () {//Cuando ocurre un cambio (chan
   //Si la variable selectedPais tiene un valor, establece el texto del botón en el valor de la variable.
   //Si la variable selectedPais no tiene un valor, establece el texto del botón en la cadena "Seleccionar Pais".
   //↓ ↓
-  let contenido = selectedPais || 'Seleccionar Pais';
-  console.log(`Pais -> ${contenido}`);
+  let contenido = selectedPais || 'Seleccionar pais';
+  //console.log(`Pais -> ${contenido}`);
 
   btnTexContent(btnMostrarpaises, contenido);
 
-  removerBtn(formEstados, btnMostrarEstados, `Seleccionar Estado`)
-  removerBtn(formMunicipios, btnMostrarMunicipios, 'Seleccionar Municipio')
-  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar Parroquia')
-  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar Ciudad');
+  removerBtn(formEstados, btnMostrarEstados, `Seleccionar estado`)
+  removerBtn(formMunicipios, btnMostrarMunicipios, 'Seleccionar municipio')
+  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar parroquia')
+  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar ciudad');
 
   if (selectedPais) {
     btnMostrar(btnMostrarEstados)
@@ -153,13 +153,13 @@ formEstados.addEventListener('change', function () {
     .sort()
     .join(', ');
 
-  let contenido = selectedEstado || 'Seleccionar Estado';
-  console.log(`Estado -> ${contenido}`);
+  let contenido = selectedEstado || 'Seleccionar estado';
+  //console.log(`Estado -> ${contenido}`);
   btnTexContent(btnMostrarEstados, contenido);
 
-  removerBtn(formMunicipios, btnMostrarMunicipios, 'Seleccionar Municipio')
-  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar Parroquia')
-  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar Ciudad');
+  removerBtn(formMunicipios, btnMostrarMunicipios, 'Seleccionar municipio')
+  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar parroquia')
+  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar ciudad');
 
   if (selectedEstado) {
     btnMostrar(btnMostrarMunicipios);
@@ -201,12 +201,12 @@ formMunicipios.addEventListener('change', function () {//Cuando ocurre un cambio
   //Si la variable selectedMunicipio tiene un valor, establece el texto del botón en el valor de la variable.
   //Si la variable selectedMunicipio no tiene un valor, establece el texto del botón en la cadena "Seleccionar Pais".
   //↓ ↓
-  let contenido = selectedMunicipio || 'Seleccionar Municipio';
-  console.log(`Municipio -> ${contenido}`);
+  let contenido = selectedMunicipio || 'Seleccionar municipio';
+  //console.log(`Municipio -> ${contenido}`);
   btnTexContent(btnMostrarMunicipios, contenido);
 
-  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar Parroquia');
-  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar Ciudad');
+  removerBtn(formParroquias, btnMostrarParroquias, 'Seleccionar parroquia');
+  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar ciudad');
 
   if (selectedMunicipio) {
     btnMostrar(btnMostrarParroquias);
@@ -248,11 +248,11 @@ formParroquias.addEventListener('change', function () {//Cuando ocurre un cambio
   //Si la variable selectedParroquia tiene un valor, establece el texto del botón en el valor de la variable.
   //Si la variable selectedParroquia no tiene un valor, establece el texto del botón en la cadena "Seleccionar Pais".
   //↓ ↓
-  let contenido = selectedParroquia || 'Seleccionar Parroquia';
-  console.log(`Parroquia -> ${contenido}`);
+  let contenido = selectedParroquia || 'Seleccionar parroquia';
+  //console.log(`Parroquia -> ${contenido}`);
   btnTexContent(btnMostrarParroquias, contenido);
 
-  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar Ciudad');
+  removerBtn(formCiudades, btnMostrarCiudades, 'Seleccionar ciudad');
 
   if (selectedParroquia) {
     btnMostrar(btnMostrarCiudades);
@@ -294,7 +294,7 @@ formCiudades.addEventListener('change', function () {//Cuando ocurre un cambio (
   //Si la variable selectedCiudad tiene un valor, establece el texto del botón en el valor de la variable.
   //Si la variable selectedCiudad no tiene un valor, establece el texto del botón en la cadena "Seleccionar Pais".
   //↓ ↓
-  let contenido = selectedCiudad || 'Seleccionar Ciudad';
-  console.log(`Ciudad -> ${contenido}`);
+  let contenido = selectedCiudad || 'Seleccionar ciudad';
+  //console.log(`Ciudad -> ${contenido}`);
   btnTexContent(btnMostrarCiudades, contenido);
 });

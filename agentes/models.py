@@ -20,9 +20,9 @@ def foto_agente_path(instance, filename):
                 os.remove(ruta_anterior)
 
         # Si la instancia tiene un ID, usa ese ID en el nombre del archivo
-        return f'agentes/{instance.id}.{ext}'
+        return f'Asesores/{instance.id}.{ext}'
     # Si es la primera vez la deja con el nombre original
-    return f'agentes/{filename}'
+    return f'Asesores/{filename}'
 
 
 class AgenteInmobiliario(models.Model):
@@ -45,8 +45,8 @@ class AgenteInmobiliario(models.Model):
         return f"{self.cedula if self.cedula is not None else ''} {self.nombre} ({self.correo}) ({self.telefono})"
 
     class Meta:
-        verbose_name = "Agente inmobiliario"
-        verbose_name_plural = "Agentes inmobiliario"
+        verbose_name = "Asesor inmobiliario"
+        verbose_name_plural = "Asesores inmobiliario"
     # Usar la señal post_save para redimensionar la imagen después de guardarla
 
 
@@ -68,7 +68,7 @@ def redimensionar_imagen(sender, instance, created, **kwargs):
             # Renombrar la foto
             os.rename(ruta_anterior, nueva_ruta)
             # Actualizar la referencia a la foto en la base de datos
-            instance.foto.name = 'agentes/'+nuevo_nombre
+            instance.foto.name = 'Asesores/'+nuevo_nombre
             instance.save()
 
         try:
