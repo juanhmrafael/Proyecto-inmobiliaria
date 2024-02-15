@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Servicio, ImagenInmueble, TipoTransaccion, Pais, Estado, Municipio, Parroquia, Ciudad, Direccion, TipoInmueble, EstadoInmueble, Inmueble
+from django.contrib.auth.models import User
+from django import forms
 
 
 class PaisAdmin(admin.ModelAdmin):
@@ -57,16 +59,48 @@ class ServicioInline(admin.TabularInline):
     extra = 0
 
 
+class InmuebleAdminForm(forms.ModelForm):
+    class Meta:
+        model = Inmueble
+        exclude = []
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super().__init__(*args, **kwargs)
+        if not self.instance.agente and self.request and self.request.user.groups.filter(name='Asesores').exists():
+            # Asignar el agente actual si no hay uno asignado y el usuario actual pertenece al grupo "Asesores"
+            self.instance.agente = self.request.user.asesor
+
+
 class InmuebleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'tipo', 'pais', 'ubestado',
-                    'municipio', 'parroquia', 'ciudad', 'ubicacion_direccion']
+    form = InmuebleAdminForm
+    list_display = ('id', 'tipo', 'pais', 'ubestado',
+                    'municipio', 'parroquia', 'ciudad', 'ubicacion_direccion')
     search_fields = ['id']
-    list_filter = ['estado', 'transaccion', 'disponible']
+    list_filter = ['estado', 'transaccion', 'disponibilidad_pagina']
     inlines = [
         DireccionInline,
         ImagenInmuebleAdmin,
         ServicioInline
     ]
+
+    def get_form(self, request, obj=None, **kwargs):
+        # Agregar el objeto 'request' al formulario
+        form = super().get_form(request, obj, **kwargs)
+        form.request = request
+
+        if request.user.groups.filter(name='Asesores').exists():
+            # Filtrar el queryset del campo 'agente' solo para el agente actual
+            form.base_fields['agente'].queryset = form.base_fields['agente'].queryset.filter(
+                usuario=request.user)
+        return form
+
+    def get_queryset(self, request):
+        # Filtrar los inmuebles por el usuario actual
+        qs = super().get_queryset(request)
+        if request.user.is_superuser or request.user.groups.filter(name='Admins').exists():
+            return qs
+        return qs.filter(agente__usuario=request.user)
 
     def pais(self, obj):
         return obj.ubicacion_direccion.pais

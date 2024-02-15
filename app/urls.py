@@ -4,7 +4,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),  # Para lenguajes
     path('', include('inicio.urls', namespace='inicio')),
@@ -14,8 +13,12 @@ urlpatterns = [
     path('servicios/', include('servicios.urls', namespace='servicios')),
     path('agentes/', include('agentes.urls', namespace='agentes')),
     path('inmuebles/', include('inmuebles.urls', namespace='inmuebles')),
+
 ]
-urlpatterns += i18n_patterns(path("panel_administrativo/", admin.site.urls, name='panel_admin'))  # Para lenguajes
+
+
+# Para lenguajes
+urlpatterns += i18n_patterns(path("panel_administrativo/", admin.site.urls))
 
 # Solo cuando estamos en DEBUG debido a que django protege y para producción hacer engine
 

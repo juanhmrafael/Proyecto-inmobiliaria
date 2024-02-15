@@ -136,7 +136,14 @@
                                     <div class="col-12 d-flex align-items-stretch">
                                         <div class="member" data-aos="fade-up">
                                             <div class="member-img">
-                                                <img src={{ data.inmueble.agente.foto.url }} class="img-fluid" alt="">
+                                                {% if data.inmueble.agente.foto %}
+                                                    <img src={{ data.inmueble.agente.foto.url }} class="img-fluid" alt="foto de asesor" />
+                                                {% else %}
+                                                    <img src="{% static 'assets/img/team/imagen_defecto.jpg' %}"
+                                                         class="img-fluid"
+                                                         alt="foto de asesor" />
+                                                {% endif %}
+
                                                 {% if data.inmueble.agente.twitter or data.inmueble.agente.facebook or data.inmueble.agente.instagram or data.inmueble.agente.linkedin %}
                                                     <div class="social">
                                                         {% if data.inmueble.agente.twitter %}

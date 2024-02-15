@@ -1,9 +1,11 @@
 from django.db import models
+from django.contrib.auth.models import Group
 from django.db.models.signals import pre_save, pre_delete, post_save
 from PIL import Image
 from django.dispatch import receiver
 import os
 # Create your models here.
+from django.contrib.auth.models import User
 
 
 def foto_agente_path(instance, filename):
@@ -26,6 +28,8 @@ def foto_agente_path(instance, filename):
 
 
 class AgenteInmobiliario(models.Model):
+    usuario = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='asesor', null = True)
     cedula = models.CharField(
         max_length=20, unique=True, blank=False, null=False)  # Nueva línea
     nombre = models.CharField(max_length=255)
@@ -48,6 +52,26 @@ class AgenteInmobiliario(models.Model):
         verbose_name = "Asesor inmobiliario"
         verbose_name_plural = "Asesores inmobiliario"
     # Usar la señal post_save para redimensionar la imagen después de guardarla
+
+
+# Agregar la señal pre_save para verificar que cada usuario sea único
+@receiver(pre_save, sender=AgenteInmobiliario)
+def validar_usuario_agente(sender, instance, **kwargs):
+    if instance.usuario:
+        if AgenteInmobiliario.objects.exclude(pk=instance.pk).filter(usuario=instance.usuario).exists():
+            raise ValueError("Ya existe un agente con este usuario.")
+
+
+@receiver(post_save, sender=AgenteInmobiliario)
+def asignar_grupo_y_permisos(sender, instance, created, **kwargs):
+    if created:
+        # Asignar el usuario al grupo 'Asesores'
+        asesores_group, created = Group.objects.get_or_create(name='Asesores')
+        instance.usuario.groups.add(asesores_group)
+
+        # Establecer is_staff en True
+        instance.usuario.is_staff = True
+        instance.usuario.save()
 
 
 @receiver(post_save, sender=AgenteInmobiliario)
@@ -109,3 +133,16 @@ def eliminar_imagen_al_borrar(sender, instance, **kwargs):
         ruta_anterior = instance.foto.path
         if os.path.exists(ruta_anterior):
             os.remove(ruta_anterior)
+
+
+@receiver(pre_delete, sender=AgenteInmobiliario)
+def eliminar_usuario_asociado(sender, instance, **kwargs):
+    # Desconectar temporalmente la señal para evitar recursión infinita
+    pre_delete.disconnect(eliminar_usuario_asociado, sender=sender)
+
+    # Eliminar el usuario asociado
+    if instance.usuario:
+        instance.usuario.delete()
+
+    # Volver a conectar la señal después de eliminar el usuario
+    pre_delete.connect(eliminar_usuario_asociado, sender=sender)

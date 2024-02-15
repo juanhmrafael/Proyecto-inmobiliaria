@@ -6,6 +6,8 @@ from django.dispatch import receiver
 import os
 from django.conf import settings
 import shutil
+from django.contrib.auth.models import User
+
 # Modelo de país
 
 
@@ -139,28 +141,31 @@ class Inmueble(models.Model):
     habitaciones = models.PositiveIntegerField()
     banos = models.PositiveIntegerField()
     area = models.DecimalField(max_digits=8, decimal_places=2)
-    agente = models.ForeignKey(AgenteInmobiliario, on_delete=models.CASCADE)
+    agente = models.ForeignKey(
+        AgenteInmobiliario, on_delete=models.CASCADE, null=True)
     puestos_estacionamiento = models.PositiveIntegerField(default=0)
     transaccion = models.ForeignKey(TipoTransaccion, on_delete=models.CASCADE)
-    disponible = models.BooleanField(default=True)
+    disponibilidad_pagina = models.BooleanField(default=True)
 
     def clean(self) -> None:
         self.nombre = self.nombre.title()
         self.descripcion = self.descripcion.capitalize()
 
     def __str__(self) -> str:
-        return f"{'Disponible' if self.disponible else 'No disponible'} -> {self.nombre} - ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
+        return f"{'Disponible' if self.disponibilidad_pagina else 'No disponible'} -> {self.nombre} - ({self.tipo.nombre}) - {self.estado.nombre} - Agente: {self.agente.nombre}"
 
     class Meta:
         verbose_name = "Inmueble"
         verbose_name_plural = "Inmuebles"
+
 
 class Servicio(models.Model):
     inmueble = models.ForeignKey(
         Inmueble, related_name='servicios', on_delete=models.CASCADE)
     tipo_servicio = models.CharField(max_length=50)
     incluido = models.BooleanField(default=True)
-    
+
+
 class Direccion(models.Model):
     pais = models.ForeignKey(Pais, on_delete=models.SET_NULL, null=True)
     estado = models.ForeignKey(Estado, on_delete=models.SET_NULL, null=True)
