@@ -1,4 +1,13 @@
 {
     "python.createEnvironment.contentButton": "show",
-    "editor.fontSize": 15
+    "editor.fontSize": 14,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "pythonIndent.keepHangingBracketOnLine": true,
+    "editor.guides.bracketPairs": true,
+    "editor.guides.bracketPairsHorizontal": true,
+    "editor.fontFamily": "Cascadia Code PL, monospace",
+    "files.autoSave": "afterDelay",
+    "editor.codeLensFontFamily": "Cascadia Code, monospace",
+    "editor.inlayHints.fontFamily": "Cascadia Code PL, monospace",
+    "terminal.integrated.fontFamily": "Cascadia Code PL, monospace"
 }

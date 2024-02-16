@@ -4,7 +4,7 @@
   Acceso
 {% endblock title %}
 {% block active_acceder %}
-  active
+  active 
 {% endblock active_acceder %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'assets/css/estilos_acceso.css' %}" />
@@ -27,10 +27,12 @@
   <!-- End Breadcrumbs -->
   <section class="acceso section-bg">
     <div class="contenido" data-aos="fade-up">
-      {% if msj %}
+      {% if messages %}
         <div class="warning">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          {{ error }}
+          {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
         </div>
       {% endif %}
       <div class="main">
@@ -69,7 +71,7 @@
               <input type="text"
                      class="form-control"
                      id="nombre"
-                     name="nombre"
+                     name="first_name"
                      placeholder="Nombre"
                      required />
               <label for="nombre">Nombre</label>
@@ -78,7 +80,7 @@
               <input type="text"
                      class="form-control"
                      id="apellido"
-                     name="apellido"
+                     name="last_name"
                      placeholder="Apellido"
                      required />
               <label for="apellido">Apellido</label>
@@ -103,18 +105,20 @@
             </div>
             <div class="form-floating">
               <input type="password"
+                     title="Debe contener al menos 8 caracteres, incluyendo letras mayúsculas, minúsculas, números y caracteres especiales"
                      class="form-control"
                      id="password"
-                     name="password"
+                     name="password1"
                      placeholder="Contraseña"
                      required />
               <label for="password">Contraseña</label>
             </div>
             <div class="form-floating">
               <input type="password"
+                     title="Debe coincidir con el campo 'Contraseña'."
                      class="form-control"
                      id="confirmar_password"
-                     name="confirmar_password"
+                     name="password2"
                      placeholder="Confirmar contraseña"
                      required />
               <label for="confirmar_password">Confirmar contraseña</label>
@@ -128,15 +132,23 @@
 {% endblock content %}
 {% block js %}
   <script>
-    const checkbox = document.getElementById('chk')
-    const mainDiv = document.querySelector('.main')
-    
-    checkbox.addEventListener('change', function () {
-      if (this.checked) {
-        mainDiv.classList.add('small') // Añade la clase 'small' para cambiar el tamaño
-      } else {
-        mainDiv.classList.remove('small') // Remueve la clase 'small'
+    window.addEventListener('load', () => {
+      let is_login = {{ is_login|safe }};
+      const checkbox = document.getElementById('chk')
+      const mainDiv = document.querySelector('.main')
+
+      if(!is_login){
+        checkbox.checked = true;
+        mainDiv.classList.add('small');
       }
-    })
+      
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          mainDiv.classList.add('small') // Añade la clase 'small' para cambiar el tamaño
+        } else {
+          mainDiv.classList.remove('small') // Remueve la clase 'small'
+        }
+      });
+    });
   </script>
 {% endblock js %}
