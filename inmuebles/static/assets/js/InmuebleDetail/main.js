@@ -17,5 +17,5 @@
         clickable: true
       }
     });
-  
+
   })();
